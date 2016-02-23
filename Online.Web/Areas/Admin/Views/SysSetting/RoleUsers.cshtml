@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.Users>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "角色用户";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>角色用户</h2>
+<a role="button" href="/Admin/SysSetting/RoleIndex" class="btn btn-primary" style="float: right; margin-bottom: 9px;">
+    <i class="glyphicon glyphicon-home"></i>&nbsp;返回列表
+</a>
+<div class=".info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th style="width: 30px;">UID</th>
+                <th>账户</th>
+                <th>昵称</th>
+                <th>性别</th>
+                <th>QQ</th>
+                <th>手机</th>
+                <th>注册时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserID</td>
+                    <td>@item.Email</td>
+                    <td>@item.UserName</td>
+                    <td>@(item.Sex==0?"男":"女")</td>
+                    <td>@item.QQ</td>
+                    <td>@item.Telephone</td>
+                    <td>@item.RegisterTime</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysSetting/RoleUserEdit?userid=@item.UserID" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("RoleUsers", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+    </div>
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("SysSetting");
+        Active('SysSetting', 0);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+    })
+</script>

@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.Roles>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "角色管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>角色列表</h2>
+<a role="button" href="/Admin/SysSetting/RoleCreate" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div class=".info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+        <tr>
+            <th style="width: 30px;">UID</th>
+            <th>角色名称</th>
+            <th>PowerID</th>
+            <th>描述</th>
+            <th>状态</th>
+            <th>创建者</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RoleID</td>
+                <td>@item.RoleName</td>
+                <td>@item.PowerId</td>
+                <td>@item.Description</td>
+                <td>@(item.BizStatus==1?"启用":"未启用")</td>
+                <td>@item.CreateUser</td>
+                <td>@item.CreateTime</td>
+                <td>
+                    <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysSetting/RoleEdit?id=@item.RoleID" id="Edit" role="button">
+                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                    </a>
+                    <a class="btn btn-danger delcss" role="button" data-id="@item.RoleID">
+                        <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                    </a>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
+                            更多
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Admin/SysSetting/RoleUsers?roleid=@item.RoleID">用户列表</a></li>
+                            @if (item.BizStatus == 0)
+                            {
+                                <li><a href="/Admin/SysSetting/Roleable?id=@item.RoleID">启用</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="/Admin/SysSetting/RoleEnable?id=@item.RoleID">禁用</a></li>
+                            }
+                        </ul>
+                    </div>
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div>
+        页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("RoleIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+    </div>
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("SysSetting");
+        Active('SysSetting', 0);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+        $(" .table .delcss").click(function () {
+            var id = $(this).data("id");
+            if (confirm("是否删除此角色吗？")) {
+                $.post("/Admin/SysSetting/RoleDelete", { id: id }).done(function (result) {
+                    if (result) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    })
+</script>

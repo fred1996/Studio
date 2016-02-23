@@ -1,0 +1,154 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/base.css" rel="stylesheet" />
+    <style>
+        a {
+            cursor: pointer;
+        }
+        body {
+            color: #000000;
+        }
+        table thead td {
+            line-height: 40px;
+        }
+        input[type=text] {
+            border: 1px solid #DFDFDF;
+            padding: 5px;
+            width: 300px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            height: 25px;
+            color: #000;
+        }
+        .btn {
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            text-align: center;
+            vertical-align: middle;
+            margin-left: 10px;
+            background-color: #00b1ff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: 0px;
+            margin-left: 60px;
+        }
+    </style>
+    @*<!--[if lt IE 7]>
+        <script src="~/Scripts/IE7.js" type="text/javascript"></script>
+         <![endif]-->
+        <!--[if lt IE 8]>
+        <script src="~/Scripts/IE8.js" type="text/javascript"></script>
+         <![endif]-->
+        <!--[if lt IE 9]>
+        <script src="~/Scripts/IE9.js"></script>
+        <![endif]-->*@
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+
+    <script src="~/Scripts/global.js"></script>
+    <script src="https://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.iframe-transport.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            m();
+            $.post("/Home/GetSysteminfoplayfigure", {}, function (data) {
+                if (data.length > 0) {
+                    var html = new StringBuilder();
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        html.Append("<tr>");
+                        html.Append("<td>");
+                        html.Append(item.ImgUrl);
+                        html.Append("</td>");
+                        html.Append("<td>");
+                        html.Append("<a href='javascript:;' sid=" + item.SysInfoID + " class='btnRemove'>删除</a>");
+                        html.Append("</td>");
+                        html.Append("</tr>");
+                    }
+                    $(".tabplayfigure tbody").empty().append(html.toString());
+                    $(".btnRemove").bind("click", function () {
+                        var sid = $(this).attr("sid");
+                        var obj = $(this).parents("tr");
+                        $.post("/Home/DelSystminfoplayigure", { sid: sid }, function (data) {
+                            if (data) {
+                                $(obj).remove();
+                            } else {
+                                alert("删除失败请稍后再试！");
+                            }
+                        });
+                    });
+                }
+
+            });
+
+            $("#btnplayFigure").click(function () {
+                $.post("/Home/AddSteminfoplayfigure", { url: $("#btnplayFigure").attr("src") }, function (data) {
+                    if (data) {
+                        alert("添加成功");
+                        window.location.reload();
+                    } else {
+                        alert("添加失败");
+                    }
+                });
+            });
+        });
+        function m() {
+
+            $("#icon").fileupload({
+                url: '/Home/UploadFile',
+                autoUpload: true,
+                type: 'POST',
+                dataType: 'json',
+                acceptFileTypes: '/(\.|\/)(jpg|jpeg|png|bmp|gif)$/i',
+                done: function (e, data) {
+                    if (data.result) {
+                        $("#icon").after("<lable>" + data.result + "</lable>");
+                        $("#btnplayFigure").attr("src", data.result);
+                    } else {
+
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="mBottom20">
+        <table class="tabplayfigure" style="width: 100%;">
+            <thead>
+                <tr>
+                    <td>图片</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="background-color: #F0F0F0;" class="pAll20">
+        <div>
+            图标：
+            <input type="file" class="mLeft20 mBottom5 black" id="icon" name="icon" size="10" />
+        </div>
+        <div>
+            <input type="button" value="保存" class="btn mTop20" id="btnplayFigure" />
+        </div>
+    </div>
+</body>
+</html>

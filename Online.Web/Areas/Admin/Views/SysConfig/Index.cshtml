@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Online.DbHelper.Model.SysConfigs>
+
+@{
+    ViewBag.Title = "房间配置";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>房间列表</h2>
+<a role="button" href="/Admin/SysConfig/Create" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div class=".info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th style="width: 30px;">UID</th>
+                <th>所属房间</th>
+                <th>是否禁言</th>
+                <th>是否开启消息审核</th>
+                <th>是否允许上次附件</th>
+                <th>是否开启消息过滤</th>
+                <th>客服QQ</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SysConfigID</td>
+                    <td>@item.LiveRooms.RoomName</td>
+                    <td>@(item.IsAllowPost ? "是" : "否")</td>
+                    <td>@(item.IsCheckMsg ? "是" : "否")</td>
+                    <td>@(item.IsUploadFile ? "是" : "否")</td>
+                    <td>@(item.IsFilterMsg ? "是" : "否")</td>
+                    <td>@item.ServiceQQs</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysConfig/Edit?id=@item.SysConfigID" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                        <a class="btn btn-danger delcss" role="button" data-id="@item.SysConfigID">
+                            <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @*<div>
+            @Html.Partial("PageBar", ViewBag.PageInfo as PageInfoModel)
+        </div>*@
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("LiveTv");
+        Active('LiveTv', 1);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+        $(" .table .delcss").click(function () {
+            var id = $(this).data("id");
+            if (confirm("是否删除此房间配置？")) {
+                $.post("/Admin/SysConfig/Delete", { id: id }).done(function(result) {
+                   if (result) {
+                       window.location.reload();
+                   }
+                });
+            }
+        });
+    })
+</script>

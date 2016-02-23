@@ -1,0 +1,79 @@
+﻿@model  Online.DbHelper.Model.UserAddress
+@{
+    ViewBag.Title = "EditUserAddress";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+<script src="~/Scripts/jsAddress.js"></script>
+<div class="modal-content">
+    @using (Html.BeginForm("EditUserAddress", "User", FormMethod.Post))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">用户地址编辑</h4>
+        </div>
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal" style="margin-left:0px;">
+                @Html.HiddenFor(model => model.AddressID)
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">用户名：</label>
+                    <div class="col-md-8 mTop10">
+                        @{var name = Model.User == null ? "" : Model.User.UserName;}@name
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">国家：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">省份：</label>
+                    <div class="col-md-8">
+                        @*@Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <select name="Province" id="Province"  class = "form-control" style="border: 1px solid #95B8E7; width: 160px; height: 30px; border-radius: 5px;"></select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">城市：</label>
+                    <div class="col-md-8">
+                        @*@Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <select name="City" id="City"  class = "form-control" style="border: 1px solid #95B8E7; width: 160px; height: 30px; border-radius: 5px;"></select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">区域：</label>
+                    <div class="col-md-8">
+                        @*@Html.EditorFor(model => model.Area, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <select name="Area" id="Area"  class = "form-control" style="border: 1px solid #95B8E7; width: 160px; height: 30px; border-radius: 5px;"></select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">邮箱：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">手机：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-3 control-label">地址：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.DetailInfo, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" id="editSave">保存</button>
+        </div>
+                            }
+</div>
+<script>
+    addressInit(document.getElementById('Province'), document.getElementById('City'), document.getElementById('Area'), '上海', '市辖区', '普陀区');
+</script>

@@ -1,0 +1,120 @@
+﻿body {
+    /*overflow:hidden;*/
+}
+
+.setting_theme tr {
+    line-height: 30px;
+}
+.setting_theme td {
+   cursor:pointer;
+}
+
+.setting_theme .blue, .red, .chen, .jianj, .qins, .lv, .qins {
+    width: 40px;
+    height: 12px;
+    display: inline-block;
+    margin-left: 10px;
+}
+.theme_radio {
+    background-image: url('../Image/images/set_themeradio.png');
+    display: inline-block;
+    width: 12px;
+    height: 12px;margin-right:10px;
+}
+.theme_radiock {
+    background-image: url('../Image/images/set_themecheradio.png');
+    display: inline-block;
+    width: 12px;
+    height: 12px;margin-right:10px;
+}
+.setting_theme .blue {
+    /*background-image: url('../images/set_themeblue.png');*/
+    background: #2782dd;
+}
+
+.setting_theme .red {
+    /*background-image: url('../images/set_themeblue.png');*/
+    background: #ef5150;
+}
+
+.setting_theme .chen {
+    /*background-image: url('../images/set_themeblue.png');*/
+    background: #f7ab22;
+}
+
+.setting_theme .lv {
+    /*background-image: url('../images/set_themeblue.png');*/
+    background: #7fc123;
+}
+
+.setting_theme .qins {
+    background-image: url('../Image/images/set_themegreen.png');
+}
+
+.setting_theme .jianj {
+    background-image: url('../Image/images/set_themeblue.png');
+}
+
+ul li {
+    list-style: none;
+}
+.Hand {
+    cursor:pointer;
+}
+#settingnav li {
+    float: left;
+    color: red;
+}
+
+#content div {
+    display: none;
+    margin-top: 10px;
+}
+
+#btnsetting .curren {
+    background: #2782dd!important;
+    color: #fff;
+}
+#btnsetting a:hover {
+    background: #2782dd;
+    color: #fff;
+}
+#btnsetting a {
+    /*background: #ddd;*/
+    width: 100%;
+    display:block;
+    text-align: center;
+    height: 25px;
+    color: #666666;
+    line-height: 25px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#SettingTheme .btn{
+    display: inline-block;width: 50px;height: 30px;line-height: 30px;padding: 0;text-align: center;vertical-align: middle;margin-left: 10px;background-color: #00b1ff;border:0px;
+}
+#messagefly .btn{
+    display: inline-block;width: 50px;height: 30px;line-height: 30px;padding: 0;text-align: center;vertical-align: middle;background-color: #00b1ff;border:0px;
+}
+
+.scroll {
+    width: 50px;
+    height: 14px;
+    padding-left: 18px;
+    margin-top: 18px !important;
+    background-image: url(../Image/images/check.png);
+    background-repeat: no-repeat;
+    background-position: -1px -18px;
+}
+
+.noscroll {
+    width: 50px;
+    height: 14px;
+    padding-left: 18px;
+    margin-top: 18px !important;
+    background-image: url(../Image/images/check.png);
+    background-repeat: no-repeat;
+    background-position: -1px 0px;
+}
+

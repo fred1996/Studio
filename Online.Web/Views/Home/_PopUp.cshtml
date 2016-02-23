@@ -1,0 +1,200 @@
+﻿<div id="UserRegDiv" class="hidden">
+    <span class="btnclose" onclick="$.fancybox.close();">X</span>
+    <div class="userreg-title"><span style="font-size: 24px; color: #ef7500; width: 114px; height: 27px; line-height: 24px; text-align: right;">账号注册</span> <span style="font-size: 22px; color: #dddddd; width: 104px; height: 26px; line-height: 24px; text-align: left; padding-left: 10px;">Register</span></div>
+    <div style="float: left;width: 30%; height: 300px; margin-left: 40px; margin-top:10px ; background-image: url('../../Image/images/qlogin_left.png')">
+    </div>
+    <div style="margin-left: 1%; float: left; width: 55%;">
+        <table cellpadding="0" cellspacing="0" class="userreg-form" style="width: 100%;">
+            <tr>
+                <td colspan="2">
+                    <input type="text" placeholder="请填写邮箱" id="UserEmail" data-bind="value:RegisterData.Email" />
+                </td>
+                <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                    <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label id="UserEmailError" style="color: red; display: none;">请输入正确的邮箱</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" placeholder="请填写昵称" id="UserNickname" data-bind="value:RegisterData.UserName" />
+                </td>
+                <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                    <img src="../../Image/images/icon_reg_right.png" width="15" height="15" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label id="UserNMError" style="color: red; display: none;">此昵称太火，已被注册</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" placeholder="请填写手机号" id="UserTel" data-bind="value:RegisterData.Phone" />
+                    <button type="button" class="btn btn-default BlueBlack " id="btnMoblie" data-bind="click:SendSmsByPhone">发送验证码</button>
+                </td>
+                <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                    <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label id="UserTelError" style="color: red; display: none;">请输入正确的手机</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="text" placeholder="请输入短信验证码" id="UserRandcode" style="display: inline-block; width: 115px !important;" data-bind="value:RegisterData.Code" />
+                    <label id="UserRandcodeError" style="color: red; " data-bind="text: RegisterData.CodeError"></label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="password" placeholder="请输入密码" id="UserPwd" data-bind="value:RegisterData.Password" />
+                </td>
+                <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                    <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label id="UserPwdError" style="color: red; display: none;">密码强度不够</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="password" placeholder="再次输入密码" value="" id="UserRepwd" data-bind="value:RegisterData.ConfimPassword" />
+                </td>
+                <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                    <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label id="UserRePwdError" style="color: red; display: none;">两次输入的密码不一致</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" placeholder="请填写QQ号" id="QQCode" data-bind="value:RegisterData.QQ" />
+                </td>
+                <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                    <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="3">
+                    <button type="button" id="btnUserReg" data-bind="click:userRegister">注册</button>
+                    <a href="javascript:void(0);" style="display: inline-block; width: 140px; height: 23px; line-height: 23px; margin-top: 65px; color: #333; text-decoration: none; cursor: pointer; text-align: left;" onclick="homeMain.ShowLogin();">已有账号，马上登录！</a>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="UserLoginDiv" class="hidden">
+    <span class="btnclose" onclick="$.fancybox.close();">X</span>
+    <div class="userlogin-title"><span style="font-size: 24px; color: #ef7500; width: 114px; height: 27px; line-height: 24px; text-align: right;">账号登录</span> <span style="font-size: 22px; color: #dddddd; width: 104px; height: 26px; line-height: 24px; text-align: left; padding-left: 10px;">Login</span></div>
+    <div style="float: left;width: 168px; height: 300px; margin-left: 40px;margin-top:10px ; background-image: url('../../Image/images/qlogin_left.png')">
+    </div>
+    <table cellpadding="0" cellspacing="0" class="userlogin-form" style="float: left;margin-left: 10px">
+        <tr>
+            <td colspan="2">
+                <input type="text" placeholder="昵称/邮箱" id="UserName" data-bind="value:LoginData.UserName" />
+            </td>
+            <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <label id="lblUserName" style="color: red; display: none;"></label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="password" placeholder="密码" textmode="password" id="UserPassword" data-bind="value:LoginData.Password" />
+            </td>
+            <td style="width: 15px; height: 100%; text-align: left; vertical-align: middle;">
+                <img src="../../Image/images/icon_reg_error.png" width="15" height="15" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <label id="lblUPwd" style="color: red; display: none;">请输入正确的邮箱</label>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 110px;">
+                <input type="text" placeholder="请输入验证码" id="LoginUserRandcode" style="display: inline-block; width: 115px;" data-bind="value:LoginData.Code" />
+            </td>
+            <td colspan="2">
+                <img id="LoginUserCodeimg" alt="验证码" width="55" height="45"><a href="javascript:void(0);" id="LoginUserCodeget" style="display: inline-block; width: 80px; height: 23px; line-height: 23px; margin-top: 25px; color: #333; text-decoration: none; cursor: pointer;" data-bind="click:RefreshLoginValidateCode">看不清？换一个</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <label id="LoginUserRandcodeError" style="color: red; " data-bind="text:LoginData.CodeError">请输入验证码</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" id="btnUserLogin" data-bind="click:userLogin">登录</button>
+            </td>
+            <td style="color: #333; vertical-align: bottom; padding-bottom: 0px;">
+                <table cellspacing="0" cellspading="0" style="padding: 0px; margin: 0px;">
+                    <tr>
+                        <td>
+                            <div class="pLeft20">
+                                <a href="/Account/ForgotPassword" style="display: inline-block; height: 23px; line-height: 23px; margin-top: 25px; color: #333; text-decoration: none; cursor: pointer;">忘记密码</a>
+                                <div><a href="javascript:void(0);" style="display: inline-block; width: 60px; height: 23px; line-height: 23px; color: #333; text-decoration: none; cursor: pointer;" onclick="homeMain.ShowRegister();">注册账号</a></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="SystemErrorInfo"></div>
+
+<div id="SettingTheme" class="hidden" style="margin: 30px;">
+    <table class='setting_theme' style="width: 100%;"></table>
+    <button class="btn" id="btnSavetheme">保存</button>
+</div>
+<div id="messagefly" class="hidden mAll10">
+    <div class="mBottom10">飞屏：</div>
+    <div class="mBottom10"><input type="text" class="black" id="txtflyval" /></div>
+    <div class="mBottom10"><button class="btn btnsendfly">发送</button></div>
+    <div>注：填写文字内容，将在所有用户的屏幕上飘动该内容。</div>
+</div>
+<div id="QQBox" class="hidden mAll10">
+    <div class="mBottom10">QQ：</div>
+    <div class="mBottom5">
+        <input type="text" class="black" id="Qcarid" style="width: 100%; margin-top: 10px;" />
+    </div>
+    @*<div class="mBottom5">姓名：</div>
+        <div class="mBottom10">
+            <input type="text" class="black" id="QNAME" style="width: 100%; margin-top: 10px;" />
+        </div>*@
+    <div class="mBottom10">
+        <button style="display: inline-block; width: 50px; height: 30px; line-height: 30px; padding: 0; text-align: center; vertical-align: middle; background-color: #00b1ff; border: 0px;" id="btnserverQQ">添加</button>
+    </div>
+    <div style="">
+        <textarea rows="5" cols="60" id="QQList" style="width: 100%; color: black"></textarea>
+        <div class="mBottom10">
+            <button style="display: inline-block; width: 50px; height: 30px; line-height: 30px; padding: 0; text-align: center; vertical-align: middle; background-color: #00b1ff; border: 0px;" id="btnSaveQQ">保存</button>
+        </div>
+    </div>
+</div>
+<div id="flyimgage" class="hidden">
+    <img src="" id="heomefiyimg" style="width:100%;height:300px;" />
+</div>
+<div id="articleInfo" class="hidden">
+
+</div>

@@ -1,0 +1,82 @@
+﻿@using Online.Web.Areas.Admin.Enum
+@using PagedList.Mvc
+@model PagedList.IPagedList<Online.DbHelper.Model.SystemInfo>
+@{
+    ViewBag.Title = "房间消息管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>房间消息列表</h2>
+<a role="button" href="/Admin/SystemInfo/Create" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div class="info">
+    <table class="table table-bordered table-hover table-striped" id="thetable">
+        <thead>
+        <tr>
+            <th style="width: 30px;">UID</th>
+            <th>所属房间</th>
+            <th>消息标题</th>
+            <th>消息类型</th>
+            <th>图片</th>
+            <th>链接</th>
+            <th>发送时间</th>
+            <th>操作人</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SysInfoID</td>
+                <td>@item.LiveRooms.RoomName</td>
+                <td>@item.InfoTitle</td>
+                <td>
+                    @{var type = Enum.GetName(typeof(SysInfoType), item.InfoType);}
+                    @type
+                </td>
+                <td>@item.ImgUrl</td>
+                <td>@item.SourceLink</td>
+                <td>@item.SendTime</td>
+                <td>@item.CreateUser</td>
+                <td>
+                    <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SystemInfo/Edit?id=@item.SysInfoID" id="Edit" role="button">
+                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                    </a>
+                    <a class="btn btn-danger delcss" role="button" data-id="@item.SysInfoID">
+                        <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div>
+        页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", new {currentFilter = ViewBag.CurrentFilter, page = page}))
+    </div>
+</div>
+
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+<script>
+    $(function () {
+        ShowMenu("LiveTv");
+        Active('LiveTv', 3);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+        $(".info .table .delcss").click(function () {
+            if (confirm("是否删除此直播室消息？")) {
+                var id = $(this).data("id");
+                $.post("/Admin/SystemInfo/Delete", { id: id }).done(function (data) {
+                    if (data) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    })
+</script>
+

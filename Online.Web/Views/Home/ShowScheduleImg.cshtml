@@ -1,0 +1,178 @@
+﻿@{
+    Layout = null;
+}
+@model  List<Online.DbHelper.Model.TVClassSchedule>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <style>
+        /*body {
+            background: #dedede;
+        }*/
+
+        .class {
+            width: 750px;
+            border: efefef 1px solid;
+            border-radius: 8px;
+            background: #ffffff;
+            margin: 0px auto;
+            padding: 10px;
+            font-family: "微软雅黑";
+        }
+
+        .ctit {
+            height: 100px;
+            clear: both;
+            overflow: hidden;
+        }
+
+        .ck1 {
+            float: left;
+            width: 240px;
+            height: 100px;
+            margin-right: 20px;
+            background: #EC7E33;
+            text-align: center;
+        }
+
+        .ck2 {
+            float: right;
+            width: 480px;
+            text-align: left;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .ck1 .img {
+            margin: 10px 0;
+        }
+
+        .ck1 h1 {
+            display: block;
+            clear: both;
+            line-height: 20px;
+            color: #ffffff;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .ccon {
+            clear: both;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .clist1 {
+            padding: 0px;
+            margin: 0px 15px 0px 0px;
+            width: 240px;
+            float: left;
+            list-style: none;
+        }
+
+            .clist1 li {
+                background: #EC7E33;
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 5px;
+                color: #ffffff;
+                text-align: center;
+                font-size: 22px;
+            }
+
+        .clist2 {
+            padding: 0px;
+            margin: 0px 15px 0px 0px;
+            width: 240px;
+            float: left;
+            list-style: none;
+        }
+
+            .clist2 li {
+                background: #ffc000;
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 5px;
+                color: #ffffff;
+                text-align: center;
+                font-size: 22px;
+            }
+
+        .clist3 {
+            padding: 0px;
+            margin: 0px 0px 0px 0px;
+            width: 240px;
+            float: left;
+            list-style: none;
+        }
+
+            .clist3 li {
+                background: #3d88c9;
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 5px;
+                color: #ffffff;
+                text-align: center;
+                font-size: 22px;
+            }
+    </style>
+</head>
+<body>
+    <div class="class">
+        <div class="ctit">
+            @{
+                var effictivetime = Model.Select(t => t.EffectiveStartTime.ToString("MM月dd日") + "-" + t.EffectiveEndTime.ToString("MM月dd日")).ToList()[0];
+            }
+            <div class="ck1"><img src="../../Image/images/k.jpg" width="190" height="45" alt="" class="img"/>
+                <h1>@effictivetime</h1>
+            </div>
+            <div class="ck2"><img src="../../Image/images/k2.jpg" width="478" height="79" alt=""/>
+            </div>
+        </div>
+        <div class="ccon">
+            @{
+                var times = Model.Select(t => t.liveStartTime + "-" + t.liveEndTime);
+                var contens = Model.Select(t => t.TNickName);
+                var teachers = Model.Select(t => t.Teacher);
+                <ul class="clist1">
+                    @foreach (var time in @times)
+                    {
+                    <li>@time</li>
+                    }
+                    @*<li><strong>时 间</strong></li>
+                        <li>9：00—12：15</li>
+                        <li>12：15—15：30</li>
+                        <li>9：00—12：15</li>
+                        <li>12：15—15：30</li>*@
+                </ul>
+                <ul class="clist2">
+                    @foreach (var content in @contens)
+                    {
+                    <li>@content</li>
+                    }
+                    @*<li><strong>交易法</strong></li>
+                        <li>交易法</li>
+                        <li>交易法</li>
+                        <li>交易法</li>
+                        <li>交易法</li>*@
+                </ul>
+                <ul class="clist3">
+                    @foreach (var teacher in @teachers)
+                    {
+                    <li>@teacher</li>
+                    }
+                    @*<li><strong>老师</strong></li>
+                        <li>周老师</li>
+                        <li>吴老师</li>
+                        <li>周老师</li>
+                        <li>吴老师</li>*@
+                </ul>
+            }
+        </div>
+
+    </div>
+</body>
+</html>

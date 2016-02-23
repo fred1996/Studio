@@ -1,0 +1,36 @@
+@media screen and (max-width: 1920px){
+#part2 {}
+}
+/* 当浏览器的可视区域小于1280px */
+@media screen and (max-width: 1280px) {
+#part2 {width: 60%;}
+#part3 {width: 60%;}
+#p4inn {width: 60%;}
+}
+/* 当浏览器的可视区域小于980px */
+@media screen and (max-width: 980px) {
+#part2 {width: 80%;}
+#part3 {width: 80%;}
+#p4inn {width: 80%;}
+}
+/* 当浏览器的可视区域小于720px */
+@media screen and (max-width: 720px) {
+#part2 {width: 80%;}
+#part3 {width: 80%;}
+#p4inn {width: 80%;}
+.copyt{width: 80%; }
+#part2 .text{font-size:14px;}
+#part3 .jieshao{font-size:14px;}
+#p4inn .ttt{font-size:14px;}
+
+}
+/* 当浏览器的可视区域小于360px */
+@media screen and (max-width: 360px) {
+#part2 {width: 96%; }
+#part3 {width: 96%; }
+#p4inn {width: 96%;}
+.copyt{width: 96%; }
+#part2 .text{font-size:14px; margin:15px;}
+#part3 .jieshao{font-size:14px;margin:15px;}
+#p4inn .ttt{font-size:14px;margin:15px;}
+}

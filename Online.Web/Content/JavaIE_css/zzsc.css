@@ -1,0 +1,45 @@
+/*µ¼º½*/
+.banner{width: 100%;height: 150px;background: #fff;}
+.banner .container{width: 1060px;height: 100px;margin:0 auto;}
+.banner .container .logo{width: 410px;height: 100px;}
+.banner .container .logo a img{position: relative;top: 25%;}
+.banner .container .search{width: 320px;height: 100px;line-height: 100px;}
+.banner .container .search .search_text{width: 245px;height: 30px;border: 1px solid #2e447a;font-size: 14px;padding-left: 5px;}
+.banner .container .search .search_button{width: 55px;height: 32px;background: #2e447a;color: #fff;border: none;font-size: 14px;cursor: pointer;}
+.banner .nav{width: 100%;height: 50px;background: #1f2e5b;}
+.banner .nav ul{width: 1100px;margin:0 auto;}
+.banner .nav ul li{width:110px;height:50px;line-height: 50px;text-align: center;float: left;}
+.banner .nav ul li a{width:100%;height:100%;display:block;font-size: 16px;color: #fff;}
+.banner .nav ul li:hover a{text-decoration: none;}
+.banner .nav ul li.current{background: #ff5400;}
+
+.menu_list{min-width: 200px;float: left;z-index: 999;margin-top: 30px}
+.menu_head{width:185px;height:47px;line-height:47px;padding-left:38px;font-size:14px;color:#525252;cursor:pointer;border:1px solid #e1e1e1;position:relative;font-weight:bold;background:#f1f1f1 url(../../image/javaie_images/pro_left.png) center right no-repeat;margin:0; font-size: 16px}
+.menu_list .current{background:#f1f1f1 url(../../image/javaie_images/pro_down.png) center right no-repeat;}
+.menu_body{width:223px;height:auto;overflow:hidden;line-height:38px;border-left:1px solid #e1e1e1;background:#fff;border-right:1px solid #e1e1e1;font-size: 14px}
+.menu_body a{display:block;width:223px;height:38px;line-height:38px;padding-left:20px;color:#777777;background:#fff;text-decoration:none;border-bottom:1px solid #e1e1e1;}
+.menu_body a:hover{text-decoration:none;}
+.menu_body .active{ background: #908EA1;color: white}
+
+.news_w {
+    padding: 10px;
+    line-height: 25px;
+    font-size: 14px;
+    height: auto;
+    margin: 0px auto 0px auto;
+}
+
+/*°æÈ¨Çø*/
+.footer{width: 100%;background: #191e2e;font-size: 14px;color: #ccc; margin-top: 20px; padding-top:20px; clear: both}
+.footer .footop,.footer .footbot{width: 980px;margin: 0 auto;padding:0 40px;overflow: hidden;}
+.footer .footop{border-bottom: 1px solid #c5c5c5;}
+.footer .footop .wxcode{text-align: center;margin-top: 10px;}
+.footer .footop .wxcode p{line-height: 26px;}
+.footer .footop .footcon{width: 880px;float: left;}
+.footer .footNav,.footer .footLink,.footer .aboutUs{margin: 16px 0;}
+.footer .footNav a,.footer .footLink a{line-height: 18px;text-align: center;padding:0 14px;border-right:1px solid #4a4f5f;font-size: 14px;color: #ccc;}
+.footer .footLink a{width: 100px;}
+.footer .notice p{text-align: center;line-height: 22px;font-size: 12px;color: #9aa5c8}
+.footer .notice{margin: 16px auto;}
+.footer .aboutUs a{font-size: 12px;color:#ccc;padding:0 20px 0 0;}
+.footer .aboutUs{line-height: 20px;margin-top: 20px;font-size: 12px;}

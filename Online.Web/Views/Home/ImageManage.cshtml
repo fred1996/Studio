@@ -1,0 +1,249 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/base.css" rel="stylesheet" />
+    <style>
+        a {
+            cursor: pointer;
+        }
+        body {
+            color: #000000;
+        }
+        table thead td {
+            line-height: 40px;
+        }
+        input[type=text] {
+            border: 1px solid #DFDFDF;
+            padding: 5px;
+            width: 300px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            height: 25px;
+            color: #000;
+        }
+        .btn {
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            text-align: center;
+            vertical-align: middle;
+            margin-left: 10px;
+            background-color: #00b1ff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: 0px;
+            margin-left: 60px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.iframe-transport.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script>
+        $(function () {
+            upload();
+            $.post("/Home/GetSysColums", {}, function (data) {
+                if (data.length > 0) {
+                    var html = new StringBuilder();
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        html.Append("<tr>");
+                        html.Append("<td>");
+                        if (item.ISummary.length > 15) {
+                            html.Append("<span title='" + item.ISummary + "'>" + item.ISummary.substring(0, 15) + "..." + "</span>");
+                        } else {
+                            html.Append(item.ISummary);
+                        }
+                        html.Append("</td>");
+                        html.Append("<td>");
+                        html.Append("<img src='" + item.ItemImgUrl + "' style='height:40px;width:40px'/>");
+                        html.Append("</td>");
+                        html.Append("<td>");
+                        html.Append(item.ItemLink);
+                        html.Append("</td>");
+                        html.Append("<td>");
+                        html.Append("<a class='btndelete' href=\"javascript:;\" sid=" + item.SysTVColumnID + ">删除</a><a class='mLeft10 btnedit' ttitle='" + item.ItemTitle + "' summary='" + item.ISummary + "' link='" + item.ItemLink + "' tname='" + item.ItemName + "' imgsrc='" + item.ItemImgUrl + "' sid=" + item.SysTVColumnID + ">编辑</a><a class='btnclearedit hidden mLeft10'>取消编辑</a>");
+                        html.Append("</td>");
+                        html.Append("</tr>");
+                    }
+                    $(".syscolumimage tbody").empty().append(html.toString());
+                    $(".btnedit").bind("click", function () {
+                        $(this).hide();
+                        $(".btnclearedit", $(this).parents("tr")).show();
+                        var obj = $(this);
+                        $("#imgs").attr("src", obj.attr("imgsrc"));
+                        $("#title").val(obj.attr("ttitle"));
+                        $("#coulmname").val(obj.attr("tname"));
+                        $("#desccontent").val(obj.attr("summary"));
+                        $("#sourceurl").val(obj.attr("link"));
+                        $("#btnImages").attr("sid", obj.attr("sid"));
+                        $("#imgs").show();
+                    });
+                    $(".btnclearedit").bind("click", function () {
+                        $(this).hide();
+                        $(".btnedit", $(this).parents("tr")).show();
+                        $("#imgs").removeAttr("src");
+                        $("#imgs").hide();
+                        $("#icon").val();
+                        $("#title").val('');
+                        $("#coulmname").val('');
+                        $("#desccontent").val('');
+                        $("#sourceurl").val('');
+                        $("#btnImages").removeAttr("sid");
+                    });
+                    $(".btndelete").bind("click", function () {
+                        var obj = $(this);
+                        if (confirm("是否确认删除？")) {
+                            var sid = $(this).attr("sid");
+                            $.post("/Home/DelImagemange", { sid: sid }, function (data) {
+                                if (data) {
+                                    $(obj).parents("tr").remove();
+                                } else {
+                                    alert("删除失败!");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            $("#btnImages").click(function () {
+                var img = "";
+                var title = $("#title").val();
+                var desccontent = $("#desccontent").val();
+                var sourceurl = $("#sourceurl").val();
+                var coulmname = $("#coulmname").val();
+                var upload = $("#icon").val();
+                if (title.length <= 0) {
+                    alert("请输入标题");
+                    return;
+                }
+
+                if (desccontent.length <= 0) {
+                    alert("请输入描述");
+                    return;
+                }
+                if (sourceurl.length <= 0) {
+                    alert("请输入链接")
+                    return;
+                }
+                if (coulmname.length <= 0) {
+                    alert("请输入栏目名称");
+                    return
+                }
+                if ($(this).attr("sid") == undefined) {
+
+                    $.post("/Home/AddImagemange", { title: title, content: desccontent, link: sourceurl, imgurl: $("#btnImages").attr("src"), coulmname: coulmname }, function (data) {
+                        if (data) {
+                            alert("添加成功");
+                        } else {
+                            alert("添加失败");
+                        }
+                    });
+
+                } else {
+                    $.post("/Home/SetSyscolums", { id: $(this).attr("sid"), title: title, content: encodeURI(desccontent), link: sourceurl, imgurl: $("#imgs").attr("src"), coulmname: coulmname }, function (data) {
+                        if (data) {
+                            alert("修改成功");
+                            $(".btnedit").show();
+                            $(".btnclearedit").hide();
+                            $("#imgs").removeAttr("src");
+                            $("#imgs").hide();
+                            $("#icon").val();
+                            $("#title").val('');
+                            $("#coulmname").val('');
+                            $("#desccontent").val('');
+                            $("#sourceurl").val('');
+                            $("#btnImages").removeAttr("sid");
+                        } else {
+                            alert("修改失败");
+                        }
+                    });
+                }
+            });
+        });
+        function upload() {
+            var c = $("#icon");
+            var submitObj = null;
+            c.fileupload({
+                dataType: 'json',
+                url: '/Home/UploadFile',
+                type: 'POST',
+                autoUpload: false,
+                formData: {}, //传静参
+                acceptFileTypes: '/(\.|\/)(jpg|jpeg|png|bmp|gif)$/i',
+                maxNumberOfFiles: 1,
+                maxFileSize: 40000000, // 40 MB
+                add: function (e, data) {
+                    $("#icon").val("");
+                    $("#icon").next("lable").remove();
+                    submitObj = data;
+                    submitObj.submit();
+                },
+                done: function (e, data) {
+                    if (data.result) {
+                        $("#icon").after("<lable>" + data.result + "</lable>");
+                        $("#btnImages").attr("src", data.result);
+                    } else {
+
+                    }
+                },
+                fail: function (e, data) {
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="mBottom20">
+        <table class="syscolumimage" style="width: 100%;">
+            <thead>
+                <tr>
+                    <td>描述</td>
+                    <td>图片</td>
+                    <td>链接</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>本直播室交易观点</td>
+                    <td>本直播室交易观点</td>
+                    <td>本直播室交易观点</td>
+                    <td>本直播室交易观点</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="background-color: #F0F0F0;" class="pAll20">
+        <div>标题：<input type="text" class="mLeft20" id="title" /></div>
+        <div>名称：<input type="text" class="mLeft20" placeholder="栏目名称" id="coulmname" /></div>
+        <div>
+            图标：
+            <input type="file" class="mLeft20 mBottom5 black" id="icon" name="icon" accept="*.jpg, *.jpeg,*.png,*.bmp,*.gif" size="10" />
+            <img src="" width="20" class="hidden" id="imgs" height="20" />
+        </div>
+        <div>描述：<input type="text" class="mLeft20" id="desccontent" /></div>
+        <div>
+            链接：<input type="text" class="mLeft20" id="sourceurl" />
+            （如：http://www.yyyzhiboshi.com）
+        </div>
+        <div>
+            <input type="button" value="保存" class="btn mTop20" id="btnImages" />
+        </div>
+    </div>
+</body>
+</html>

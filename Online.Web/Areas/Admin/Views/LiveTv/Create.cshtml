@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+<div class="modal-content">
+    @using (Html.BeginForm("CreateSave", "LiveTv", FormMethod.Post))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">房间编辑</h4>
+        </div>
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-4 control-label">名称：</label>
+                    <div class="col-md-8">
+                        @Html.TextBox("RoomName", "", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" id="editSave">保存</button>
+        </div>
+    }
+</div>

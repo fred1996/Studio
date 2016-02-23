@@ -1,0 +1,215 @@
+ body{
+ 	font-family:"Microsoft YaHei";
+ 	color: #333333;
+ }
+.header{
+ 	width: 100%;
+ 	height: 110px;
+ 	background: url(../../Image/javaie_images/top_bg.png) no-repeat center center;
+ }
+.nav{
+	width: 1000px;
+	height: 110px;
+ 	margin:0 auto;
+}
+.nav1 {width: 100%;height: 40px;background: #4e4e4e;}
+.nav1 ul{width:1000px;height: 40px;margin: 0 auto;}
+.nav1 ul li.active a {
+    background: #6b6b6b;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav a#logo{
+	width:353px;
+	height: 60px;
+	margin-top: 20px;
+	float: left;
+	background: url(../../Image/images/icon_logo.png) no-repeat left center;
+}
+.nav1 ul li{
+	float: left;
+	line-height: 40px;
+}
+.nav1 ul li a{
+	display: block;
+	font-size: 16px;
+	height: 40px;
+	color: #fff;
+    padding:0 18px;
+	text-align: center;
+	text-decoration: none;
+	outline:none;
+	border:none;
+}
+.banner{
+	width: 100%;
+	height: 420px;
+	position: relative;
+    background: url(../../Image/javaie_images/banner.png) no-repeat center center;
+}
+.banner a{width: 100%;height: 100%;display: block;}
+.banner .enter{
+	width: 460px;
+	height: 120px;
+	position: absolute;
+	top:290px;
+	left:50%;
+	margin-left: -230px;
+	z-index: 99;
+}
+.intro,.daohang{
+	width: 1000px;
+	overflow: hidden;
+	margin:0 auto ;
+}
+.intro .content div{width: 193px;float: left;text-align: center;margin: 60px 75px 60px 0;}
+.intro .content div .sign{text-align: center;line-height: 30px;font-size: 14px;}
+.intro .content div .text{text-align: left;line-height: 22px;font-size: 12px;}
+.intro .content div .text span{color: #fe7a7a;}
+.title{
+	font-size: 24px;
+	color: #4d4954;
+	height: 45px;
+    margin-top: 30px;
+	line-height: 45px;
+    text-align: center;
+	position: relative;
+	cursor: default;
+    background: url(../../Image/javaie_images/title_bg_b.png) no-repeat center;
+}
+.aboutzbs{width:100%;height: 310px;background: url(../../Image/javaie_images/aboutzbs_bg.png) no-repeat center center;overflow: hidden;}
+.aboutzbs .content{
+    width: 1000px;
+    margin: 30px auto;
+}
+.aboutzbs .title{color: #fff;}
+.aboutzbs .content p{
+	font-size: 18px;
+    color: #fff;
+	line-height: 40px;
+	text-indent: 2em;
+}
+.daohang ul li{
+    width: 300px;
+    height: 200px;
+    margin-top: 50px;
+    margin-right: 50px;
+    float: left;
+    position: relative;
+}
+.daohang ul li a{width: 100%;height: 100%;display: block;overflow: hidden;}
+.daohang ul li a:hover{text-decoration: none;}
+.daohang ul li a:hover .name{color: #0373a5;}
+.daohang ul li .name{font-size: 28px;margin-top: 55px;text-align: center;color: #fff;line-height: 32px;}
+.daohang ul li .name .zbsname{font-size: 18px;}
+.daohang ul li .play{height:50px;background: url(../../Image/javaie_images/play.png) no-repeat 10px center;}
+.daohang ul li a:hover .play{background: url(../../Image/javaie_images/playon.png) no-repeat 10px center;}
+.daohang ul li.zbs1{background: url(../../Image/javaie_images/zbs1_bg.png) no-repeat center center;}
+.daohang ul li.zbs2{background: url(../../Image/javaie_images/zbs2_bg.png) no-repeat center center;}
+.daohang ul li.zbs3{background: url(../../Image/javaie_images/zbs3_bg.png) no-repeat center center;}
+.daohang ul li.zbs4{background: url(../../Image/javaie_images/zbs4_bg.png) no-repeat center center;}
+.daohang ul li.zbs5{background: url(../../Image/javaie_images/zbs5_bg.png) no-repeat center center;}
+.daohang ul li.zbs6{background: url(../../Image/javaie_images/zbs6_bg.png) no-repeat center center;}
+.daohang ul li .info{width: 100%;height: 30px;background: url(../javaie_images/viewbg.png) no-repeat center center;position: absolute;bottom: 0;}
+.daohang ul li .info span{height: 30px;line-height: 30px;color: #a9a3aa;position: absolute;}
+.daohang ul li .info span.view{left: 40px;}
+.daohang ul li .info span.fav{left: 110px;}
+.daohang ul li .info span.talk{left: 170px;}
+
+.abt_banner{height: 500px;background: url(../../Image/javaie_images/abt_banner.png) no-repeat center center;}
+.company{width: 1000px;padding:0 20px;margin:60px auto;overflow: hidden;}
+.company .left{width:500px;height:280px;background: url(../../Image/javaie_images/company.png) no-repeat center center;float: left;margin-right: 20px;}
+.company .right{width: 440px;float: left;}
+.company .right h1{font-size: 24px;font-weight: bold;color: #4c4c4c;border-bottom: 2px solid #4c4c4c;line-height: 40px;display: inline-block;}
+.company .right p{color: #808080;line-height: 24px;}
+
+.teacher{width: 100%;height: 500px;background: #f2f2f2;}
+.teacher .content{width: 1000px;margin:0 auto;overflow: hidden;}
+.teacher .content h1{font-size: 26px;font-weight: bold;margin-top: 40px;text-align: center;color: #4d4d4d;}
+.teacher .content .ttxt{font-size: 16px;color: #8b8b8b;line-height: 50px;text-align: center;border-bottom: 1px solid #8b8b8b;}
+.teacher .content ul li{width: 176px;height: 300px;background: #b4bcc8;margin-right: 30px;float: left;margin-top: 50px;}
+.teacher .content ul li img{margin: 5px;}
+.teacher .content ul li a{color: #595959;}
+.teacher .content ul li.current{background: #3262a2;}
+.teacher .content ul li.current a,.teacher .content ul li.current p{color: #fff!important;}
+.teacher .content ul li p{line-height: 22px;text-align: center;color: #595959;}
+.teacher .content ul li p.name{font-size: 14px;color: #333;}
+
+.tips{width:800px;height: 200px;margin:100px auto;background: url(../../Image/javaie_images/tips_bg.png) no-repeat center left;padding-left: 200px;
+	font-size: 16px;line-height: 30px;
+}
+
+
+.footer{
+	width: 100%;
+	background: #1e1b1f;
+    color: #7f7e7f;
+}
+.footer a{
+    color: #7f7e7f;
+}
+.footer .center{
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.footer .w33{
+    width: 33%;
+    height: 160px;
+    border-right: 1px solid #757575;
+    margin:45px auto;
+    float: left;
+}
+.footer .zbsNav{text-align: center;}
+.footer .zbsNav ul{
+    width: 230px;
+    margin: 0 auto;
+}
+.footer .about{
+    text-align: center;
+    overflow: hidden;
+    font-size: 14px;
+}
+.footer .about p.tel{
+    line-height: 40px;
+}
+.footer .about p.address{
+    line-height: 24px;
+}
+.footer .webNav{
+    border: none;
+    text-align: center;
+    overflow: hidden;
+}
+.footer .zbsNav h2,.footer .webNav h2,.footer .about h2{
+    font-size: 18px;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    margin: 10px auto 0;
+}
+.footer .webNav ul{
+    width: 180px;
+    margin: 0 auto;
+}
+.footer .webNav ul li,.footer .zbsNav ul li{
+    width: 50%;
+    height: 25px;
+    line-height: 46px;
+    float: left;
+    font-size: 14px;
+}
+.footer .webNav p,.footer .zbsNav p{
+    width: 190px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 14px;
+    margin: 0 auto;
+}
+.footer .copy{
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 14px;
+}

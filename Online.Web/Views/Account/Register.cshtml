@@ -1,0 +1,128 @@
+﻿@{
+    Layout = null;
+}
+@model Online.Web.Models.UserRegisterViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>注册</title>
+    @Styles.Render("~/Content/Logincss.css")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdn.bootcss.com/jquery-placeholder/2.0.0/jquery.placeholder.min.js"></script>
+    <script>
+        $(function () {
+            $("#btnMoblie").bind("click", function () {
+                var phone = $.trim($("#Telephone").val());
+                if (phone == null || !phone) {
+                    alert("请输入手机号！");
+                }
+                $.ajax({ url: '/Account/SendSmsByPhone', data: { phone: phone, token: $("#Token").val() } }).done(function (result) {
+                    if (result) {
+                        $("#btnMoblie").html("己发送");
+                        $("#btnMoblie").attr("disabled", "disabled");
+
+                        setTimeout(function () {
+                            $("#btnMoblie").removeAttr("disabled");
+                            $("#btnMoblie").html("发送验证码");
+                        }, 60000);
+                    } else {
+
+                    }
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+    <!--头部开始-->
+    <div class="int_header">
+        <div class="login">
+            <a href="/Account/Login">登录 </a>| <a href="/Account/Register">注册</a>
+        </div>
+        <div class="clear10"></div>
+        <div class="menu">
+            <img src="~/Image/images/icon_logo.png"  class="img1" />
+          
+            <ul class="m">
+                <li><a href="/Home/Index">网站首页</a></li>
+                <li><a href="http://www.mintaifu.com/html/about/" target="_blank">关于我们</a></li>
+                <li><a href="http://www.mintaifu.com/html/download/" target="_blank">下载中心</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--头部结束-->
+    <!--banner开始-->
+    <div class="int_ban2"></div>
+    <!--banner结束-->
+    <div class=" clear100"></div>
+    @using (@Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(t=>t.Token)
+        <div class="alogin" style="width: 640px;">
+            <div class="alogo">
+                <span>帐号注册</span>
+            </div>
+            <div>
+                @Html.TextBoxFor(t=>t.Email,null,new {placeholder="邮箱",@class="type1"})
+                @Html.ValidationMessageFor(t=>t.Email,null,new {style="color:red"})
+                @*<input name="text" type="text" class="type1" id="UserEmail" placeholder="邮箱">*@
+
+                @*<span id="UserEmailError" style="display: none"> <img src="images/e.png" width="15" height="15" alt="" /> <label class="ts">请输入正确的邮箱</label></span>*@
+            </div>
+            <div>
+                @Html.TextBoxFor(t => t.UserName, null, new { placeholder = "昵称", @class = "type1" })
+                @Html.ValidationMessageFor(t => t.UserName, null, new { style = "color:red" })
+                @*<input type="text" name="text" id="UserNickname" class="type1" placeholder="昵称">
+                    <span id="UserNMError" style="display: none"> <img src="images/e.png" width="15" height="15" alt="" /> <label class="ts">请输入昵称</label></span>*@
+            </div>
+            <div>
+                @Html.TextBoxFor(t => t.Telephone, null, new { placeholder = "手机号码", @class = "type1" })
+                @Html.ValidationMessageFor(t => t.Telephone, null, new { style = "color:red" })
+                <button type="button" class="btn btn-default BlueBlack " id="btnMoblie">发送验证码</button>
+            </div>
+            <div>
+                @Html.TextBoxFor(t => t.QQ, null, new { placeholder = "QQ号", @class = "type1" })
+                @Html.ValidationMessageFor(t => t.QQ, null, new { style = "color:red" })
+            </div>
+            <div>
+                @Html.PasswordFor(t => t.Password, new { placeholder = "密码", @class = "type1" })
+                @Html.ValidationMessageFor(t => t.Password, null, new { style = "color:red" })
+                @*<input type="password" name="text" id="UserPwd" class="type1" placeholder="密码">
+                    <span id="UserPwdError" style="display: none"> <img src="images/e.png" width="15" height="15" alt="" /> <label class="ts">请输入密码</label></span>*@
+            </div>
+            <div>
+                @Html.PasswordFor(t => t.ConfirmPassword, new { placeholder = "再次输入密码", @class = "type1" })
+                @Html.ValidationMessageFor(t => t.ConfirmPassword, null, new { style = "color:red" })
+                @*<input type="password" name="text" id="UserRepwd" class="type1" placeholder="再次输入密码">
+                    <span id="UserRePwdError" style="display: none"> <img src="images/e.png" width="15" height="15" alt="" /> <label class="ts">请输入密码</label></span>*@
+            </div>
+            <div>
+                @Html.TextBoxFor(t => t.VerifyPhoneCode, null, new {@class = "type1", placeholder = "请输入短信验证码", style = "width: 190px; height: 42px; line-height: 42px;float: left"})
+                @Html.ValidationMessageFor(t => t.VerifyPhoneCode, null, new {style = "color:red"})
+            </div>
+            <div class="clear10"></div>
+            @Html.Label(Model.Message, new { style = "color: red;font-size: 14px" })
+            <div class="clear10"></div>
+            <div class="ts">
+                @Html.CheckBoxFor(t=>t.RedChecked)
+                同意用户注册协议和隐私权声明
+            </div>
+            <input type="submit" class="asubmit" id="btnUserReg" value="注 册">
+            <div style="width: 400px;">
+                <span class="aspan2"><a href="/Account/Login">已有帐号，马上登录？</a></span>
+            </div>
+        </div>
+    }
+    <div class=" clear100"></div>
+    <!--版权开始-->
+    <div class="int_cop">
+
+        <div class="c2">
+            @*<p>上海惠印投资管理咨询中心·版权所有</p>*@
+        </div>
+    </div>
+    <!--版权结束-->
+</body>
+</html>

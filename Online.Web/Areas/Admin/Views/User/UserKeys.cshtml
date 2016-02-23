@@ -1,0 +1,87 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.UC_Dictionarys>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "用户字典管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h2>用户字典列表</h2>
+<div>
+    <div class="left">
+        <div class="mAll10">
+            @using (Html.BeginForm("UserKeys", "User", FormMethod.Get, new { @style = "display:inline-block;", id = "form1" }))
+            {
+                <label>
+                    根据Key,Value值查询：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
+                </label>
+
+                <button class="btn  btn-info " style="display:inline-block;" role="button">
+                    <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
+                </button>
+            }
+            <a role="button" href="/Admin/User/AddUserKey" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+                <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+            </a>
+        </div>
+    </div>
+</div>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>父节点ID</th>
+                <th>Key值</th>
+                <th>Value值</th>
+                <th>描述</th>
+                <th>操作人</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DictID</td>
+                        <td>@item.ParentDictID</td>
+                        <td>@item.FiledBaseName</td>
+                        <td>@item.FiledBaseValue</td>
+                        <td>@item.Description</td>
+                        <td>@item.OperatorName</td>
+                        <td>@item.CreateTime</td>
+                        <td>@item.UpdateTime</td>
+                        <td>
+                            <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/User/EditUserKey?did=@item.DictID" id="Edit" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                            </a>
+                            <a class="btn btn-danger delcss" role="button" href="/Admin/User/RemoveUkeyDel?did=@item.DictID" data-id="@item.DictID">
+                                <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="9">没有发现数据。</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+ 页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("UserKeys", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</div>
+<script>
+    $(function () {
+        ShowMenu("Users");
+        Active('Users', 2);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+    });
+</script>

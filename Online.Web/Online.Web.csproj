@@ -1,0 +1,1714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BF387A10-B8EF-403A-B93C-0DE411BA2AA1}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Online.Web</RootNamespace>
+    <AssemblyName>Online.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=8.6.3.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>App_Data\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.4.0.46\lib\net40\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.4.0.46\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Redis.4.0.46\lib\net40\ServiceStack.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.0.46\lib\net40\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LiveTvController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LogerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysChatMsgController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysConfigController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysSettingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SystemInfoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SysTVColumnController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Enum\SysEnum.cs" />
+    <Compile Include="Areas\Admin\Models\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Areas\Admin\Models\ReadMenu.cs" />
+    <Compile Include="Areas\Admin\Models\RolePermissionViewModel.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\tyleController.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
+    <Compile Include="Controllers\YouBiKaIntroducesController.cs" />
+    <Compile Include="DAL\AccountHandler.cs" />
+    <Compile Include="DAL\BaseController.cs" />
+    <Compile Include="DAL\ChatMessageCache.cs" />
+    <Compile Include="DAL\DataQueueDal.cs" />
+    <Compile Include="DAL\SiteAuthorizeAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Help\Constants.cs" />
+    <Compile Include="Help\Enums.cs" />
+    <Compile Include="Help\MailHelp.cs" />
+    <Compile Include="DAL\MessageCache.cs" />
+    <Compile Include="Help\RedisClienHelper.cs" />
+    <Compile Include="Help\UntilHelper.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\MessageInfo.cs" />
+    <Compile Include="Models\UserOnlineInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Content\menu.css" />
+    <Content Include="Areas\Admin\Content\Menu.xml" />
+    <Content Include="Areas\Admin\Content\Site.css" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Online.DbHelper.dll" />
+    <Content Include="bin\Online.DbHelper.pdb" />
+    <Content Include="bin\Online.Web.dll" />
+    <Content Include="bin\Online.Web.pdb" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\ServiceStack.Common.dll" />
+    <Content Include="bin\ServiceStack.Interfaces.dll" />
+    <Content Include="bin\ServiceStack.Redis.dll" />
+    <Content Include="bin\ServiceStack.Text.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="config\theme.xml" />
+    <Content Include="Content\adminstyle.css" />
+    <Content Include="Content\amazeui.min.css" />
+    <Content Include="Content\base.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Column.css" />
+    <Content Include="Content\download\reset.css" />
+    <Content Include="Content\download\style.css" />
+    <Content Include="Content\indexstyle.css" />
+    <Content Include="Content\JavaIE_css\Aboutreset.css" />
+    <Content Include="Content\JavaIE_css\Aboutstyle.css" />
+    <Content Include="Content\JavaIE_css\about_us.css" />
+    <Content Include="Content\JavaIE_css\Courseware.css" />
+    <Content Include="Content\JavaIE_css\Courseware_bar.css" />
+    <Content Include="Content\JavaIE_css\index#20151102.css" />
+    <Content Include="Content\JavaIE_css\index.css" />
+    <Content Include="Content\JavaIE_css\news.css" />
+    <Content Include="Content\JavaIE_css\news_bar.css" />
+    <Content Include="Content\JavaIE_css\qqkfFloat.css" />
+    <Content Include="Content\JavaIE_css\reset.css" />
+    <Content Include="Content\JavaIE_css\software.css" />
+    <Content Include="Content\JavaIE_css\style.css" />
+    <Content Include="Content\JavaIE_css\text.css" />
+    <Content Include="Content\JavaIE_css\zzsc.css" />
+    <Content Include="Content\jquery.fancybox-buttons.css" />
+    <Content Include="Content\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\jquery.fancybox.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
+    <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload.css" />
+    <Content Include="Content\jQuery.FileUpload\img\loading.gif" />
+    <Content Include="Content\jQuery.FileUpload\img\progressbar.gif" />
+    <Content Include="Content\logincss.css" />
+    <Content Include="Content\one.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\selfadaptstyle.css" />
+    <Content Include="Content\SingleService\media-queries2.css" />
+    <Content Include="Content\SingleService\style.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\theme\green.css" />
+    <Content Include="Content\theme\theme_blue.css" />
+    <Content Include="Content\theme\theme_city.css" />
+    <Content Include="Content\theme\theme_classicalOne.css" />
+    <Content Include="Content\theme\theme_default.css" />
+    <Content Include="Content\theme\theme_gray.css" />
+    <Content Include="Content\theme\theme_orange.css" />
+    <Content Include="Content\theme\theme_red.css" />
+    <Content Include="Content\theme\theme_whitegay.css" />
+    <Content Include="cs.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Image\images\0.jpg" />
+    <Content Include="Image\images\404.png" />
+    <Content Include="Image\images\404_msg.png" />
+    <Content Include="Image\images\404_to_index.png" />
+    <Content Include="Image\images\admin_but.png" />
+    <Content Include="Image\images\admin_but2.png" />
+    <Content Include="Image\images\admin_but_black.png" />
+    <Content Include="Image\images\admin_icon1.png" />
+    <Content Include="Image\images\admin_icon1_black.png" />
+    <Content Include="Image\images\admin_icon2.png" />
+    <Content Include="Image\images\admin_icon2_black.png" />
+    <Content Include="Image\images\admin_icon3.png" />
+    <Content Include="Image\images\admin_icon3_black.png" />
+    <Content Include="Image\images\admin_tx.png" />
+    <Content Include="Image\images\arrow_blue.png" />
+    <Content Include="Image\images\arrow_blue_down.png" />
+    <Content Include="Image\images\arrow_blue_up.png" />
+    <Content Include="Image\images\Bg-0.png" />
+    <Content Include="Image\images\bg.jpg" />
+    <Content Include="Image\images\check.png" />
+    <Content Include="Image\images\close.png" />
+    <Content Include="Image\images\close1.png" />
+    <Content Include="Image\images\Column\jd_banner.png" />
+    <Content Include="Image\images\Column\jd_dh.png" />
+    <Content Include="Image\images\Column\jd_logo.png" />
+    <Content Include="Image\images\Column\jd_qq.png" />
+    <Content Include="Image\images\Column\jd_qq2.png" />
+    <Content Include="Image\images\Column\zbsbtn.png" />
+    <Content Include="Image\images\down_arrow.png" />
+    <Content Include="Image\images\down_arrow_black.png" />
+    <Content Include="Image\images\e.png" />
+    <Content Include="Image\images\error_cloud.png" />
+    <Content Include="Image\images\face.png" />
+    <Content Include="Image\images\favicon.ico" />
+    <Content Include="Image\images\heng.png" />
+    <Content Include="Image\images\hotline.png" />
+    <Content Include="Image\images\icon-msg2013.png" />
+    <Content Include="Image\images\icon17.png" />
+    <Content Include="Image\images\icon17x.png" />
+    <Content Include="Image\images\icon_column.png" />
+    <Content Include="Image\images\icon_del.png" />
+    <Content Include="Image\images\icon_head.png" />
+    <Content Include="Image\images\icon_index.png" />
+    <Content Include="Image\images\icon_kj.png" />
+    <Content Include="Image\images\icon_logo.png" />
+    <Content Include="Image\images\icon_nc.png" />
+    <Content Include="Image\images\icon_qq.png" />
+    <Content Include="Image\images\icon_reg_error.png" />
+    <Content Include="Image\images\icon_reg_right.png" />
+    <Content Include="Image\images\icon_safe.png" />
+    <Content Include="Image\images\icon_scroll.png" />
+    <Content Include="Image\images\icon_setting.png" />
+    <Content Include="Image\images\icon_study.png" />
+    <Content Include="Image\images\icon_tv.png" />
+    <Content Include="Image\images\icon_zj.png" />
+    <Content Include="Image\images\int_b1.png" />
+    <Content Include="Image\images\int_b2.png" />
+    <Content Include="Image\images\int_b3.png" />
+    <Content Include="Image\images\int_b4.png" />
+    <Content Include="Image\images\int_banner.jpg" />
+    <Content Include="Image\images\int_j.png" />
+    <Content Include="Image\images\int_lobg.png" />
+    <Content Include="Image\images\int_pic.png" />
+    <Content Include="Image\images\int_shu.png" />
+    <Content Include="Image\images\int_t1.png" />
+    <Content Include="Image\images\int_v.png" />
+    <Content Include="Image\images\k.jpg" />
+    <Content Include="Image\images\k2.jpg" />
+    <Content Include="Image\images\left_arrow.png" />
+    <Content Include="Image\images\Level\Assistant.gif" />
+    <Content Include="Image\images\Level\Manager1.png" />
+    <Content Include="Image\images\Level\Manager2.png" />
+    <Content Include="Image\images\Level\Manager3.png" />
+    <Content Include="Image\images\Level\RoomBo.png" />
+    <Content Include="Image\images\Level\RoomManager.gif" />
+    <Content Include="Image\images\Level\RoomManager.png" />
+    <Content Include="Image\images\Level\RoomUser1.png" />
+    <Content Include="Image\images\Level\RoomUser2.png" />
+    <Content Include="Image\images\Level\RoomUser3.png" />
+    <Content Include="Image\images\Level\RoomUser4.png" />
+    <Content Include="Image\images\Level\User1.gif" />
+    <Content Include="Image\images\Level\User1.png" />
+    <Content Include="Image\images\Level\User2.gif" />
+    <Content Include="Image\images\Level\User2.png" />
+    <Content Include="Image\images\Level\User3.gif" />
+    <Content Include="Image\images\Level\User3.png" />
+    <Content Include="Image\images\Level\Vip1.gif" />
+    <Content Include="Image\images\Level\Vip1.png" />
+    <Content Include="Image\images\Level\Vip2.gif" />
+    <Content Include="Image\images\Level\Vip2.png" />
+    <Content Include="Image\images\Level\Vip3.gif" />
+    <Content Include="Image\images\Level\Vip3.png" />
+    <Content Include="Image\images\Level\Vip4.gif" />
+    <Content Include="Image\images\Level\Vip4.png" />
+    <Content Include="Image\images\Level\Vip5.gif" />
+    <Content Include="Image\images\Level\Vip5.png" />
+    <Content Include="Image\images\Level\Vip6.gif" />
+    <Content Include="Image\images\Level\Vip6.png" />
+    <Content Include="Image\images\login\mtftu.png" />
+    <Content Include="Image\images\login\uname.png" />
+    <Content Include="Image\images\login\upd.png" />
+    <Content Include="Image\images\login\view.png" />
+    <Content Include="Image\images\login\yellow.png" />
+    <Content Include="Image\images\Mesbg.png" />
+    <Content Include="Image\images\modal_bg.png" />
+    <Content Include="Image\images\moreadd.jpg" />
+    <Content Include="Image\images\moreadd.png" />
+    <Content Include="Image\images\pic01.png" />
+    <Content Include="Image\images\pic02.png" />
+    <Content Include="Image\images\pic03.png" />
+    <Content Include="Image\images\pic04.png" />
+    <Content Include="Image\images\plus.png" />
+    <Content Include="Image\images\pub_notice.png" />
+    <Content Include="Image\images\q.png" />
+    <Content Include="Image\images\qlogin_left.png" />
+    <Content Include="Image\images\qq_more.png" />
+    <Content Include="Image\images\qq_more_less.png" />
+    <Content Include="Image\images\qq_more_plus.png" />
+    <Content Include="Image\images\qrcode.png" />
+    <Content Include="Image\images\refresh.png" />
+    <Content Include="Image\images\RegisterFunction.png" />
+    <Content Include="Image\images\set_themeblue.png" />
+    <Content Include="Image\images\set_themecheradio.png" />
+    <Content Include="Image\images\set_themegreen.png" />
+    <Content Include="Image\images\set_themeradio.png" />
+    <Content Include="Image\images\SingleService\bg.jpg" />
+    <Content Include="Image\images\SingleService\jd_qq2.png" />
+    <Content Include="Image\images\SingleService\pic1.jpg" />
+    <Content Include="Image\images\SingleService\pic2.jpg" />
+    <Content Include="Image\images\SingleService\pic3.jpg" />
+    <Content Include="Image\images\SingleService\pic4.jpg" />
+    <Content Include="Image\images\smile.png" />
+    <Content Include="Image\images\theme\backgroundblack.jpg" />
+    <Content Include="Image\images\theme\backgroundchenshi.jpg" />
+    <Content Include="Image\images\theme\backgroundclassicalOne.jpg" />
+    <Content Include="Image\images\theme\backgroundgray.jpg" />
+    <Content Include="Image\images\theme\backgroundorange.jpg" />
+    <Content Include="Image\images\theme\backgroundred.jpg" />
+    <Content Include="Image\images\theme\backgroundwhite.jpg" />
+    <Content Include="Image\images\theme\guse1.jpg" />
+    <Content Include="Image\images\theme\guse.jpg" />
+    <Content Include="Image\images\tmbg.png" />
+    <Content Include="Image\images\uc_home.png" />
+    <Content Include="Image\images\uparrow.png" />
+    <Content Include="Image\images\upload.png" />
+    <Content Include="Image\images\uploadify-cancel.png" />
+    <Content Include="Image\images\uploadpic.png" />
+    <Content Include="Image\images\up_arrow.png" />
+    <Content Include="Image\images\up_arrow_black.png" />
+    <Content Include="Image\images\Vote_Bg.png" />
+    <Content Include="Image\images\wenxts.jpg" />
+    <Content Include="Image\images\yccode.jpg" />
+    <Content Include="Image\images\yccode1.jpg" />
+    <Content Include="Image\images\zjwx.png" />
+    <Content Include="Image\images\_BlackBg.png" />
+    <Content Include="Image\javaie_images\2850730073.png" />
+    <Content Include="Image\javaie_images\2851175914.png" />
+    <Content Include="Image\javaie_images\2851175915.png" />
+    <Content Include="Image\javaie_images\2851175916.png" />
+    <Content Include="Image\javaie_images\2851175917.png" />
+    <Content Include="Image\javaie_images\2851175918.png" />
+    <Content Include="Image\javaie_images\2880800519.png" />
+    <Content Include="Image\javaie_images\2880800526.png" />
+    <Content Include="Image\javaie_images\2880820216.png" />
+    <Content Include="Image\javaie_images\2880920201.png" />
+    <Content Include="Image\javaie_images\2880986722.png" />
+    <Content Include="Image\javaie_images\aboutzbs_bg.png" />
+    <Content Include="Image\javaie_images\banner.png" />
+    <Content Include="Image\javaie_images\bg_banner.jpg" />
+    <Content Include="Image\javaie_images\bg_cp.jpg" />
+    <Content Include="Image\javaie_images\cp.jpg" />
+    <Content Include="Image\javaie_images\djs.png" />
+    <Content Include="Image\javaie_images\down_btn.png" />
+    <Content Include="Image\javaie_images\dsjsp.png" />
+    <Content Include="Image\javaie_images\logo.png" />
+    <Content Include="Image\javaie_images\newxiazai.png" />
+    <Content Include="Image\javaie_images\online_bg.png" />
+    <Content Include="Image\javaie_images\pro_down.png" />
+    <Content Include="Image\javaie_images\pro_left.png" />
+    <Content Include="Image\javaie_images\qq_online_trigger.png" />
+    <Content Include="Image\javaie_images\rczbs.jpg" />
+    <Content Include="Image\javaie_images\tips_bg.png" />
+    <Content Include="Image\javaie_images\title_bg_b.png" />
+    <Content Include="Image\javaie_images\top_bg.png" />
+    <Content Include="Image\javaie_images\ts1.png" />
+    <Content Include="Image\javaie_images\ts2.png" />
+    <Content Include="Image\javaie_images\ts3.png" />
+    <Content Include="Image\javaie_images\ts4.png" />
+    <Content Include="Image\javaie_images\weixin.jpg" />
+    <Content Include="Image\TincyUpload\九鼎在线.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150907172945.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150907173050.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150907173315.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908103703.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908103742.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908103904.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908104005.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908104040.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908104119.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908132915.png" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133231.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133245.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133311.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133438.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133901.png" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133920.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908133951.png" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134007.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134014.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134031.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134042.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134116.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134127.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134249.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134327.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134448.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134703.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134722.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134758.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908134820.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150908135108.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150914114529.jpg" />
+    <Content Include="Image\uploadfiles\adminicon\20150914114800.jpg" />
+    <Content Include="Image\uploadfiles\qq\2850730050.png" />
+    <Content Include="Image\uploadfiles\qq\2850730052.png" />
+    <Content Include="Image\uploadfiles\qq\2850730053.png" />
+    <Content Include="Image\uploadfiles\qq\2850730054.png" />
+    <Content Include="Image\uploadfiles\qq\2850730055.png" />
+    <Content Include="Image\uploadfiles\qq\2850730057.png" />
+    <Content Include="Image\uploadfiles\qq\2850730058.png" />
+    <Content Include="Image\uploadfiles\qq\2850730059.png" />
+    <Content Include="Image\uploadfiles\qq\2850730060.png" />
+    <Content Include="Image\uploadfiles\qq\2850730063.png" />
+    <Content Include="Image\uploadfiles\qq\2850730065.png" />
+    <Content Include="Image\uploadfiles\qq\2850730067.png" />
+    <Content Include="Image\uploadfiles\qq\2850730068.png" />
+    <Content Include="Image\uploadfiles\qq\2850730069.png" />
+    <Content Include="Image\uploadfiles\qq\2850730070.png" />
+    <Content Include="Image\uploadfiles\qq\2850730071.png" />
+    <Content Include="Image\uploadfiles\qq\2850730072.png" />
+    <Content Include="Image\uploadfiles\qq\qq.png" />
+    <Content Include="Image\YouBiKaIntroduces\1%286%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp1%281%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp1%282%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp1%283%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp1.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2%281%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015110201.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015110202.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015110301.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015110302.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015110303.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015110304.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015122901.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015122902.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2015122903.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp2016010401.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp3.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp4%282%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp5.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp6%281%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\cp7%281%29.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\ef.jpg" />
+    <Content Include="Image\YouBiKaIntroduces\youbika.jpg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\LiveTv\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\LiveTv\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\LiveTv\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Loger\AreasLogerIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Loger\UserLogerIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\EditIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout_Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LeftMenuPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SysChatMsg\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SysConfig\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SysConfig\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysConfig\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\PermissionCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\PermissionEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\PermissionIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RoleCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RoleEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RoleIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RolePermissionCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RolePermissionEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RolePermissionIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RoleUserEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\RoleUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\SysDictionarieCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\SysDictionarieEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\SysDictionarieIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\TvClassScheduleCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\TVClassScheduleEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysSetting\TVClassScheduleIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInfo\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInfo\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SystemInfo\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SysTVColumn\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SysTVColumn\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SysTVColumn\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\AddUserKey.cshtml" />
+    <Content Include="Areas\Admin\Views\User\BlackList.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditUserAddress.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditUserKey.cshtml" />
+    <Content Include="Areas\Admin\Views\User\EditUserRole.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserAddress.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserKeys.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\User\BatchTransfer.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserRelationAssistantCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserRelationAssistantEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserRelationAssistantIndex.cshtml" />
+    <Content Include="Areas\Admin\Views\User\AddUserInfo.cshtml" />
+    <None Include="bin\Online.Web.dll.config" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <None Include="Properties\PublishProfiles\MinTaiFu.pubxml" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\chance.js" />
+    <Content Include="Scripts\daterangepicker\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\daterangepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\daterangepicker\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Scripts\IE7.js" />
+    <Content Include="Scripts\IE8.js" />
+    <Content Include="Scripts\IE9.js" />
+    <Content Include="Scripts\respond.src.js" />
+    <Content Include="Scripts\scroll.js" />
+    <Content Include="Scripts\tinymce\langs\zh_CN.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\css\prism.css" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\css\dialog.css" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\buttons.png" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\icons.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\items.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_arrow.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_check.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\progress.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\tabs.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\editable_selects.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\form_utils.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\mctabs.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\validate.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example\dialog.html" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\media\moxieplayer.swf" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\animated-overlay.gif" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\jquery-ui-1.10.4.custom.css" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\main.css" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\css\main.min.css" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\dev.html" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\action-folder-paste.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\action-folder-rename.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\arrow_down.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\arrow_up.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\blank.gif" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\copy.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\cut.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\dir-minus.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\dir-plus.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\file-add.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\file-delete.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\file-download.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\file-duplicate.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\file-upload.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_3gp.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_7z.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ace.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ai.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_aif.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_aiff.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_amr.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_asf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_asx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_bat.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_bin.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_bmp.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_bup.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_cab.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_cbr.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_cda.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_cdl.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_cdr.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_chm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_dat.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_divx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_dll.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_dmg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_doc.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_dss.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_dvf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_dwg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_eml.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_eps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_exe.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_fla.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_flv.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_gif.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_gz.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_hqx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_htm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_html.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ifo.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_indd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_iso.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_jar.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_jpeg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_jpg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_lnk.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_log.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_m4a.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_m4b.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_m4p.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_m4v.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mcd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mdb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mid.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mov.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mp2.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mp3.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mp4.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mpeg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mpg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_msi.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_mswmm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ogg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_pdf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_png.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_pps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_psd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_pst.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ptb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_pub.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_qbb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_qbw.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_qxd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ram.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_rar.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_rm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_rmvb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_rtf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_sea.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ses.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_sit.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_sitx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ss.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_swf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_tgz.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_thm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_tif.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_tmp.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_torrent.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_ttf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_txt.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_vcd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_vob.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_wav.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_wma.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_wmv.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_wps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_xls.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_xpi.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\file_extension_zip.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\big\unknown.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_3gp.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_7z.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ace.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ai.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_aif.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_aiff.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_amr.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_asf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_asx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_bat.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_bin.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_bmp.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_bup.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_cab.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_cbr.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_cda.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_cdl.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_cdr.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_chm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_dat.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_divx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_dll.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_dmg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_doc.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_dss.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_dvf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_dwg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_eml.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_eps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_exe.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_fla.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_flv.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_gif.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_gz.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_hqx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_htm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_html.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ifo.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_indd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_iso.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_jar.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_jpeg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_jpg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_lnk.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_log.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_m4a.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_m4b.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_m4p.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_m4v.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mcd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mdb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mid.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mov.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mp2.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mp3.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mp4.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mpeg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mpg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_msi.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_mswmm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ogg.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_pdf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_png.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_pps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_psd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_pst.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ptb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_pub.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_qbb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_qbw.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_qxd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ram.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_rar.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_rm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_rmvb.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_rtf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_sea.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ses.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_sit.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_sitx.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ss.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_swf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_tgz.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_thm.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_tif.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_tmp.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_torrent.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_ttf.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_txt.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_vcd.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_vob.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_wav.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_wma.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_wmv.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_wps.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_xls.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_xpi.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\file_extension_zip.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\filetypes\unknown.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\find.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\folder-add.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\folder-delete.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\folder-download.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\folder-green.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\folder-opened.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\folder.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\loading-dir.gif" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\loading.gif" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\paste.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\preview.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\remove-upload - Copy.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\remove-upload.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\rename.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\search.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\select.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\sprite.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\stripes-reverse.gif" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\stripes.gif" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\upload-big.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\view-list.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\images\view-tile.png" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\index.html" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\custom.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\directory.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\file.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\filetypes.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\jquery-1.11.1.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\jquery-dateFormat.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\main.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\main.min.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\mini-main.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\js\utils.js" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\LICENSE.txt" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\third-party.txt" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\Images\DSC_2987.jpg" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\Images\DSC_5744.jpg" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\LICENSE.txt" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\roxy-fileman-logo.gif" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\address.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\article.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\aside.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\blockquote.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\div.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\dl.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\figure.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h1.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h2.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h3.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h4.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h5.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h6.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\hgroup.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ol.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\p.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\pre.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\section.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ul.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Scripts\tinymce\tinymce.js" />
+    <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\Web\chat-client.js" />
+    <Content Include="Scripts\global.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\jquery-ui-1.11.4.js" />
+    <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.danmu.js" />
+    <Content Include="Scripts\jquery.fancybox-buttons.js" />
+    <Content Include="Scripts\jquery.fancybox-media.js" />
+    <Content Include="Scripts\jquery.fancybox-thumbs.js" />
+    <Content Include="Scripts\jquery.fancybox.js" />
+    <Content Include="Scripts\jquery.fancybox.pack.js" />
+    <Content Include="Scripts\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
+    <Content Include="Scripts\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-angular.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-audio.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-image.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-jquery-ui.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-process.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-ui.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-validate.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload-video.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload.js" />
+    <Content Include="Scripts\jQuery.FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Scripts\jquery.mousewheel-3.0.6.pack.js" />
+    <Content Include="Scripts\jquery.poshytip.js" />
+    <Content Include="Scripts\jquery.tooltipster.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jqueryui_11.4\Datepicker.js" />
+    <Content Include="Scripts\jqueryui_11.4\jquery-ui.css" />
+    <Content Include="Scripts\jqueryui_11.4\jquery-ui.js" />
+    <Content Include="Scripts\jsAddress.js" />
+    <Content Include="Scripts\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\knockout.validation.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\MSClass.js" />
+    <Content Include="Scripts\nanoscroller\default.css" />
+    <Content Include="Scripts\nanoscroller\IE9.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\nanoscroller\jquery.mousewheel.min.js" />
+    <Content Include="Scripts\nanoscroller\jquery.nanoscroller.js" />
+    <Content Include="Scripts\nanoscroller\nanoscroller.css" />
+    <Content Include="Scripts\nanoscroller\normalize.css" />
+    <Content Include="Scripts\nanoscroller\overthrow.min.js" />
+    <Content Include="Scripts\qqface\emoji\1.gif" />
+    <Content Include="Scripts\qqface\emoji\10.gif" />
+    <Content Include="Scripts\qqface\emoji\11.gif" />
+    <Content Include="Scripts\qqface\emoji\12.gif" />
+    <Content Include="Scripts\qqface\emoji\13.gif" />
+    <Content Include="Scripts\qqface\emoji\14.gif" />
+    <Content Include="Scripts\qqface\emoji\15.gif" />
+    <Content Include="Scripts\qqface\emoji\16.gif" />
+    <Content Include="Scripts\qqface\emoji\17.gif" />
+    <Content Include="Scripts\qqface\emoji\18.gif" />
+    <Content Include="Scripts\qqface\emoji\19.gif" />
+    <Content Include="Scripts\qqface\emoji\2.gif" />
+    <Content Include="Scripts\qqface\emoji\20.gif" />
+    <Content Include="Scripts\qqface\emoji\21.gif" />
+    <Content Include="Scripts\qqface\emoji\22.gif" />
+    <Content Include="Scripts\qqface\emoji\23.gif" />
+    <Content Include="Scripts\qqface\emoji\24.gif" />
+    <Content Include="Scripts\qqface\emoji\25.gif" />
+    <Content Include="Scripts\qqface\emoji\26.gif" />
+    <Content Include="Scripts\qqface\emoji\27.gif" />
+    <Content Include="Scripts\qqface\emoji\28.gif" />
+    <Content Include="Scripts\qqface\emoji\29.gif" />
+    <Content Include="Scripts\qqface\emoji\3.gif" />
+    <Content Include="Scripts\qqface\emoji\30.gif" />
+    <Content Include="Scripts\qqface\emoji\31.gif" />
+    <Content Include="Scripts\qqface\emoji\32.gif" />
+    <Content Include="Scripts\qqface\emoji\33.gif" />
+    <Content Include="Scripts\qqface\emoji\34.gif" />
+    <Content Include="Scripts\qqface\emoji\35.gif" />
+    <Content Include="Scripts\qqface\emoji\36.gif" />
+    <Content Include="Scripts\qqface\emoji\37.gif" />
+    <Content Include="Scripts\qqface\emoji\38.gif" />
+    <Content Include="Scripts\qqface\emoji\39.gif" />
+    <Content Include="Scripts\qqface\emoji\4.gif" />
+    <Content Include="Scripts\qqface\emoji\40.gif" />
+    <Content Include="Scripts\qqface\emoji\41.gif" />
+    <Content Include="Scripts\qqface\emoji\42.gif" />
+    <Content Include="Scripts\qqface\emoji\43.gif" />
+    <Content Include="Scripts\qqface\emoji\44.gif" />
+    <Content Include="Scripts\qqface\emoji\45.gif" />
+    <Content Include="Scripts\qqface\emoji\46.gif" />
+    <Content Include="Scripts\qqface\emoji\47.gif" />
+    <Content Include="Scripts\qqface\emoji\48.gif" />
+    <Content Include="Scripts\qqface\emoji\49.gif" />
+    <Content Include="Scripts\qqface\emoji\5.gif" />
+    <Content Include="Scripts\qqface\emoji\50.gif" />
+    <Content Include="Scripts\qqface\emoji\51.gif" />
+    <Content Include="Scripts\qqface\emoji\52.gif" />
+    <Content Include="Scripts\qqface\emoji\53.gif" />
+    <Content Include="Scripts\qqface\emoji\54.gif" />
+    <Content Include="Scripts\qqface\emoji\55.gif" />
+    <Content Include="Scripts\qqface\emoji\56.gif" />
+    <Content Include="Scripts\qqface\emoji\57.gif" />
+    <Content Include="Scripts\qqface\emoji\58.gif" />
+    <Content Include="Scripts\qqface\emoji\59.gif" />
+    <Content Include="Scripts\qqface\emoji\6.gif" />
+    <Content Include="Scripts\qqface\emoji\60.gif" />
+    <Content Include="Scripts\qqface\emoji\61.gif" />
+    <Content Include="Scripts\qqface\emoji\62.gif" />
+    <Content Include="Scripts\qqface\emoji\63.gif" />
+    <Content Include="Scripts\qqface\emoji\64.gif" />
+    <Content Include="Scripts\qqface\emoji\65.gif" />
+    <Content Include="Scripts\qqface\emoji\66.gif" />
+    <Content Include="Scripts\qqface\emoji\67.gif" />
+    <Content Include="Scripts\qqface\emoji\68.gif" />
+    <Content Include="Scripts\qqface\emoji\69.gif" />
+    <Content Include="Scripts\qqface\emoji\7.gif" />
+    <Content Include="Scripts\qqface\emoji\70.gif" />
+    <Content Include="Scripts\qqface\emoji\71.gif" />
+    <Content Include="Scripts\qqface\emoji\72.gif" />
+    <Content Include="Scripts\qqface\emoji\73.gif" />
+    <Content Include="Scripts\qqface\emoji\74.gif" />
+    <Content Include="Scripts\qqface\emoji\75.gif" />
+    <Content Include="Scripts\qqface\emoji\8.gif" />
+    <Content Include="Scripts\qqface\emoji\9.gif" />
+    <Content Include="Scripts\qqface\icon.gif" />
+    <Content Include="Scripts\qqface\index.html" />
+    <Content Include="Scripts\qqface\jquery.qqFace.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\socket.io-client\index.js" />
+    <Content Include="Scripts\socket.io-client\lib\index.js" />
+    <Content Include="Scripts\socket.io-client\lib\manager.js" />
+    <Content Include="Scripts\socket.io-client\lib\on.js" />
+    <Content Include="Scripts\socket.io-client\lib\socket.js" />
+    <Content Include="Scripts\socket.io-client\lib\url.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\test\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\debug\debug.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\debug\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\debug\lib\debug.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\engine.io.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\socket.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\transport.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\transports\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\transports\polling-jsonp.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\transports\polling-xhr.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\transports\polling.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\transports\websocket.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\lib\xmlhttprequest.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\test\inherit.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\browser.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\debug.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\node.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\node_modules\ms\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\lib\browser.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\lib\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\lib\keys.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\test\after-test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\test\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\Gruntfile.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\LICENSE-GPL.txt" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\LICENSE-MIT.txt" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\tests\index.html" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\tests\tests.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\utf8.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\x.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\test\index.html" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\test\mocha.css" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\test\mocha.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\test\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\example.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\example.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\example.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\bench\parser.benchmark.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\bench\sender.benchmark.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\bench\speed.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\bench\util.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\fileapi\public\app.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\fileapi\public\index.html" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\fileapi\public\uploader.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\fileapi\server.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\serverstats-express_3\server.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\serverstats\server.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\ssl.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\browser.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\BufferPool.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\BufferUtil.fallback.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\BufferUtil.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\ErrorCodes.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\Receiver.hixie.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\Receiver.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\Sender.hixie.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\Sender.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\Validation.fallback.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\Validation.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\WebSocket.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\lib\WebSocketServer.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\lib\commander.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\nan\.index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\nan\nan.h" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\options\lib\options.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\tinycolor\example.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\tinycolor\tinycolor.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\autobahn-server.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\autobahn.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\BufferPool.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\hybi-common.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\Receiver.hixie.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\Receiver.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\Sender.hixie.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\Sender.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\testserver.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\Validation.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\WebSocket.integration.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\WebSocket.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\WebSocketServer.test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\example\demo.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\lib\XMLHttpRequest.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-constants.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-events.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-exceptions.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-headers.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-redirect-302.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-redirect-303.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-redirect-307.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-request-methods.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\test-request-protocols.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\tests\testdata.txt" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\node_modules\isarray\build\build.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\node_modules\isarray\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\indexof\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\test\object.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\example.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\node_modules\callsite\index.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\test.js" />
+    <Content Include="Scripts\socket.io-client\node_modules\to-array\index.js" />
+    <Content Include="Scripts\socket.io-client\socket.io.js" />
+    <Content Include="Scripts\userCenter.js" />
+    <Content Include="Scripts\Web\HomeIndex.js" />
+    <Content Include="Scripts\Web\qqkfFloat.js" />
+    <Content Include="Scripts\Web\settingHelper.js" />
+    <Content Include="Scripts\Web\VoteIndex.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Scripts\socket.io-client\History.md" />
+    <Content Include="Scripts\socket.io-client\LICENSE" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\backo2\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-bind\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\bower.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\component-emitter\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\debug\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\debug\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\.zuul.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\component-inherit\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\.jshintrc" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\node_modules\ms\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\node_modules\ms\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\node_modules\ms\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\debug\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\.zuul.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\LICENSE" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\LICENCE" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\after\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\.zuul.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\blob\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\LICENSE" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\has-binary\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\.gitattributes" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\bower.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\node_modules\global\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\has-cors\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\node_modules\better-assert\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parsejson\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\node_modules\better-assert\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseqs\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\node_modules\better-assert\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\parseuri\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\binding.gyp" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\builderror.log" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\fileapi\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\fileapi\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\serverstats-express_3\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\serverstats\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\.travis.yml" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\commander\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\nan\LICENSE" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\nan\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\nan\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\options\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\options\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\options\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\options\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\tinycolor\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\tinycolor\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\node_modules\tinycolor\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\autotest.watchr" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\LICENSE" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\xmlhttprequest\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\engine.io-client\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\LICENSE" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\node_modules\isarray\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\node_modules\isarray\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\node_modules\isarray\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\has-binary\README.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\indexof\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\indexof\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\indexof\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\indexof\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\indexof\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\component.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\object-component\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\node_modules\callsite\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\node_modules\callsite\History.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\node_modules\callsite\Makefile" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\node_modules\callsite\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\node_modules\callsite\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\node_modules\better-assert\Readme.md" />
+    <Content Include="Scripts\socket.io-client\node_modules\parseuri\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\to-array\.npmignore" />
+    <Content Include="Scripts\socket.io-client\node_modules\to-array\LICENCE" />
+    <Content Include="Scripts\socket.io-client\node_modules\to-array\package.json" />
+    <Content Include="Scripts\socket.io-client\node_modules\to-array\README.md" />
+    <Content Include="Scripts\socket.io-client\package.json" />
+    <Content Include="Scripts\socket.io-client\README.md" />
+    <Content Include="Views\Shared\_LiveLayout.cshtml" />
+    <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Vote\Index.cshtml" />
+    <Content Include="Views\Home\UserVote.cshtml" />
+    <Content Include="Views\Shared\_LeftMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_UserCenterLayout.cshtml" />
+    <Content Include="Views\Account\VerifyTel.cshtml" />
+    <Content Include="Views\Account\VerifyTelSuccess.cshtml" />
+    <Content Include="Views\Account\_VerifyTelSuccess.cshtml" />
+    <Content Include="Views\Account\VerifyEmail.cshtml" />
+    <Content Include="Views\Account\_VerifyEmailSuccess.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\UserAddress.cshtml" />
+    <Content Include="Views\Account\UserBase.cshtml" />
+    <Content Include="Views\Account\UserTags.cshtml" />
+    <Content Include="Views\Home\Announcement.cshtml" />
+    <Content Include="Views\Home\ImageManage.cshtml" />
+    <Content Include="Views\Home\Playfigure.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Home\WebIndex.cshtml" />
+    <Content Include="Views\Home\Invalid.cshtml" />
+    <Content Include="Views\Home\UploadSchedule.cshtml" />
+    <Content Include="Views\Home\ShowScheduleImg.cshtml" />
+    <Content Include="Views\Home\Download.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Shared\_YouBiKaIntroducesLayout.cshtml" />
+    <Content Include="Views\Shared\_YouBiKaLeftMenu.cshtml" />
+    <Content Include="Views\YouBiKaIntroduces\Coin.cshtml" />
+    <Content Include="Views\YouBiKaIntroduces\Currency.cshtml" />
+    <Content Include="Views\YouBiKaIntroduces\GoldCoin.cshtml" />
+    <Content Include="Views\YouBiKaIntroduces\PostageStamp.cshtml" />
+    <Content Include="Views\YouBiKaIntroduces\Stamp.cshtml" />
+    <Content Include="Views\YouBiKaIntroduces\YouBiKa.cshtml" />
+    <Content Include="Views\Home\_Chat.cshtml" />
+    <Content Include="Views\Home\_PopUp.cshtml" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\asp_net\main.ashx" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\conf.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\bg.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\cs.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\cs1.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\de.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\en.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\es.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\fr.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\hu.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\it.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\pl.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\lang\zh_CN.json" />
+    <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\web.config" />
+    <Content Include="Views\Home\ColumnDetail.cshtml" />
+    <Content Include="Views\Home\SingleService.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="bin\zh-Hans\" />
+    <Folder Include="Download\" />
+    <Folder Include="Image\images\uploadfiles\msgs\" />
+    <Folder Include="Image\uploadfiles\msgs\" />
+    <Folder Include="Image\uploadfiles\users\" />
+    <Folder Include="Scripts\jqueryui_11.4\images\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\.bin\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\engine.io-parser\node_modules\utf8\coverage\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\bin\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\doc\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\serverstats-express_3\public\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\examples\serverstats\public\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\src\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\engine.io-client\node_modules\ws\test\fixtures\" />
+    <Folder Include="Scripts\socket.io-client\node_modules\has-binary\fixtures\" />
+    <Folder Include="Scripts\tinymce\plugins\Roxy_Fileman\tmp\" />
+    <Folder Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\Documents\" />
+    <Folder Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\FLV\" />
+    <Folder Include="Views\Api\" />
+    <Folder Include="Views\tyle\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Online.DatabaseHelper\Online.DbHelper.csproj">
+      <Project>{9cf403c4-b329-4617-8aa7-d6b832977c35}</Project>
+      <Name>Online.DbHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>14917</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:14929/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此项目引用这台计算机上缺少的 NuGet 程序包。使用 NuGet 程序包还原可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

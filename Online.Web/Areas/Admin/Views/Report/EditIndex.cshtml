@@ -1,0 +1,58 @@
+﻿@model List<Online.DbHelper.Model.UserRoles>
+@{
+    ViewBag.Title = "EditIndex";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+
+<div class="modal-content">
+    @using (Html.BeginForm("EdidIndexSave", "Report", FormMethod.Post))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">角色编辑</h4>
+        </div>
+        <div class="modal-body">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model[0].AutoId)
+                @{var UserId = Model[0].UserId;}
+                @Html.Hidden("UserId", UserId.ToString())
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">用户名：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(t => t[0].Users.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">密码：</label>
+                    <div class="col-md-8">
+                        @Html.Password("Password", "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">
+                    <label class="col-md-2 control-label">角色：</label>
+                    <div class="col-md-10">
+                        @foreach (Online.DbHelper.Model.Roles item in ViewBag.roleList)
+                        {
+                            if (Model.Any(x => x.RoleId == item.RoleID))
+                            {
+                                <input type="checkbox" checked="checked" name="roles" id="roles" value="@item.RoleID">@item.RoleName
+
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="@item.RoleID" name="roles" id="roles" value="@item.RoleID">@item.RoleName
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" id="editSave">保存</button>
+        </div>
+                    }
+</div>

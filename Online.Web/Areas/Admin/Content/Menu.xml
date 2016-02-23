@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Runtor.CRM>
+  <menus name="直播室" Icon="glyphicon glyphicon-expand" id="LiveTv">
+    <menu name="房间管理" url="/Admin/LiveTv/Index"></menu>
+    <menu name="房间配置" url="/Admin/SysConfig/Index"></menu>
+    <menu name="栏目管理" url="/Admin/SysTvColumn/Index"></menu>
+    <menu name="房间消息管理" url="/Admin/SystemInfo/Index"></menu>
+    <menu name="聊天信息管理" url="/Admin/SysChatMsg/Index"></menu>
+  </menus>
+  <menus name="用户管理" Icon="glyphicon glyphicon-user" id="Users">
+    <menu name="用户管理" url="/Admin/User/UserIndex"></menu>
+    <menu name="黑名单管理" url="/Admin/User/BlackList"></menu>
+    <menu name="用户字典管理" url="/Admin/User/UserKeys"></menu>
+    <menu name="用户地址管理" url="/Admin/User/UserAddress"></menu>
+  </menus>
+  <menus name="日志管理" Icon="glyphicon glyphicon-list-alt" id="Logger">
+    <menu name="用户日志管理" url="/Admin/Loger/UserLogerIndex"></menu>
+    <menu name="后台操作日志" url="/Admin/Loger/AreasLogerIndex"></menu>
+  </menus>
+  <menus name="报表管理" Icon="glyphicon glyphicon-file" id="Report">
+    <menu name="每日注册量" url="/Admin/Report/Index"></menu>
+  </menus>
+  <menus name="系统管理" Icon="glyphicon glyphicon-cog" id="SysSetting">
+    <menu name="角色管理" url="/Admin/SysSetting/RoleIndex"></menu>
+    <menu name="权限管理" url="/Admin/SysSetting/PermissionIndex"></menu>
+    <menu name="角色权限管理" url="/Admin/SysSetting/RolePermissionIndex"></menu>
+    <menu name="系统字典管理" url="/Admin/SysSetting/SysDictionarieIndex"></menu>
+    <menu name="课程安排管理" url="/Admin/SysSetting/TVClassScheduleIndex"></menu>
+  </menus>
+</Runtor.CRM>

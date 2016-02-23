@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "房间管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@model IEnumerable<Online.DbHelper.Model.LiveRooms>
+<h2>房间列表</h2>
+<a role="button" href="/Admin/LiveTv/Create" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+        <tr>
+            <th style="width: 30px;">UID</th>
+            <th>直播室名称</th>
+            <th>房间类型</th>
+            <th>是否为主房间</th>
+            <th>是否启用</th>
+            <th>创建人</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RoomID</td>
+                <td>@item.RoomName</td>
+                <td>@(item.RType == 0 ? "普通房间" : "VIP房间")</td>
+                <td>@(item.IsMainRoom ? "是" : "否")</td>
+                <td>@(item.BizStatus == 1 ? "是" : "否")</td>
+                <td>@item.CreateUser</td>
+                <td>@item.CreateTime</td>
+                <td>
+                    <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/LiveTv/Edit?id=@item.RoomID" id="Edit" role="button">
+                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                    </a>
+                    <a class="btn btn-danger delcss" role="button" data-id="@item.RoomID">
+                        <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @*<div>
+        @Html.Partial("PageBar", ViewBag.PageInfo as PageInfoModel)
+    </div>*@
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function() {
+        ShowMenu("LiveTv");
+        Active('LiveTv', 0);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+        $(".info .table .delcss").click(function () {
+            if (confirm("是否删除此直播室？")) {
+                var id = $(this).data("id");
+                $.post("/Admin/LiveTv/Delete", { id: id }).done(function (data) {
+                    if (data) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    })
+</script>

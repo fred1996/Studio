@@ -1,0 +1,208 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <link href="~/Content/base.css" rel="stylesheet" />
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.fancybox.pack.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script>
+        $(function () {
+            $.post("/Home/GetAnnouncement", {}, function (data) {
+                var html = new StringBuilder();
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        html.Append("<tr>");
+                        html.Append("<td style='width:25%'>");
+                        html.Append(item.InfoTitle);
+                        html.Append("</td>");
+                        html.Append("<td style='width:25%' title=" + item.InfoContent + ">");
+                        var content = item.InfoContent;
+                        if (item.InfoContent.length > 20) {
+                            content = item.InfoContent.substring(0, 10);
+                        }
+                        html.Append(content);
+                        html.Append("</td>");
+                        html.Append("<td style='width:25%'>");
+                        html.Append(item.SourceLink);
+                        html.Append("</td>");
+                        html.Append("<td style='width:25%'>");
+                        html.Append("<a class='btnnoticeDelete' sid=" + item.SysInfoID + ">删除</a><a class='pLeft20 noticeedit' nid=" + item.SysInfoID + " title='" + item.InfoTitle + "' desc=" + item.InfoContent + " link='" + item.SourceLink + "'>编辑</a><a class='pLeft20 clearnoticeedit hidden'>取消编辑</a>");
+                        html.Append("</td>");
+                        html.Append("</tr>");
+                    }
+                    $(".notice tbody").empty().append(html.toString());
+                    $(".btnnoticeDelete").bind("click", function () {
+                        if (confirm("是否确认删除？")) {
+                            var id = $(this).attr("sid");
+                            var obj = $(this).parents("tr");
+                            $.post("/Home/DelAnnouncement", { sid: id }, function (data) {
+                                if (data) {
+                                    alert("删除成功");
+                                    $(obj).remove();
+                                } else {
+                                    alert("删除失败");
+                                }
+                            });
+                        }
+                    });
+                    $(".noticeedit").bind("click", function () {
+                        var $obj = $(this).parents("tr");
+                        $(".clearnoticeedit", $obj).removeClass("hidden");
+                        $(this).addClass("hidden");
+                        $("#title").val($(this).attr("title"));
+                        $("#desccontent").val($(this).attr("desc"));
+                        $("#sourceurl").val($(this).attr("link"));
+                        $("#btnNotice").attr("nid", $(this).attr("nid"));
+                    });
+                    $(".clearnoticeedit").bind("click", function () {
+                        var $obj = $(this).parents("tr");
+                        $(".noticeedit", $obj).removeClass("hidden");
+                        $(this).addClass("hidden");
+                        $("#title").val('');
+                        $("#desccontent").val('');
+                        $("#sourceurl").val('');
+                        $("#btnNotice").removeAttr("nid");
+                    });
+                }
+            });
+            $("#btnNotice").click(function () {
+                var title = $("#title").val();
+                if (title.length <= 0) {
+                    alert("请输入标题");
+                    return false;
+                }
+                var desc = $("#desccontent").val();
+                if (desc.length <= 0) {
+                    alert("请输入描述");
+                    return false;
+                }
+                var url = $("#sourceurl").val();
+                if (url.length <= 0) {
+                    alert("请输入链接");
+                    return false;
+                }
+                if ($("#btnNotice").attr("nid") != undefined) {
+                    $.post("/Home/SetAnnouncement", { nid: $("#btnNotice").attr("nid"), title: title, content: desc, link: url }, function (data) {
+                        if (data) {
+                            alert("修改成功");
+                            window.location.reload();
+                        } else {
+                            alert("修改失败");
+                        }
+                    });
+                } else {
+                    $.post("/Home/AddAnnouncement", { title: title, content: desc, link: url }, function (data) {
+                        if (data) {
+                            var html = new StringBuilder();
+                            html.Append("<tr>");
+                            html.Append("<td>");
+                            html.Append(title);
+                            html.Append("</td>");
+                            html.Append("<td>");
+                            html.Append(desc);
+                            html.Append("</td>");
+                            html.Append("<td>");
+                            html.Append(url);
+                            html.Append("</td>");
+                            html.Append("<td>");
+                            html.Append("请先刷新！");
+                            html.Append("</td>");
+                            html.Append("</tr>");
+                            $(".notice tbody").append(html.toString());
+                            $("#desccontent").val("");
+                            $("#desccontent").val("");
+                            $("#desccontent").val("");
+                            alert("添加成功");
+                        } else {
+                            alert("添加失败");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <style>
+        a {
+            cursor: pointer;
+        }
+
+        body {
+            color: #000000;
+        }
+
+        table thead td {
+            line-height: 40px;
+        }
+
+        input[type=text] {
+            border: 1px solid #DFDFDF;
+            padding: 5px;
+            width: 300px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            margin-bottom: 5px;
+            height: 25px;
+            color: #000;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            text-align: center;
+            vertical-align: middle;
+            margin-left: 10px;
+            background-color: #00b1ff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: 0px;
+            margin-left: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mBottom20">
+        <table class="notice" style="width:100%;">
+            <thead>
+                <tr>
+                    <td>标题</td>
+                    <td>描述</td>
+                    <td>链接</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>本直播室交易观点</td>
+                    <td>本直播室交易观点</td>
+                    <td>本直播室交易观点</td>
+                    <td>本直播室交易观点</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="background-color:#F0F0F0;" class="pAll20">
+        <div>标题：<input type="text" class="mLeft20" id="title" /></div>
+        <div>描述：<input type="text" class="mLeft20" id="desccontent" /></div>
+        <div>链接：<input type="text" class="mLeft20" id="sourceurl" /> （如：http://www.yyyzhiboshi.com）</div>
+        <div>
+            <input type="button" value="保存" class="btn mTop20" id="btnNotice" />
+        </div>
+    </div>
+</body>
+</html>

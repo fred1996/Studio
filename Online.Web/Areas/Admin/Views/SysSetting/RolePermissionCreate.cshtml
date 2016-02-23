@@ -1,0 +1,58 @@
+﻿@using Online.DbHelper.Model
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+<div class="modal-content">
+    @using (Html.BeginForm("RolePermissionEditSave", "SysSetting", FormMethod.Post))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">角色权限添加</h4>
+        </div>
+        <div class="modal-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">角色：</label>
+                    <div class="col-md-8">
+                        @Html.DropDownList("RoleID", ViewBag.allRole as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">权限：</label>
+                    <div class="col-md-8">
+                        @foreach (Permissions item in ViewBag.allPermissions)
+                        {
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="permissions" value="@item.PermissionID">@item.PName
+                            </label>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <input class="btn btn-primary" type="button" id="editSave" value="保存">
+        </div>
+    }
+</div>
+<script>
+    $(function() {
+        $("#editSave").click(function() {
+            var roleid = $("#RoleID").val();
+            $.post("/Admin/SysSetting/ExistsRole", { roleId: roleid }).done(function(result) {
+                if (result) {
+                    alert("该角色已经配置好权限，请直接编辑！");
+                    return false;
+                }
+                $("form").submit();
+            });
+           
+        });
+    });
+</script>

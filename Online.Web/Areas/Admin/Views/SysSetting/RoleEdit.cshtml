@@ -1,0 +1,58 @@
+﻿@model  Online.DbHelper.Model.Roles
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+
+<div class="modal-content">
+    @using (Html.BeginForm("RoleEditSave", "SysSetting", FormMethod.Post))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">角色编辑</h4>
+        </div>
+        <div class="modal-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.RoleID)
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">角色名称：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(t => t.RoleName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">PowerID：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(t => t.PowerId, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">描述：</label>
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(t => t.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" id="editSave">保存</button>
+        </div>
+    }
+</div>
+@*<script>
+    $(function() {
+        $("#editSave").click(function() {
+            var name = $("#RoleName").val();
+            if (name == "") {
+                alert("请输入角色名称！");
+                $("#RoleName").focus();
+                return false;
+            }
+            $("form").submit();
+        });
+    });
+</script>*@

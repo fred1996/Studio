@@ -1,0 +1,60 @@
+﻿@model PagedList.IPagedList<Online.Web.Areas.Admin.Models.RolePermissionViewModel>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "角色权限列表";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>角色权限列表</h2>
+<a role="button" href="/Admin/SysSetting/RolePermissionCreate" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div class=".info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th style="width: 30px;">UID</th>
+                <th>角色</th>
+                <th>权限</th>
+                <th style="width: 300px">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.RoleID</td>
+                    <td>@item.RoleName</td>
+                    <td>@(string.Join("、",item.Permissions))</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysSetting/RolePermissionEdit?roleid=@item.RoleID" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                        <a class="btn btn-danger delcss" role="button" href="/Admin/SysSetting/RolePermissionRemove?roleId=@item.RoleID">
+                            <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                        </a>
+                        
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("RoleIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+    </div>
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("SysSetting");
+        Active('SysSetting', 2);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+    })
+</script>
+

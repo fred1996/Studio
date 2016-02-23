@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+@{
+    var controller = Request.RequestContext.RouteData.Values["controller"].ToString();
+    var action = ViewBag.Action ?? Request.RequestContext.RouteData.Values["action"].ToString();
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>九鼎财经直播室后台-@ViewBag.Title</title>
+
+    <link href="~/Areas/Admin/Content/menu.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body style="overflow: hidden">
+    <div class="navbar navbar-duomi navbar-static-top" role="navigation" style="width: 100%; margin-bottom: 0px !important;">
+        <div class="container-fluid">
+            <div class="navbar-header" style="width:100%;">
+                <p class="navbar-brand" id="logo">
+                    后台管理系统
+                </p>
+                <a class="navbar-brand" href="/Admin/Home/LoginOut" style="float: right;vertical-align: middle;color:#ffffff;cursor:pointer;">退出</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            @{
+                @Html.Partial("_LeftMenuPartial")
+            }
+            <div class="col-md-10" style="width: 99%; margin: 0px auto 50px auto; padding: 5px 30px 30px 330px; overflow: hidden;">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @{
+        var scriptPath = string.Format("~/Areas/Admin/Scripts/src/{0}", controller);
+        if (System.IO.Directory.Exists(Server.MapPath(scriptPath)))
+        {
+            var file = String.Format(scriptPath + "/{0}.js", action);
+            if (File.Exists(Server.MapPath(file)))
+            {
+                @Scripts.Render(file);
+            }
+        }
+    }
+    @RenderSection("scripts", false)
+</body>
+</html>

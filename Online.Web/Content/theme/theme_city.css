@@ -1,0 +1,29 @@
+﻿body{
+    background: url("../../Image/images/theme/backgroundchenshi.jpg")  repeat fixed!important;
+}
+#TopbarWapper{
+    background: -moz-linear-gradient(top,#00579c,#002e62)!important; /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#00579c), to(#002e62))!important; /*谷歌*/
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #00579c),color-stop(1, #002e62))!important; /* Safari & Chrome*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00579c', endColorstr='#002e62')!important; /*IE6 & IE7*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00579c', endColorstr='#002e62')"!important; /* IE8 */
+}
+#MainLiveTVWapper .video-tip{
+    background-color: #0b7bba!important;
+}
+#RoomNoticeWrapper{
+     background-color: #1a5e9f!important;
+}
+#SubColumnsMenu{
+    background-color:#006bb3;
+}
+#SubColumnsMenu a{
+    background-color:#0b7bba!important;
+}
+#ServiceMsg{
+    background-color:#C3CDD2;
+}
+#btnSayingTo{
+    background-color:#003873;
+}
+#TopbarWapper .topbar-userlogin a{background-color:#0d7bb6;}

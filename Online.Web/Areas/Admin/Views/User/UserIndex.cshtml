@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "用户管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@model PagedList.IPagedList<Online.DbHelper.Model.Users>
+@using PagedList.Mvc;
+<h2>用户管理</h2>
+<div>
+    <div class="left">
+        <div class="mAll10">
+            @using (Html.BeginForm("UserIndex", "User", FormMethod.Get, new { @style = "display:inline-block;", id = "form1" }))
+            {
+                <label>
+                    模糊查询（姓名，邮箱，手机）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
+                </label>
+
+                <button class="btn  btn-info " style="display:inline-block;" role="button">
+                    <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
+                </button>
+            }
+            <a href="javascript:;" id="btnoutexcel" class="btn  btn-danger" role="button" title="只能导出当前显示数据">
+                <i class="glyphicon glyphicon-download"></i>&nbsp;导出数据
+            </a>
+            <a data-toggle="modal" data-target="#myModal" href="/Admin/User/AddUserInfo" id="btnoutadduser" class="btn  btn-success" role="button">
+                <i class="glyphicon glyphicon-info-sign"></i>&nbsp;添加用户
+            </a>
+        </div>
+
+    </div>
+</div>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>账户</th>
+                <th>昵称</th>
+                <th>Ip</th>
+                <th>QQ</th>
+                <th>来源</th>
+                <th>手机</th>
+                <th>注册时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserID</td>
+                        <td>@item.Email</td>   
+                        <td>@item.UserName</td>
+                        <td>@item.LastSigninIP</td>
+                        <td>@item.QQ</td>
+                        <td>@item.RegSource</td>
+                        <td>@item.Telephone</td>
+                        <td>@item.RegisterTime</td>
+                        <td>
+                            <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/User/UserEdit?id=@item.UserID" id="Edit" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                            </a>
+                            <a class="btn btn-danger delcss" role="button" data-id="@item.UserID">
+                                <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                            </a>
+                            <div class="btn-group">
+                                <a class="btn dropdown-toggle btn-success" data-toggle="dropdown" href="#">
+                                    更多
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Admin/User/UserDetail?id=@item.UserID">用户详情</a></li>
+                                    <li><a data-toggle="modal" data-target="#myModal" href="/Admin/User/EditUserRole?id=@item.UserID" id="btnrole" role="button">用户角色</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">没有查找到用户</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<input type="hidden" id="page" value="@ViewBag.Page"/>
+ 页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("UserIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</div>
+<script>
+    $(function () {
+        ShowMenu("Users");
+        Active('Users', 0);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+        $(".info .table .delcss").click(function () {
+            if (confirm("是否确认删除该用户？")) {
+                var id = $(this).attr("data-id");
+                $.ajax({ url: "/Admin/User/RemoveUserInfo", data: { id: id } }).done(function (data) {
+                    if (data > 0)
+                        window.location.reload();
+                    else
+                        alert("删除失败，请联系管理员！");
+                });
+            }
+        });
+        //$("#SearchString")(function () {
+        //    $("#form1").submit();
+        //});
+        $("#btnoutexcel").click(function () {
+            var seartxt = $("#SearchString").val();
+            var page = $("#page").val();
+            window.location.href = "/Admin/User/ExportUserExcel?searchString=" + seartxt + "&page=" + page;
+            //$.ajax({ url: "/Admin/User/ExportUserExcel", data: { searchString: seartxt } }).done(function (data) {
+            //    //if (data > 0)
+            //    //    window.location.reload();
+            //    //else
+            //    //    alert("删除失败，请联系管理员！");
+            //});
+        });
+    });
+    function SaveAddUinfo() {
+        if ($("#UserName").val().length <= 0) {
+            alert("请输入用户名");
+            return false;
+        }
+        if ($("#Password").val().length <= 0) {
+            alert("请输入密码");
+            return false;
+        }
+        if ($("#Email").val().length <= 0) {
+            alert("请输入邮箱");
+            return false;
+        }
+        var emailReg = /^[\w-]+(\.[\w-]+)*@@[\w-]+(\.[\w-]+)*\.[\w-]+$/i;
+        if (!emailReg.test($("#Email").val())) {
+            alert("请输入正确的邮箱");
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: "/Admin/User/CheckEmail",
+            data: {
+                email: $("#Email").val(),
+                username: $("#UserName").val()
+            },
+            async: false
+        }).done(function (data) {
+            if (data == "T") {
+                alert("邮箱已存在");
+                return false;
+            } else if (data == "G") {
+                alert("用户名已存在");
+                return false;
+            } else {
+                $("#from2").submit();
+            }
+        });
+        //
+    }
+</script>

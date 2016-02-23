@@ -1,0 +1,535 @@
+﻿body {
+    font-family: Tahoma,Arial,微软雅黑,"0 0 0 0","0 0","0 0";
+    overflow: hidden;
+}
+
+@media screen and (max-width:1990px) {
+    #Msg {
+        padding: 5px;
+    }
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    #MainContent {
+        width: 100%;
+    }
+
+    #ChatMsgWrapper {
+        background-size: cover;
+    }
+
+    #TopbarWapper .topbar-userlogin {
+        margin-right: 20px;
+    }
+
+    #MainContent {
+        padding-bottom: 0px;
+        height: 100%;
+        /*position: absolute;*/
+    }
+
+    #MainLiveTVWapper {
+        width: 820px;
+    }
+
+    #MainChatWapper {
+        height: 100%!important;
+    }
+
+    #TopbarWapper .topbar-menu .mainMenu {
+        width: auto;
+    }
+
+    #MainLiveTVWapper .video-content {
+        height: 80%;
+    }
+
+    #MainLiveTVWapper .video-wrapper {
+        width: 820px;
+        height: 600px;
+    }
+
+    #ChatMsgWrapper {
+        height: 90%;
+    }
+
+    #MsgListWrapper {
+        height: 80%!important;
+    }
+
+    #ChatMsgWrapper .service-info {
+        width: 100%;
+    }
+    /*#TopbarWapper .topbar-userinfo{width:300px;}*/
+}
+
+@media screen and (max-width:1680px) {
+    #Msg {
+        padding: 5px;
+    }
+    /*.topbar-userlogin{float:left;float:left!important;}*/
+    #MainLiveTVWapper {
+        width: 820px;
+    }
+
+    #SayingInputVal {
+        width: 45%;
+    }
+
+    #ColumnInfoWrapper .columninfo img {
+        width: 800px;
+    }
+
+    #MainLiveTVWapper .video-wrapper {
+        /*height: 550px !important;*/
+    }
+
+    #RoomNoticeWrapper .notice-info {
+        width: 100%;
+    }
+
+    #MainChatWapper {
+        width: 860px;
+    }
+}
+
+@media screen and (max-width:1540px) {
+    #RoomPosts {
+        margin-left: 20px;
+        width: 80%;
+    }
+
+    #Msg {
+        padding: 5px;
+    }
+
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    #MainContent {
+        height: 850px;
+    }
+
+    #MainChatWapper {
+        width: 600px;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 14px;*/
+    }
+
+    #MainLiveTVWapper .video-wrapper {
+        /*height: 550px !important;*/
+    }
+
+    #ChatMsgWrapper {
+        height: 100%;
+    }
+
+    #dofly {
+        height: 60% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+}
+
+@media screen and (min-width: 1152px) and (max-width: 1450px) {
+    #MainLiveTVWapper .video-wrapper {
+        height: 420px !important;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:1440px) {
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    #MainLiveTVWapper {
+        width: 540px;
+    }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:1360px) {
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    #MainLiveTVWapper {
+        width: 540px;
+    }
+
+        #MainLiveTVWapper .video-wrapper {
+            height: 400px !important;
+            width: 540px;
+        }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:1280px) {
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    #MainLiveTVWapper {
+        width: 600px;
+    }
+
+        #MainLiveTVWapper .video-wrapper {
+            height: 520px !important;
+            width: 600px;
+        }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:1152px) {
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    #MainLiveTVWapper {
+        width: 600px;
+    }
+    /*#MainLiveTVWapper .video-wrapper {
+        height: 420px !important;
+        width:600px;
+
+    }*/
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:1151px) {
+    #MainLiveTVWapper .video-wrapper {
+        height: 420px !important;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    #MainLiveTVWapper {
+        width: 600px;
+    }
+
+        #MainLiveTVWapper .video-wrapper {
+            height: 420px !important;
+            width: 100%;
+        }
+
+    .Spread {
+        height: 260px;
+    }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:960px) {
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    .topbar-menu {
+        display: none;
+    }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #MainLiveTVWapper {
+        /*height: 420px !important;*/
+        width: 50%;
+        height: 100%;
+    }
+
+        #MainLiveTVWapper .video-wrapper {
+            width: 100%;
+            height: 90% !important;
+        }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:1152px) and (min-width:830px) {
+     #SysColumnWapper{display:none;}
+    #MainLiveTVWapper .video-wrapper {
+        width: 100%;
+        height: 320px;
+    }
+
+    #SayingInputVal {
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width:845px) {
+     #SysColumnWapper{display:none;}
+    #SayingInputVal {
+        width: 70%;
+    }
+
+    .topbar-menu {
+        display: none;
+    }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #MainLiveTVWapper {
+        /*height: 420px !important;*/
+        width: 50%;
+        height: 100%;
+    }
+
+        #MainLiveTVWapper .video-wrapper {
+            width: 100%;
+            height: 90% !important;
+        }
+
+    #mobiletel {
+        width: 50% !important;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:750px) {
+     #SysColumnWapper{display:none;}
+    #SayingInputVal {
+        width: 50%;
+    }
+
+    body {
+        overflow-y: auto;
+    }
+
+    .topbar-menu {
+        display: none;
+    }
+
+    #ChatMsgWrapper .horizontalline {
+        width: 100%;
+        background-size: contain;
+    }
+
+    #MainLiveTVWapper {
+        /*height: 420px !important;*/
+        width: 90%;
+        height: 50%;
+    }
+
+        #MainLiveTVWapper .video-wrapper {
+            width: 100%;
+            height: 100% !important;
+        }
+
+    #mobiletel {
+        width: 50% !important;
+    }
+
+    #dofly {
+        height: 55% !important;
+    }
+
+    #MainChatWapper {
+        clear: both !important;
+        width: 90% !important;
+    }
+
+    .subcolumn-wrapper {
+        display: none;
+    }
+
+    #ToolBarWapper .toolbarset {
+        /*width: 20%;*/
+    }
+}
+
+@media screen and (max-width:650px) and (max-width:450px) {
+    body{overflow-x:hidden;overflow-y:auto;}
+    #SysColumnWapper{display:none;}
+    #TopbarWapper .topbar-logo {
+        width: auto;
+    }
+
+    /*.topbar-userinfo {
+        display: none;
+    }*/
+
+    #MainChatWapper {
+        margin-left: 10px;
+        width: 95% !important;
+    }
+
+    /*#ChatMsgWrapper {
+        height: 200px !important;
+    }*/
+
+    .hottel {
+        display: none;
+    }
+
+    #MsgListWrapper {
+        /*height: 100% !important;*/
+        padding: 0px;
+    }
+
+    #MainLiveTVWapper .video-wrapper {
+        height: 150px !important;
+    }
+
+    #MainLiveTVWapper {
+        width: 95%;
+        height: auto;
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+    }
+
+    .service-info {
+        display: none;
+    }
+
+    #homeflyimgbox {
+        width: 90% !important;
+    }
+
+    .qqs {
+        overflow: hidden;
+    }
+
+    .horizontalline {
+        display: none;
+    }
+
+    #SayingInputVal {
+        display: block;
+        margin-top: 5px;
+        width: 50%;
+    }
+
+    .qqmore {
+        width: 30% !important;
+        height: 50px !important;
+        line-height: 50px !important;
+        text-align: center !important;
+        position: absolute !important;
+        top: -5px !important;
+        right: 0 !important;
+    }
+
+    #SayingInfoWrapper {
+        margin-left: 10px !important;
+    }
+
+    #SayingInputVal {
+        /*width: 100px !important;*/
+        /*display: inline-block;*/
+    }
+
+    .copyright {
+        width: 100%;
+        padding: 0;
+        text-align: left;
+        margin-left: 15px;
+        font-size: 12px;
+        color: #F0E0E0;
+        text-align: center;
+        vertical-align: bottom;
+        clear: both;
+        margin-top: 15px;
+        position:inherit; 
+    }
+    #MainContent{height:100%;/*overflow:hidden;*/}
+}
+.width1{width:90%!important;height:250px!important;}
+.heightw{height:350px!important;}
+.ipwidth{width:100%!important;}

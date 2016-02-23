@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Online.DbHelper.Model.TVClassSchedule>
+@{
+    ViewBag.Title = "课程表列表";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>课程表列表</h2>
+<a role="button" href="/Admin/SysSetting/TvClassScheduleCreate" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div class=".info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th>老师</th>
+                <th>课程</th>
+                <th>直播室</th>
+                <th>直播时间</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="vertical-align: middle;">
+                        @item.Teacher
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.TNickName
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.LiveRooms.RoomName
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.liveStartTime~@item.liveEndTime
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.EffectiveStartTime
+                    </td>
+                    <td style="vertical-align: middle;">
+                        @item.EffectiveEndTime
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysSetting/TVClassScheduleEdit?id=@item.SCId" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                        <a class="btn btn-danger delcss" role="button" href="/Admin/SysSetting/TvClassScheduleRemove?id=@item.SCId" >
+                            <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("SysSetting");
+        Active('SysSetting', 4);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+    })
+</script>

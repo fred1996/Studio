@@ -1,0 +1,62 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.UserActionLog>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "用户日志管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h2>用户日志管理</h2>
+
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>操作内容</th>
+                <th>操作人</th>
+                <th>IP地址</th>
+                <th>操作时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (true)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.UserActionLogId
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @{ var user = item.User != null ? item.User.UserName : "";}
+                            @user
+                        </td>
+                        <td>
+                            @item.UserIp
+                        </td>
+                        <td>
+                            @item.CreateTime
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="5">没有发现数据。</td></tr>
+            }
+        </tbody>
+    </table>
+    页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("UserLogerIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("Logger");
+        Active('Logger', 0);
+    });
+</script>
+
