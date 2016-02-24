@@ -271,6 +271,8 @@
     <Content Include="Content\SingleService\media-queries2.css" />
     <Content Include="Content\SingleService\style.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\TeacherIntroduce\css.css" />
+    <Content Include="Content\TeacherIntroduce\media-queries2.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -443,6 +445,7 @@
     <Content Include="Image\images\set_themecheradio.png" />
     <Content Include="Image\images\set_themegreen.png" />
     <Content Include="Image\images\set_themeradio.png" />
+    <Content Include="Image\images\SingleService.png" />
     <Content Include="Image\images\SingleService\bg.jpg" />
     <Content Include="Image\images\SingleService\jd_qq2.png" />
     <Content Include="Image\images\SingleService\pic1.jpg" />
@@ -450,6 +453,14 @@
     <Content Include="Image\images\SingleService\pic3.jpg" />
     <Content Include="Image\images\SingleService\pic4.jpg" />
     <Content Include="Image\images\smile.png" />
+    <Content Include="Image\images\TeacherIntroduce.png" />
+    <Content Include="Image\images\TeacherIntroduce\bg.jpg" />
+    <Content Include="Image\images\TeacherIntroduce\bg2.jpg" />
+    <Content Include="Image\images\TeacherIntroduce\jd_qq2.png" />
+    <Content Include="Image\images\TeacherIntroduce\k1.png" />
+    <Content Include="Image\images\TeacherIntroduce\k2.png" />
+    <Content Include="Image\images\TeacherIntroduce\r1.png" />
+    <Content Include="Image\images\TeacherIntroduce\r2.png" />
     <Content Include="Image\images\theme\backgroundblack.jpg" />
     <Content Include="Image\images\theme\backgroundchenshi.jpg" />
     <Content Include="Image\images\theme\backgroundclassicalOne.jpg" />
@@ -1630,6 +1641,7 @@
     <Content Include="Scripts\tinymce\plugins\Roxy_Fileman\web.config" />
     <Content Include="Views\Home\ColumnDetail.cshtml" />
     <Content Include="Views\Home\SingleService.cshtml" />
+    <Content Include="Views\Home\TeacherIntroduce.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

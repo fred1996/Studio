@@ -57,7 +57,7 @@
     }
 
     #MsgListWrapper {
-        height: 80%!important;
+        height: 82%!important;
     }
 
     #ChatMsgWrapper .service-info {
@@ -107,7 +107,7 @@
     }
 
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     #MainContent {
@@ -153,7 +153,7 @@
 
 @media screen and (max-width:1440px) {
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     #MainLiveTVWapper {
@@ -176,7 +176,7 @@
 
 @media screen and (max-width:1360px) {
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     #MainLiveTVWapper {
@@ -204,9 +204,11 @@
 
 @media screen and (max-width:1280px) {
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
-
+    #chatbottom_qq .btn{
+        padding:3px 10px;
+    }
     #MainLiveTVWapper {
         width: 600px;
     }
@@ -232,7 +234,7 @@
 
 @media screen and (max-width:1152px) {
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     #MainLiveTVWapper {
@@ -263,11 +265,14 @@
         height: 420px !important;
         width: 100%;
     }
+    /*.mainMenu {
+        display:none;
+    }*/
 }
 
 @media screen and (max-width:1024px) {
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     #MainLiveTVWapper {
@@ -299,13 +304,13 @@
 
 @media screen and (max-width:960px) {
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     .topbar-menu {
         display: none;
     }
-
+    /*#ServiceQQs{display:block!important;}*/
     #ChatMsgWrapper .horizontalline {
         width: 100%;
         background-size: contain;
@@ -385,7 +390,7 @@
 @media screen and (max-width:750px) {
      #SysColumnWapper{display:none;}
     #SayingInputVal {
-        width: 50%;
+        width: 70%;
     }
 
     body {
@@ -490,11 +495,6 @@
         display: none;
     }
 
-    #SayingInputVal {
-        display: block;
-        margin-top: 5px;
-        width: 50%;
-    }
 
     .qqmore {
         width: 30% !important;
@@ -513,6 +513,8 @@
     #SayingInputVal {
         /*width: 100px !important;*/
         /*display: inline-block;*/
+        width:60%;
+          float: left;
     }
 
     .copyright {

@@ -500,7 +500,6 @@ namespace Online.Web.Controllers
             var savaurl = string.Empty;
             if (Request.Files.Count > 0)
             {
-
                 var file = Request.Files[0];
                 if (file == null || !UntilHelper.IsUploadImage(Path.GetExtension(file.FileName))) return string.Empty;
                 var newName = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(file.FileName);

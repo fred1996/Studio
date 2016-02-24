@@ -406,9 +406,6 @@ var client = {
             });
         }
     },
-
-  
-
     events: {
         connectionEvent: function () {
             //连线成功
@@ -559,7 +556,7 @@ $(function () {
     //页面加载完3s后初始化socket事件
     setTimeout(function () {
         if (client.socket == null) {
-            client.socket = io.connect('http://192.168.1.110:1235');
+            client.socket = io.connect('http://192.168.9.251:1234');
             //client.socket = io.connect('http://114.55.8.245:1233');
         }
         // start connection

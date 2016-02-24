@@ -19,6 +19,22 @@
     <!--[if lt IE 9]>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function OpenQQ() {
+            $.ajax({ url: '/Home/GetRandomQQ'  }).done(function (result) {
+                if (result ) {
+                    var qqtc = document.createElement('div');
+                    qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + result + "&Site=&Service=201' frameborder='0'></iframe>";
+                    document.body.appendChild(qqtc);
+                    qqtc.style.display = "none";
+                } else {
+
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
     <div id="part1"></div>
@@ -32,7 +48,7 @@
     </div>
     <div id="part3">
         <div class="clear111">
-            <div class="tit"><h2><a href="#">大海老师房间</a></h2></div>
+            <div class="tit"><h2><a href="javascript:OpenQQ();">大海老师房间</a></h2></div>
             <div class="jieshao">
                 多次被邀出席同行商业讲座活动，并同时担任多家银行风险控制培训工作，有丰富的实战操盘经验
                 技巧和独特的交易理念。
@@ -40,19 +56,19 @@
         </div>
         <div class="clear111">
             <div class="tit">
-                <h2><a href="#">全老师房间</a></h2>
+                <h2><a href="javascript:OpenQQ();">全老师房间</a></h2>
             </div>
             <div class="jieshao">对波浪理论的独到见解深得广大投资者青睐，曾运用波浪理论准确狙击英镑捕捉3000点历史性空头行情获得丰厚利润。</div>
         </div>
         <div class="clear111">
             <div class="tit">
-                <h2><a href="#">韦老师房间</a></h2>
+                <h2><a href="javascript:OpenQQ();">韦老师房间</a></h2>
             </div>
             <div class="jieshao">多年实战经验形成自己独有交易体系，实战经验丰富主要从事白银、石油交易风险控制管理，曾经在多家金融公司任职首席分析师。</div>
         </div>
         <div class="clear111">
             <div class="tit">
-                <h2><a href="#">悟空老师房间</a></h2>
+                <h2><a href="javascript:OpenQQ();">悟空老师房间</a></h2>
             </div>
             <div class="jieshao">擅长波段操作，短期高频交易，形成多套成功率极高实战理论,如趋势交易-短线战法，15分钟交易系统、细菌战法等。</div>
         </div>
@@ -75,7 +91,7 @@
     </div>
     <div class="jd_copyright">
         <div class="copyt">
-            <p><a href="#"><img src="/Image/images/SingleService/jd_qq2.png" width="97" height="36" alt="" /></a></p>
+            <p><a href="javascript:OpenQQ();"><img src="/Image/images/SingleService/jd_qq2.png" width="97" height="36" alt="" /></a></p>
             <p>Copyright 2016 九鼎财经版权所有</p>
         </div>
     </div>

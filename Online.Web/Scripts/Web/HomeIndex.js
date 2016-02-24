@@ -94,7 +94,6 @@
         });
     },
     QueryComments: function () {
-
         $.ajax({ url: "/Home/QueryComment" }).done(function (results) {
             homeMain.Comments.removeAll();
             for (var i = 0; i < results.length; i++) {
@@ -222,7 +221,7 @@
                     $(".permission-list li").eq(2).hide();
                     if (homeMain.ibrowser.mobile) {
                         if (homeMain.OnlineData.UserRoleID() <= 0) {
-                            $(".topbar-userinfo").hide();
+                           // $(".topbar-userinfo").hide();
                         }
                     }
                 }
@@ -291,7 +290,8 @@
                             for (var i = 0; i < qqArrary.length; i++) {
                                 if (qqArrary[i])
                                     if (homeMain.ibrowser.mobile) {
-                                        qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=' + qqArrary[i].split('-')[0] + '&site=qq&menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
+                                        //qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=' + qqArrary[i].split('-')[0] + '&site=qq&menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
+                                        qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="mqq://im/chat?chat_type=wpa&uin=' + qqArrary[i].split('-')[0] + '&version=1&src_type=web"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
                                     } else {
                                         qqhtml += '<a class="mRight10 mLeft10" href="tencent://message/?uin=' + qqArrary[i].split('-')[0] + '&amp;Site=www.yyzhiboshi.com&amp;Menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div> </a>';
                                     }
@@ -382,9 +382,12 @@
     ,
     showArticleInfo: function (id, type) {
         var title = '';
-        if (type == 11)
+        if (type == 11) {
+            if (homeMain.OnlineData.UserRoleID() == 0) {
+                return homeMain.ShowLogin();
+            }
             title = '早晚评';
-        else if (type == 10)
+        } else if (type == 10)
             title = "新闻快讯";
         $.ajax({ url: "/Home/QueryArticleInfo", data: { id: id} }).done(function (result) {
             if (result) {
@@ -393,8 +396,8 @@
                     fitToView: false,
                     padding: 0,
                     margin: 0,
-                    width: "80%",
-                    height: "80%",
+                    width: "70%",
+                    height: "70%",
                     scrolling: 'no',
                     autoSize: false,
                     closeClick: false,
@@ -426,7 +429,7 @@
             }
         });
     },
-    ChangeDateFormat(val) {
+    ChangeDateFormat:function (val) {
         if (val != null) {
             var date = new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
             //月份为0-11，所以+1，月份小于10时补个0
@@ -1320,27 +1323,43 @@
         }, function () {
             $(".MonitorData_Zoom").removeAttr("style");
         });
-         $('#jczs,#gjjs,#zncx,#xwkx').myScroll({
+        $('#jczs,#gjjs,#zncx,#xwkx,#zwp').myScroll({
         speed: 40, //数值越大，速度越慢
         rowHeight: 32 //li的高度
     });
 
     },
     IreSize: function () {
-        $("#MainContent").height($(window).height() - 52);
-        $("#ChatMsgWrapper").height($(window).height() - 93);
+        $("#MainContent").height($(window).innerHeight() - 52);
+        $("#ChatMsgWrapper").height($(window).innerHeight() - 93);
         $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - $("#ServiceQQs").height() - $("#ToolBarWapper").height() - $("#ClearToName").height() - $("#SayingInfoWrapper").height() - 100);
         if ($("#SysColumnWapper").is(":visible")) {
             $("#MainChatWapper").width($("#MainContent").width() - $("#SysColumnWapper").width() - $("#MainLiveTVWapper").width() - 40);
         } else {
             $("#MainChatWapper").width($("#MainContent").width() - $("#MainLiveTVWapper").width() - 40);
         }
+        if ($("body").width() - ($(".topbar-logo").width() + $(".topbar-menu").width() + $(".topbar-userinfo").width() + $(".topbar-userlogin").width() + 15 + 20 + 20 + 25) < 105) {
+            $("#ServiceQQs").hide();
+        } else {
+            $("#ServiceQQs").show();
+        }
         if (homeMain.ibrowser.mobile == true) {
             $("#MainChatWapper").height($("#MainContent").height() - $("#MainLiveTVWapper").height());
             $("#ChatMsgWrapper").height($("#MainChatWapper").height() - 42);
-            $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - 150);
+            $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - 150);            
+        }
+        if ($("body").width()<1400) {
+            $(".serviceqq-list a:not(:eq(0)),.qqmore").hide();
+            $(".serviceqq-list,#ServiceQQs").css("width", "100px");
+        } else {
+            $(".serviceqq-list a:not(:eq(0)),.qqmore").show();
+            $(".serviceqq-list").css("width", "90%");
+            $("#ServiceQQs").css("width","410px");
         }
     },
+    mobileStyle: function () {
+        $("#chatbottom_qq").find(".btn").css({"padding":"2px 5px"});
+    }
 };
 $(function () {
     var oldError = window.onerror;
@@ -1353,6 +1372,9 @@ $(function () {
     ko.applyBindings(homeMain);
     homeMain.Init();
     homeMain.InitContext();
+    if (homeMain.ibrowser.mobile) {
+        homeMain.mobileStyle();
+    }
 });
 $(window).resize(function () {
     homeMain.IreSize();

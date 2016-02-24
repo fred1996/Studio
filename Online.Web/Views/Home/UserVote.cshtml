@@ -48,6 +48,13 @@
     </style>
     <script>
         $(function () {
+            var mobile = {
+                ibrowser: {
+                    iPhone: navigator.userAgent.indexOf('iPhone') > -1,
+                    iPad: navigator.userAgent.indexOf('iPad') > -1,
+                    mobile: !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)
+                }
+            };
             $.ajax({ url: '/Home/GetUserVotes' }).done(function (data) {
                 if (data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
@@ -57,13 +64,24 @@
                         html.Append('<table id="vote" style="width:100%;" class="pLeft20">');
                         for (var j = 0; j < item.UserVoteColums.length; j++) {
                             html.Append("<tr>");
-                            html.Append('<td style="width:10%;"><button class="btn_vote btnuservote Hand"   votecount=' + item.OptCount + ' voteid=' + item.VoteID + ' votecolumid=' + item.UserVoteColums[j].ID + ' >投票</button></td>');
+                            if (mobile.ibrowser.mobile==true) {
+                                html.Append('<td style="width:10%;"><button class="btn_vote btnuservote Hand"   votecount=' + item.OptCount + ' voteid=' + item.VoteID + ' votecolumid=' + item.UserVoteColums[j].ID + '  style="width:20px;">+</button></td>');
+                            } else {
+                                html.Append('<td style="width:10%;"><button class="btn_vote btnuservote Hand"   votecount=' + item.OptCount + ' voteid=' + item.VoteID + ' votecolumid=' + item.UserVoteColums[j].ID + '>投票</button></td>');
+                            }
                             var wid = 0;
                             if (item.UserVoteColums[j].VoteCount > 0) {
                                 var wid = (item.UserVoteColums[j].VoteCount / 500) * 100;
                             }
-                            if (wid>0&&wid <=0.2) {
-                                wid =0.3;
+                            if (mobile.ibrowser.mobile) {
+                                if (wid>0&&wid<1) {
+                                    wid = 1;
+                                }
+                                wid = parseInt(wid) * 2;
+                            } else {
+                                if (wid > 0 && wid <= 0.2) {
+                                    wid = 0.3;
+                                }
                             }
                             html.Append('<td style="width:60%;"><div style="width:100%;border:1px solid #dedede;"><div class="nav_paobar" style="width:' + wid + '%;background-color:#2f53ca;height:20px;border-radius:2px;"></div></div></td>');
                             html.Append('<td style="width:30%;" class="pLeft10">' + item.UserVoteColums[j].Columname + '（<span class=\'votecountspan\'>' + item.UserVoteColums[j].VoteCount + '</span>人）</td>');
@@ -71,6 +89,7 @@
                         }
                         html.Append("</table>");
                         $("#vote").append(html.toString());
+                       
                         $(".btnuservote").unbind("click").bind('click', function () {
                             var votecount = $(this).attr("votecount");
                             var voteid = $(this).attr("voteid");

@@ -1,0 +1,185 @@
+﻿
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>明星分析师</title>
+    <meta name=“viewport” content=“width=device-width; initial-scale=1.0”>
+    <link href="/Content/TeacherIntroduce/css.css" rel="stylesheet" type="text/css">
+    <!-- media queries css -->
+    <link href="/Content/TeacherIntroduce/media-queries2.css" rel="stylesheet" type="text/css">
+    <!-- html5.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- css3-mediaqueries.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function OpenQQ() {
+            $.ajax({ url: '/Home/GetRandomQQ'  }).done(function (result) {
+                if (result ) {
+                    var qqtc = document.createElement('div');
+                    qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + result + "&Site=&Service=201' frameborder='0'></iframe>";
+                    document.body.appendChild(qqtc);
+                    qqtc.style.display = "none";
+                } else {
+
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="part1"></div>
+    <div style="background:#ffc000; width:100%; overflow:hidden; clear:both;">
+        <div class="part2">
+            <div class="p1_l">
+
+                <div class="laos">
+                    <div class="clear50"></div>
+                    <h4 class="biaot">大海老师</h4>
+                    <div class="text"><span class="fh">从业时间：</span> <span class="f14">13年</span></div>
+                    <div class="text">
+                        <span class="fh">职业等级：</span> <span class="f14">高级分析师</span><br>
+                    </div>
+                    <div class="text"><span class="fh">交易模式：</span> <span class="f14">鳄鱼猎杀战法</span></div>
+                    <div class="text"><span class="fh">交易理念：</span> <span class="f14">得波段者得天下</span></div>
+                    <div class="text">
+                        <p>
+                            <span class="fh">个人简介：</span><span class="f14">
+                                姜老师，男，昵称大海。早年在山东济南某私募机构从事证券交易，形成自成体系的
+                                主力机构操作策略，时成呼风唤雨之势，网络追随者众。之后曾于山东济南、青岛、
+                                河南郑州与广东深圳各地投资公司当分析师，讲课授业、喊单带盘及团队操作。
+                                精研K线组合多空、盘口语言暗流、江恩时间周期应用于波浪形态以及顺势布林带通道交易，以之应用于操盘，盘感灵敏，洞察涨跌天机。具十年以上的金融投资分析与操作经验，有丰富扎实的实战操盘经验和独特的交易理念。
+                            </span>
+                        </p>
+                        <p>
+                            <span class="f14">
+                                在长期从事证券、外汇金
+                                银实盘操作中独创据于布林趋势轨道的鳄鱼猎杀战法，直观简洁，实战性极强。
+                            </span>
+                        </p>
+                        <p>
+                            <span class="f14">
+                                如今高薪受聘于银帮财经直播室，讲授交易技术，实盘喊单，愿与业界同道一起，
+                                在交易市场中共进退，同扬帆，实现致富梦。
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="p1_r"></div>
+        </div>
+    </div>
+    <div style="background:#ff3d00; width:100%; overflow:hidden; clear:both;">
+        <div class="part2">
+            <div class="p2_l">
+                <div class="laos">
+                    <div class="clear50"></div>
+                    <h4 class="biaot">韦老师</h4>
+                    <div class="text"><span class="fh">从业时间：</span>8年</div>
+                    <div class="text">
+                        <span class="fh">职业等级：</span> <span class="f14">高级分析师</span><br>
+                    </div>
+                    <div class="text"><span class="fh">交易模式：</span> <span class="f14"></span>一刀战法</div>
+                    <div class="text"><span class="fh">交易理念：</span><span class="f14">得波段者得天下</span></div>
+                    <div class="text">
+                        <p>
+                            <span class="fh">个人简介：</span><span class="f14">
+                                花名“韦一刀”，国内“211”大学工学学士，金融方向硕士，曾任大学金融专业
+                                讲师、私募基金公司高级分析师等职，15年股票投资经验、5年股指期货、商品期货和外汇投资经历，并曾赴香港研习西方先进的投资理念和交易策略。
+                            </span>
+                        </p>
+                        <p><span class="f14">韦老师精通现代道氏理论、蜡烛图和斐波那契比率，善于运用肯特纳通道、安德鲁斯通道和布林通道来预测商品日内价格的支撑位和阻力位，业内有“通道大师”的美誉。</span></p>
+                        <p><span class="f14">韦老师尤其长于运用MACD、SMA、EMA等趋势指标构建高胜算交易系统，操盘稳健，常常一刀制胜。</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="p2_r"></div>
+        </div>
+    </div>
+    <div style="background:#ffdd72; width:100%; overflow:hidden; clear:both;">
+        <div class="part2">
+            <div class="p1_l">
+                <div class="laos">
+                    <div class="clear50"></div>
+                    <h4 class="biaot">全老师</h4>
+                    <div class="text"><span class="fh">从业时间：</span> <span class="f14">14年</span></div>
+                    <div class="text">
+                        <span class="fh">职业等级：</span><span class="f14"> 资深分析师</span><br>
+                    </div>
+                    <div class="text"><span class="fh">交易模式：</span> <span class="f14">xx战法</span></div>
+                    <div class="text"><span class="fh">交易理念：</span><span class="f14"> xx短线操作</span></div>
+                    <div class="text">
+                        <p><span class="fh">个人简介：</span><span class="f14">2002年毕业于中央财经大学金融系。</span></p>
+                        <p><span class="f14">并于2002年进入中信证券从事证券研究工作，2008年从事期货操盘及研究。</span></p>
+                        <p><span class="f14">2012年专业于现货及外汇交易操盘,并多次获利优秀交易员及顶尖操盘手称号。</span></p>
+                        <p><span class="f14">2007带领客户股票从2600点直接拿到5600点近3000点行情。</span></p>
+                        <p><span class="f14">2012年多次狙击现货白银上千点行情,实现资金短时期内增倍。</span></p>
+                        <p><span class="f14">2014年6月成功抓获白银下跌起动长线操作近2000点行情。</span></p>
+                        <p>
+                            <span class="f14">
+                                短线操作胜率达85%左右(全年)，并发行了课件
+                                <全胜之道>
+                                    -真经六篇，
+                                    曾获得中信集团证券实盘操作第一名(三个月收益率达45%以上)，中嘉集团现货操盘大赛第二名(一个月收益率达55%左右)
+                                    2012年曾任国内某交易所全国营运中心首席研究员，资深分析师。
+                            </span>
+                        </p>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p1_r"></div>
+        </div>
+    </div>
+    <div style="background:#be262d; width:100%; overflow:hidden; clear:both;">
+        <div class="part2">
+            <div class="p2_l">
+                <div class="laos">
+                    <div class="clear50"></div>
+                    <h4 class="biaot">悟空老师</h4>
+                    <div class="text"><span class="fh">从业时间：</span> 7年</div>
+                    <div class="text">
+                        <span class="fh">职业等级：</span> <span class="f14">高级分析师</span><br>
+                    </div>
+                    <div class="text"><span class="fh">交易模式：</span> <span class="f14">xx战法</span></div>
+                    <div class="text"><span class="fh">交易理念：</span><span class="f14">xxxx</span></div>
+                    <div class="text">
+                        <p>
+                            <span class="fh">个人简介：</span><span class="f14">
+                                西南财经大学金融学硕士研究生。
+                            </span>
+                        </p>
+                        <p><span class="f14">1999年进入金融市场，主要负责股票.股指，白银 原油，及金属品种的研究，从基本分析着手，擅长对基本面及宏观经济的把握，投资经验丰富。</span></p>
+                        <p>
+                            <span class="f14">
+                                多次在《期货日报》、《金融投资报》等专业媒体发表行情评论文章。
+                            </span>
+                        </p>
+                        <p><span class="f14">2005年曾任国内某知名私幕首席操盘手，资金规模20亿，收益达到30-50%。</span></p>
+                        <p><span class="f14"> 2013年曾就任国内某交易所驻华南地区营运中心首席研究员，分析师，运营总监。</span></p>
+                        <p><span class="f14"> 目前就任中嘉财经特级研究员，特邀分析师，高级讲师。</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="p2_r"></div>
+        </div>
+    </div>
+    <div class="jd_copyright">
+        <div class="copyt">
+            <p><a href="javascript:OpenQQ();"><img src="/Image/images/TeacherIntroduce/jd_qq2.png" width="97" height="36" alt="" /></a></p>
+            <p>Copyright 2016 九鼎财经版权所有</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,8 +2,6 @@
     Layout = "~/Views/Shared/_LiveLayout.cshtml";
 }
 <link href="/content/theme/theme_default.css" id="theme_css" rel="stylesheet" />
-@*<script src="//cdn.bootcss.com/moment.js/2.11.2/moment.min.js"></script>*@
-@*<script src="//cdn.bootcss.com/moment.js/2.11.2/locale/zh-cn.js"></script>*@
 <script src="~/Scripts/scroll.js"></script>
 <input type="hidden" id="hidRoleID" value="0" />
 <a class='fancybox fancybox.iframe various hidden' id="uservote" href='/Home/UserVote'>投票</a>
@@ -61,7 +59,7 @@
                 <ul></ul>
             </div>
         </div>
-        <div class="topbar-userinfo right">
+        <div class="topbar-userinfo qqzhuli right">
             <div id="ServiceQQs" style="position:relative;width:410px;">
                 <div class="serviceqq-list">
 
@@ -76,14 +74,6 @@
         <div id="SysColumnWapper" class="left ">
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">基础知识</h3>
-                @*<marquee id="zzs" direction="up" behavior="scroll" contenteditable="true" scrollamount="1" scrolldelay="0" loop="-1" width="95%" height="75%" hspace="10" vspace="10" style="margin: 0; ">
-                        <div data-bind="foreach:BasicKnowledges" class="AdvancedTechnologyList">
-                            <div class="AdvancedTechnology-info">
-                                <a href="#" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
-                                </a>
-                            </div>
-                        </div>
-                    </marquee>*@
                 <div class="myscroll" id="jczs">
                     <ul class="marque_ul" data-bind="foreach:BasicKnowledges">
                         <li class="AdvancedTechnology-info" style="height:32px;">
@@ -95,14 +85,6 @@
             </div>
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">高级技术</h3>
-                @*<marquee direction="up" behavior="scroll" scrollamount="1" scrolldelay="0" loop="-1" width="95%" height="75%" hspace="10" vspace="10">
-                        <div data-bind="foreach:AdvancedTechnologys" class="AdvancedTechnologyList">
-                            <div class="AdvancedTechnology-info">
-                                <a href="#" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
-                                </a>
-                            </div>
-                        </div>
-                    </marquee>*@
                 <div class="myscroll" id="gjjs">
                     <ul class="marque_ul" data-bind="foreach:AdvancedTechnologys">
                         <li class="AdvancedTechnology-info" style="height:32px;">
@@ -114,14 +96,6 @@
             </div>
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">智能程序交易</h3>
-                @*<marquee direction="up" behavior="scroll" scrollamount="1" scrolldelay="0" loop="-1" width="95%" height="75%" hspace="10" vspace="10">
-                        <div data-bind="foreach:IntelligentTradings" class="AdvancedTechnologyList">
-                            <div class="AdvancedTechnology-info">
-                                <a href="#" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
-                                </a>
-                            </div>
-                        </div>
-                    </marquee>*@
                 <div class="myscroll" id="zncx">
                     <ul class="marque_ul" data-bind="foreach:IntelligentTradings">
                         <li class="AdvancedTechnology-info" style="height:32px;">
@@ -133,30 +107,25 @@
             </div>
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">新闻快讯</h3>
-                @*<marquee direction="up" behavior="scroll" scrollamount="1" scrolldelay="0" loop="-1" width="95%" height="75%" hspace="10" vspace="10">
-                        <div data-bind="foreach:NewsFlash" class="AdvancedTechnologyList">
-                            <div class="AdvancedTechnology-info">
-                                <a href="#"  data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',10)'}"   target="_blank">
-                                </a>
-                            </div>
-                        </div>
-                    </marquee>*@
                 <div class="myscroll" id="xwkx">
                     <ul class="marque_ul" data-bind="foreach:NewsFlash">
-                        <li class="AdvancedTechnology-info" style="height:32px;">
+                        <li class="AdvancedTechnology-info" style="height: 32px;">
                             <a href="#" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',10)'}" target="_blank">
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
+            <div>
+                <a target="_blank" href="/Home/SingleService"><img src="/Image/images/SingleService.png" /></a>
+                <a target="_blank" href="/Home/TeacherIntroduce"> <img src="/Image/images/TeacherIntroduce.png" /></a>
+            </div>
         </div>
         <div id="MainLiveTVWapper" class="left">
             <div class="video-content">
-                <div class="video-tip">
-                    <img src="../../Image/images/hotline.png" width="16" height="16" alt="热线电话" />
-                    <span id="mobiletel" style="color:#000;width: 300px;"><label class="hottel">热线电话:</label>  400-021-1171</span>
-                    <a href="javascript:void(0);" class="black bold" data-bind="click:Refresh">刷新</a>
+                <div class="video-tip" style='background-image:none;'>
+                    <img src="../../Image/images/hotline.png" width="16" height="16" alt="热线电话"><span id="mobiletel" style="color:#fff!important;width: 300px;"><label class="hottel">热线电话:</label>400-679-2588</span>
+                    <a href="javascript:void(0);" class='refresh' data-bind="click:Refresh">刷新</a>
                 </div>
                 <div class="video-wrapper">
                     <gs:video-live id="videoComponent" site="guijinshuzhibo.gensee.com" ctx="webcast" ownerid="6a12ba147f984bc2a7a50f9a99fc898e" />
@@ -188,19 +157,19 @@
                     </div>
                 </div>
                 <div id="commits" style="display: none;padding:20px;">
-                    <img src="~/Image/images/close1.png" title="关闭" class="right" onclick="homeMain.showCommits('0')"/>
-                    <div style="clear:both"></div>
-                    <table class="table table-bordered">
+                    <img src="~/Image/images/close1.png" title="关闭" style="width: 24px" class="right" onclick="homeMain.showCommits('0')" />
+                    @*<div style="clear:both"></div>*@
+                    <table class="table table-bordered" style="width: 90%">
                         <thead>
                             <tr>
-                                <th>标题</th>
-                                <th>发布时间</th>
+                                <th style="width: 70%">标题</th>
+                                <th style="width: 20%">发布时间</th>
                             </tr>
                         </thead>
-                        <tbody data-bind="foreach:Comments">
+                        <tbody id="zwp" data-bind="foreach:Comments">
                             <tr class="AdvancedTechnologyList">
-                                <td ><a class="commbx" href="javascript:void(0)" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',11)'}" style="background:rgba(31, 3, 3, 0.28)"></a></td>
-                                <td><label data-bind="text:CreateTime"></label></td>
+                                <td style="width: 70%"><a class="commbx" href="javascript:void(0)" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',11)'}" style="background:rgba(31, 3, 3, 0.28)"></a></td>
+                                <td style="width: 20%"><label data-bind="text:CreateTime"></label></td>
                             </tr>
                         </tbody>
                     </table>
@@ -270,7 +239,7 @@
                 <div class="horizontalline"></div>
                 @*<div class="service-info">
                     </div>*@
-                <div id="ServiceQQs" style="position:relative;width:90%;">
+                <div id="chatbottom_qq" style="position:relative;width:90%;margin:5px 20px">
                     <button class="btn btn-danger" onclick="homeMain.DialogQQ()">布局策略</button>
                     <button class="btn btn-success" onclick="homeMain.DialogQQ()">在线开户</button>
                     <button class="btn btn-info" onclick="homeMain.DialogQQ()">在线咨询</button>
@@ -303,7 +272,7 @@
                     <div class="bshare-custom icon-medium" style="display:inline-block;vertical-align:text-bottom;">
                         <a title="更多平台" class="sharp bshare-more bshare-more-icon more-style-addthis" style="color:#fff!important;padding-left:22px!important;">分享</a>
                     </div>
-                    <span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>                    
+                    <span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>
                     @*<div class="copyright"> ·版权所有</div>*@
                 </div>
                 <div id="SayingInfoWrapper" style="clear:both;">

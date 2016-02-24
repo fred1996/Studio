@@ -662,19 +662,24 @@
             float: left;
         }
 
-        #MainLiveTVWapper .video-tip a {
-            display: inline-block;
-            background: url('../Image/images/refresh.png') no-repeat bottom left;
+      .refresh {
             width: 42px;
             height: 12px;
             float: right;
             margin: 15px;
             clear: right;
-            color: #fff;
             text-align: right;
             vertical-align: top;
             padding-bottom: 3px;
             text-decoration: none;
+            display: inline-block;
+            background: url('../Image/images/refresh.png') no-repeat bottom left;
+           
+        }
+        .video-tip a{
+		color:#fff;
+		font-size:14px;
+ 		
         }
 
     #MainLiveTVWapper .video-wrapper {
@@ -695,6 +700,7 @@
 #SubColumnsMenu {
     width: 100%;
     height: 36px;
+    overflow:hidden;
     padding: 0;
 }
 
@@ -1448,7 +1454,7 @@
 
 .myscroll {
     width: 100%;
-    height: 105px;
+    height: 75%;
     line-height: 26px;
     font-size: 12px;
     overflow: hidden;

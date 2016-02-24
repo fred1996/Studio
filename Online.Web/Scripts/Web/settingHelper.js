@@ -164,7 +164,7 @@ setting.methods = {
         });
         $.ajax({ url: '/Home/GetIsUserVotes' }).done(function (data) {
             if (data) {
-                $("#uservote").click();
+                $("#uservote").click();                
             }
         });
     },

@@ -417,7 +417,7 @@ namespace Online.Web.Controllers
             user.Device = 1;
             user.LastChangeTime = DateTime.Now;
             user.RegisterTime = DateTime.Now;
-            user.RegSource = fromUrl;
+            user.RegSource = fromUrl??"";
             UserSource.Userses.Add(user);
             UserSource.SaveChanges();
             return user;
@@ -468,12 +468,10 @@ namespace Online.Web.Controllers
         private bool IsInBlackList(string userName)
         {
             return UserSource.UserBlackLists.Any(t => t.Type == 2 && t.UserName == userName);
-
         }
 
         private void AddXuGuanToRedis(Users user)
         {
-
             UserOnlineInfo cacheuser = new UserOnlineInfo();
             cacheuser.uid = user.UserID;
             cacheuser.from = user.UserName;
@@ -485,7 +483,6 @@ namespace Online.Web.Controllers
             cacheuser.roomid = RoomId;
             if (cacheuser.rid >= (int)UserRoleEnum.XUGUAN)
             {
-
                 RedisClienHelper.Hash_Remove<UserOnlineInfo>("ONLINE_Admin_USERS_" + RoomId, user.UserID.ToString());
                 RedisClienHelper.Hash_Set<UserOnlineInfo>("ONLINE_Admin_USERS_" + RoomId, user.UserID.ToString(), cacheuser);
             }
@@ -1631,9 +1628,13 @@ namespace Online.Web.Controllers
             }
 
         }
-
-
+ 
         public ActionResult SingleService()
+        {
+            return View();
+        }
+
+        public ActionResult TeacherIntroduce()
         {
             return View();
         }
