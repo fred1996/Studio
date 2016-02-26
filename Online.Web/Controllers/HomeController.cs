@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Online.DbHelper.Common;
+using PagedList;
 
 namespace Online.Web.Controllers
 {
@@ -642,10 +643,13 @@ namespace Online.Web.Controllers
 
         private void NotifyCachingMsgList(MessageInfo entity)
         {
-            if (!string.IsNullOrEmpty(NotifyWebUrl))
+            if (NotifyWebUrlList.Any())
             {
                 var input = JsonConvert.SerializeObject(entity);
-                NotifyService(NotifyWebUrl + "Home/AddMessage?input=" + input);
+                NotifyWebUrlList.ForEach(url =>
+                {
+                    NotifyService(url + "Home/AddMessage?input=" + input);
+                });
             }
         }
 
@@ -693,10 +697,12 @@ namespace Online.Web.Controllers
 
         private void NotifyCheckMsgitem(long chartId)
         {
-            if (!string.IsNullOrEmpty(NotifyWebUrl))
+            if (NotifyWebUrlList.Any())
             {
-
-                NotifyService(NotifyWebUrl + "Home/CheckMsgitem?chartId=" + chartId);
+                NotifyWebUrlList.ForEach(url =>
+                {
+                    NotifyService(url + "Home/CheckMsgitem?chartId=" + chartId);
+                });
             }
         }
 
@@ -885,7 +891,7 @@ namespace Online.Web.Controllers
                 {
                     userAdmin = Users != null && Users.UserRoleses != null && Users.UserRoleses.Any(t => t.RoleId <= 11 && t.RoleId >= 9),
                     userstarlo = Users != null,
-                    theme = Users != null ? Users.SexTheme : "theme_default.css"
+                    theme = Users != null ? Users.SexTheme : "theme_blue.css"
                 };
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
@@ -1074,7 +1080,7 @@ namespace Online.Web.Controllers
                 var result = new
                 {
                     userAdmin = Users != null && Users.UserRoleses != null && Users.UserRoleses.Any(t => t.RoleId <= 11 && t.RoleId >= 9),
-                    theme = Users != null ? Users.SexTheme : "theme_default.css"
+                    theme = Users != null ? Users.SexTheme : "theme_blue.css"
                 };
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -1269,10 +1275,8 @@ namespace Online.Web.Controllers
                     if (file != null && file.ContentLength > 0 && UntilHelper.IsUploadImage(Path.GetExtension(file.FileName)))
                     {
                         string fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "-" + Path.GetFileName(file.FileName);
-
                         var imageUrl = Path.Combine(Server.MapPath("/Image/uploadfiles/"), fileName);
                         savaurl = "/Image/uploadfiles/" + fileName;
-
                         file.SaveAs(imageUrl);
                         try
                         {
@@ -1298,9 +1302,12 @@ namespace Online.Web.Controllers
 
         private void NotifyDownloadFile(string url, string path)
         {
-            if (!string.IsNullOrEmpty(NotifyWebUrl))
+            if (NotifyWebUrlList.Any())
             {
-                NotifyService(NotifyWebUrl + "Home/DownloadFile?url=" + url + "&path=" + path);
+                NotifyWebUrlList.ForEach(t =>
+                {
+                    NotifyService(t + "Home/DownloadFile?url=" + url + "&path=" + path);
+                });
             }
         }
 
@@ -1410,7 +1417,6 @@ namespace Online.Web.Controllers
                 RefreshLiveRoom();
                 AddUpdateSettingLog("新增图片", url, 13);
                 return Json(true, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
@@ -1441,9 +1447,12 @@ namespace Online.Web.Controllers
 
         private void NotifyRemoveMessage(long chartId)
         {
-            if (!string.IsNullOrEmpty(NotifyWebUrl))
+            if (NotifyWebUrlList.Any())
             {
-                NotifyService(NotifyWebUrl + "Home/RemoveMessage?chartId=" + chartId);
+                NotifyWebUrlList.ForEach(t =>
+                {
+                    NotifyService(t + "Home/RemoveMessage?chartId=" + chartId);
+                });
             }
         }
 
@@ -1637,6 +1646,12 @@ namespace Online.Web.Controllers
         public ActionResult TeacherIntroduce()
         {
             return View();
+        }
+
+        public ActionResult AdvancedTechColumn(int page=1)
+        {
+            var entityList = DataSource.SysTvColumnses.Where(t => t.ItemType == 7).OrderBy(t => t.CreateTime);
+            return View(entityList.ToPagedList(page,10));
         }
     }
 }

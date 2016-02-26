@@ -47,9 +47,6 @@ G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\PagedList.Mvc.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\Online.DbHelper.pdb
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\PagedList.xml
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\PagedList.Mvc.xml
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\obj\Debug\Online.Web.csprojResolveAssemblyReference.cache
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\obj\Debug\Online.Web.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\obj\Debug\Online.Web.pdb
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\obj\Debug\Online.Web.csprojResolveAssemblyReference.cache
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\zh-Hans\System.Web.Mvc.resources.dll
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\zh-Hans\EntityFramework.resources.dll
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\zh-Hans\EntityFramework.SqlServer.resources.dll

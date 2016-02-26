@@ -530,9 +530,9 @@ namespace Online.Web.Controllers
 
         private void NotifyDownloadFile(string url, string path)
         {
-            if (!string.IsNullOrEmpty(NotifyWebUrl))
+            if (NotifyWebUrlList.Any())
             {
-                NotifyService(NotifyWebUrl + "Home/DownloadFile?url=" + url + "&path=" + path);
+                NotifyWebUrlList.ForEach(t => NotifyService(t + "Home/DownloadFile?url=" + url + "&path=" + path));
             }
         }
 

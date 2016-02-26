@@ -1,0 +1,39 @@
+﻿@model Online.DbHelper.Model.LiveRooms
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+<div class="modal-content">
+    @using (Html.BeginForm("EditSave", "LiveTv", FormMethod.Post))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">房间编辑</h4>
+        </div>
+        <div class="modal-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.RoomID)
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-4 control-label">名称：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.RoomName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-4 control-label">是否启用：</label>
+                    <div class="col-md-8">
+                        <input type="radio" id="boy" name="BizStatus" value="1" checked="@(Model.BizStatus == 1)" />是
+                        <input type="radio" id="girl" name="BizStatus" value="0" style="margin-left: 20px" checked="@(Model.BizStatus == 0)" />否
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" id="editSave">保存</button>
+        </div>
+    }
+</div>

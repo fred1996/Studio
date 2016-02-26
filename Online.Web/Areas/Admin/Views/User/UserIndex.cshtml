@@ -14,7 +14,6 @@
                 <label>
                     模糊查询（姓名，邮箱，手机）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
                 </label>
-
                 <button class="btn  btn-info " style="display:inline-block;" role="button">
                     <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
                 </button>
@@ -26,7 +25,6 @@
                 <i class="glyphicon glyphicon-info-sign"></i>&nbsp;添加用户
             </a>
         </div>
-
     </div>
 </div>
 <div class="info">
@@ -36,7 +34,7 @@
                 <th>编号</th>
                 <th>账户</th>
                 <th>昵称</th>
-                <th>Ip</th>
+                <th>IP</th>
                 <th>QQ</th>
                 <th>来源</th>
                 <th>手机</th>
@@ -58,7 +56,7 @@
                         <td>@item.RegSource</td>
                         <td>@item.Telephone</td>
                         <td>@item.RegisterTime</td>
-                        <td>
+                        <td style="text-align:left;">
                             <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/User/UserEdit?id=@item.UserID" id="Edit" role="button">
                                 <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
                             </a>
@@ -87,10 +85,10 @@
             }
         </tbody>
     </table>
+    <input type="hidden" id="page" value="@ViewBag.Page" />
+    页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("UserIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
 </div>
-<input type="hidden" id="page" value="@ViewBag.Page"/>
- 页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("UserIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
 <div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 </div>
 <script>

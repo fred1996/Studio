@@ -518,7 +518,6 @@
     <Content Include="Image\javaie_images\ts3.png" />
     <Content Include="Image\javaie_images\ts4.png" />
     <Content Include="Image\javaie_images\weixin.jpg" />
-    <Content Include="Image\TincyUpload\九鼎在线.jpg" />
     <Content Include="Image\uploadfiles\adminicon\20150907172945.jpg" />
     <Content Include="Image\uploadfiles\adminicon\20150907173050.jpg" />
     <Content Include="Image\uploadfiles\adminicon\20150907173315.jpg" />
@@ -1642,12 +1641,14 @@
     <Content Include="Views\Home\ColumnDetail.cshtml" />
     <Content Include="Views\Home\SingleService.cshtml" />
     <Content Include="Views\Home\TeacherIntroduce.cshtml" />
+    <Content Include="Views\Home\AdvancedTechColumn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\zh-Hans\" />
     <Folder Include="Download\" />
     <Folder Include="Image\images\uploadfiles\msgs\" />
+    <Folder Include="Image\TincyUpload\" />
     <Folder Include="Image\uploadfiles\msgs\" />
     <Folder Include="Image\uploadfiles\users\" />
     <Folder Include="Scripts\jqueryui_11.4\images\" />

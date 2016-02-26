@@ -1,0 +1,134 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserCenterLayout.cshtml";
+}
+@Styles.Render("http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css")
+@model Online.DbHelper.Model.Users
+@using (@Html.BeginForm("UserBase", "Account", FormMethod.Post, new { id = "myform" }))
+{
+    <div class="admin_rightbar">
+        <h3>我的账户</h3>
+        <h4><a class="a4">基本资料</a><a class="a5" href="/Account/ChangePassword">修改密码</a></h4>
+        <ul class="list3">
+            <li>
+                <span class="span1">邮箱(账户名):</span><span id="UserEmail" class="span2">@Model.Email</span>
+            </li>
+            <li>
+                <span class="span1">选择头像:</span>
+                <input type="file" id="txtImportFile" style="float: left;" name="txtImportFile">
+            </li>
+            <li>
+                <span class="span1">个人头像:</span>
+                <span class="span2">
+                    @Html.HiddenFor(t => t.Avatar)
+                    <img src=@(!string.IsNullOrWhiteSpace(Model.Avatar) ? Model.Avatar : "../Image/images/admin_tx.png") id="showAvatar" width="140" height="140" alt="" />
+                </span>
+            </li>
+            <li>
+                <span class="span1">个人昵称:</span>
+                @Html.TextBoxFor(t => t.UserName, new { @class = "span2", style = "size=30" })
+                @*<span id="UserName" class="span2">@Model.UserName</span>*@
+            </li>
+
+            <li>
+                <span class="span1">真实姓名:</span>
+                @Html.TextBoxFor(t => t.RealName, new { @class = "type1", style = "size=30" })
+                @*<input type="text" class="type1" id="RealName" value="@Model.RealName" size="30">*@
+            </li>
+            <li style="display: none">
+                <span class="span1">联系电话:</span><span>
+                    <input type="text" id="Telephone" class="type1" value="@Model.Telephone" size="30">
+                    <br>
+                </span>
+            </li>
+            <li>
+                <span class="span1">QQ:</span><span>
+                    @Html.TextBoxFor(t => t.QQ, new { @class = "type1", style = "size=30" })
+                    @*<input type="text" id="QQ" class="type1" value="@Model.QQ" size="30">*@
+                    <br>
+                </span>
+            </li>
+            <li>
+                <span class="span1">微信:</span><span>
+                    @Html.TextBoxFor(t => t.Weixin, new { @class = "type1", style = "size=30" })
+                    @*<input type="text" id="Weixin" class="type1" value="@Model.Weixin" size="30">*@
+                    <br>
+                </span>
+            </li>
+            <li>
+                <span class="span1">性别:</span>
+                <span class="span2">
+                    <label style="float: left; margin-right: 10px;">
+                        @Html.RadioButtonFor(t => t.Sex, 0, new { name = "Sex" })
+                        @*<input type="radio" name="sex" value="0" id="sex_boy">*@
+                        男
+                    </label>
+                    <label style="float: left;">
+                        @Html.RadioButtonFor(t => t.Sex, 1, new { name = "Sex" })
+                        @*<input type="radio" name="sex" value="1" id="sex_gril">*@
+                        女
+                    </label>
+                    <br>
+                </span>
+            </li>
+            <li>
+                <span class="span1">投资分析法:</span>
+                <span class="span2">
+                    <label style="float: left; margin-right: 10px;">
+                        @Html.RadioButtonFor(t => t.InvestmentType, 0, new { name = "InvestmentType" })
+                        @*<input type="radio" name="InvestmentType" value="无" id="InvestmentType_no">*@
+                        无
+                    </label>
+                    <label style="float: left; margin-right: 10px;">
+                        @Html.RadioButtonFor(t => t.InvestmentType, 1, new { name = "InvestmentType" })
+                        @*<input type="radio" name="InvestmentType" value="1" id="InvestmentType_1">*@
+                        技术面
+                    </label>
+                    <label style="float: left;">
+                        @Html.RadioButtonFor(t => t.InvestmentType, 2, new { name = "InvestmentType" })
+                        @*<input type="radio" name="InvestmentType" value="2" id="InvestmentType_2">*@
+                        基本面
+                    </label>
+                    <br>
+                </span>
+            </li>
+            <li>
+                <input type="button" class="btnclass" name="save" id="save" value="确 定">
+            </li>
+        </ul>
+        <div class="clear15"></div>
+
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.iframe-transport.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
+    <script>
+        ShowMenu("box2");
+        Active('box2', 0);
+        $(function() {
+            var iframe = false;
+            if ($.browser.msie && $.browser.version < 10) {
+                iframe = true;
+            }
+            $("#txtImportFile").fileupload({
+                url: "/Account/UploadFile",
+                autoUpload: true,
+                type: 'POST',
+                dataType: 'json',
+                acceptFileTypes: '/(\.|\/)(jpg|jpeg|png|bmp|gif)$/i',
+                done: function(e, data) {
+                    if (data.result) {
+                        $("#showAvatar").attr("src", data.result);
+                        $("#Avatar").val(data.result);
+                    }
+                }
+            });
+        });
+        $("#save").click(function() {
+            $("#myform").submit();
+        });
+    </script>
+
+}

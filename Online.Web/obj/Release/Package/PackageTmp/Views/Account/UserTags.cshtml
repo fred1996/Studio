@@ -1,0 +1,103 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserCenterLayout.cshtml";
+}
+@model Online.Web.Models.UserTagsViewModel
+
+<div class="admin_rightbar">
+    <h3>我的账户</h3>
+    <h4><a class="a4">我的标签</a></h4>
+    <div class="bq">
+        @{
+            var mytags = Model.Tags.Split(',');
+            if (Model.Tags!="")
+            {
+                var list = mytags.ToList();
+                foreach (var item in list)
+                {
+                    var num = list.IndexOf(item) + 1;
+                    var myid = "bq" + num;
+                    <div id=@myid onclick="usertagclick(this)">@item</div>
+
+                }
+            }
+        }
+    </div>
+    <div class="clear15"></div>
+    <h4><a class="a4">可选标签</a></h4>
+    <div class="kxbq">
+        @foreach (var item1 in Model.List)
+        {
+            if (Model.Tags.IndexOf(item1.FiledBaseValue) < 0)
+            {
+                <a href="#" onclick="tagsclick(this)">@item1.FiledBaseValue</a>
+            }
+        }
+
+    </div>
+    <input type="button" class="btnclass" name="save" style="margin-left: 20px; margin-top: 100px;" id="save" value="确 定">
+</div>
+@section scripts
+{
+    <script>
+        var count = 1;
+        ShowMenu("box2");
+        Active('box2', 1);
+        if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+            $(".kxbq").attr("style", "width:100%;margin-left:20px!important");
+        }
+        var tagslist = new Array();
+
+        function usertagclick(div) {
+            var tag = $(div);
+            var str = "<a href='#' onclick='tagsclick(this)'>" + tag.text() + "</a>";
+            $(".kxbq").append(str);
+            tag.remove();
+            var index = tagslist.indexOf(tag.text());
+            if (index >= 0) {
+                tagslist.splice(index, 1);
+            }
+        }
+
+        function tagsclick(a) {
+            if (count > 12) {
+                count = 1;
+            }
+            var last = $(".bq").children().last().attr("id");
+            if (!last) {
+                count = 1;
+            } else {
+                count = Number(last.substring(last.length - 1)) + 1;
+            }
+
+            var tag = $(a);
+            var str = "<div id='bq" + count + "' onclick='usertagclick(this)'>" + tag.text() + "</div>";
+            $(".bq").append(str);
+            if (tagslist.indexOf(tag.text()) < 0) {
+                tagslist.push(tag.text());
+            }
+            tag.remove();
+            count++;
+        }
+
+        $(function () {
+            $("#save").click(function() {
+                $(".bq div").each(function(i, item) {
+                    var tag = $(item);
+                    if (tagslist.indexOf(tag.text()) < 0) {
+                        tagslist.push(tag.text());
+                    }
+                });
+                var tags = tagslist.join(',');
+                if (tags == "") {
+                    alert("您当前还没有选择标签!");
+                    return false;
+                }
+                $.post("/Account/UserTags/", { tags: tags }).done(function () {
+                    alert("修改成功!");
+                });
+            });
+        });
+    </script>
+}
+
+

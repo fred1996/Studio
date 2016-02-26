@@ -1,0 +1,28 @@
+﻿body{
+    background: url("../../Image/images/theme/backgroundred.jpg") repeat fixed!important;
+}
+#TopbarWapper{
+    background: -moz-linear-gradient(top,#C22743,#f42925)!important; /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#C22743), to(#f42925))!important; /*谷歌*/
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #C22743),color-stop(1, #f42925))!important; /* Safari & Chrome*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C22743', endColorstr='#f42925')!important; /*IE6 & IE7*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C22743', endColorstr='#f42925')"!important; /* IE8 */
+}
+#MainLiveTVWapper .video-tip{
+    background-color: #e72341!important;
+}
+#RoomNoticeWrapper{
+     background-color: #dd3e4d!important;
+}
+#SubColumnsMenu{
+    background-color:#dc2833;
+}
+#SubColumnsMenu a{
+    background-color:#ef2928!important;
+}
+#ServiceMsg{
+    background-color:#f3c8cd;
+}
+#btnSayingTo{
+    background-color:#dc2833;
+}

@@ -344,18 +344,25 @@ namespace Online.Web.DAL
             Response.AppendCookie(newcookie);
 
         }
-        private static string _notifyWebUrl = ConfigurationManager.AppSettings["NotifyWebUrl"];
+        private static readonly string NotifyWebUrl = ConfigurationManager.AppSettings["NotifyWebUrl"];
 
+        private static List<string> _notifyWebUrlList = new List<string>();
 
-        protected static string NotifyWebUrl
+        protected static List<string> NotifyWebUrlList
         {
             get
             {
-                if (string.IsNullOrEmpty(_notifyWebUrl))
-                    return string.Empty;
-                if (!_notifyWebUrl.EndsWith("/"))
-                    _notifyWebUrl = _notifyWebUrl + "/";
-                return _notifyWebUrl;
+                if (!_notifyWebUrlList.Any() && !string.IsNullOrEmpty(NotifyWebUrl))
+                    foreach (string url in NotifyWebUrl.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (string.IsNullOrEmpty(url))
+                            continue;
+                        if (!url.EndsWith("/"))
+                            _notifyWebUrlList.Add(url + "/");
+                        else
+                            _notifyWebUrlList.Add(url);
+                    }
+                return _notifyWebUrlList;
             }
         }
 

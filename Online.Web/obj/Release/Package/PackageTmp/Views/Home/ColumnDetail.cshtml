@@ -1,0 +1,70 @@
+﻿@model Online.DbHelper.Model.SysTVColumns
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>九鼎财经</title>
+    @Styles.Render("~/Content/Column.css")
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function OpenQQ() {
+            $.ajax({ url: '/Home/GetRandomQQ'  }).done(function (result) {
+                if (result ) {
+                    var qqtc = document.createElement('div');
+                    qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + result + "&Site=&Service=201' frameborder='0'></iframe>";
+                    document.body.appendChild(qqtc);
+                    qqtc.style.display = "none";
+                } else {
+
+                }
+            });
+        }
+      
+    </script>
+</head>
+<body>
+    <div class="jd_header">
+        <div class="jd_logo"><img src="/Image/images/Column/jd_logo.png" width="180" height="45" alt="" /></div>
+        <div class="jd_tel"><a href="javascript:OpenQQ();"><img src="/Image/images/Column/jd_qq.png" width="90" height="45" alt="" class="img1" /></a><a href="#"><img src="/Image/images/Column/jd_dh.png" width="265" height="45" alt="" /></a></div>
+    </div>
+    <div class="jd_menu">
+        <div class="ulm">
+            <ul id="jsddm">
+                <li style="border-left: 1px solid #9b0013;"><a href="#">高级技术</a></li>
+                <li><a href="#">基础知识</a></li>
+                <li><a href="#">智能程序交易</a> </li>
+            </ul>
+            <div class="zbsbtn"><a href="/Home/Index"><img src="/Image/images/Column/zbsbtn.png" width="130" height="50" alt="" /></a></div>
+        </div>
+    </div>
+    <!--banner开始-->
+    <div class="jd_banner"></div>
+    <!--banner结束-->
+    <div class="jd_inn_er">
+        <div id="con">
+            <div>
+                <h3>@Model.ItemTitle</h3>
+                <div class="line"></div>
+            </div>
+            <div class="text">
+                <p>
+                    @Html.Raw(Model.ISummary)
+                </p>
+                <p>&nbsp;</p>
+            </div>
+            @*<div class="pre">上一篇：<a href="#">循环战法</a></div>
+            <div class="next">下一篇：<a href="#">高级技术2</a></div>*@
+        </div>
+    </div>
+    <div class="jd_copyright">
+        <div class="copyt">
+            <p><a href="javascript:OpenQQ();"><img src="/Image/images/Column/jd_qq2.png" width="97" height="36" alt="" /></a></p>
+            <p>Copyright 2016 九鼎财经版权所有</p>
+        </div>
+    </div>
+</body>
+</html>
+

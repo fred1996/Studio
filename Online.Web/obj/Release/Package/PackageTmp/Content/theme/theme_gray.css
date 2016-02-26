@@ -1,0 +1,29 @@
+﻿body{
+    background: url("../../Image/images/theme/guse.jpg");
+}
+#TopbarWapper{
+    background: -moz-linear-gradient(top,#665454,#755d5d)!important; /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#665454), to(#755d5d))!important; /*谷歌*/
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #665454),color-stop(1, #755d5d))!important; /* Safari & Chrome*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#665454', endColorstr='#755d5d')!important; /*IE6 & IE7*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#665454', endColorstr='#755d5d')"!important; /* IE8 */
+}
+#MainLiveTVWapper .video-tip{
+    background-color: #8c736f!important;
+}
+#RoomNoticeWrapper{
+     background-color: #584f50!important;
+}
+#SubColumnsMenu{
+    background-color:#484849;
+}
+#SubColumnsMenu a{
+    background-color:#634a4d!important;
+}
+#ServiceMsg{
+    background-color:#C7C7C7;
+}
+#btnSayingTo{
+    background-color:#413332;
+}
+#TopbarWapper .topbar-userlogin a{background-color:#4f5051;}

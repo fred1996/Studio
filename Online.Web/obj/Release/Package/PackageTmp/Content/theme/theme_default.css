@@ -1,0 +1,42 @@
+﻿body {
+    background: url("../../Image/images/theme/guse1.jpg");
+    background-size:cover;
+    /*background-color:#cce8cf;*/
+}
+
+#TopbarWapper {
+    /*background: url("../../Image/images/Bg-0.png") repeat scroll 0 0 transparent;*/
+    background:#9E6D44;
+}
+
+#MainLiveTVWapper .video-tip {
+    /*background: url("../../Image/images/_BlackBg.png") repeat scroll 0 0 transparent;*/
+       background:#BF8A5E;
+}
+
+#RoomNoticeWrapper {
+    /*background: url("../../Image/images/Mesbg.png") repeat scroll 0 0 transparent;*/
+    /*background: rgba(43, 41, 41, 0.38);
+    filter: alpha(opacity=50);*/
+    background:#BF8A5E;
+}
+
+#SubColumnsMenu {
+    background: url("../../Image/images/_BlackBg.png") repeat scroll 0 0 transparent;
+}
+
+    #SubColumnsMenu a {
+        /*background: url("../../Image/images/Bg-0.png") repeat scroll 0 0 transparent;*/
+    }
+
+#ServiceMsg {
+    background: none repeat scroll 0 0 #eee;
+}
+
+#btnSayingTo {
+    background-color: #00b1ff;
+}
+
+#TopbarWapper .topbar-userlogin a {
+    background-color: #7FC123;
+}

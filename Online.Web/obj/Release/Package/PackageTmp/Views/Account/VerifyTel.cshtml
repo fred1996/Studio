@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserCenterLayout.cshtml";
+}
+@{
+    if (@ViewBag.isverify)
+    {
+        @Html.Partial("_VerifyTelSuccess");
+    }
+    else
+    {
+        <div class="admin_rightbar">
+            <h3>安全中心</h3>
+            <h4><a class="a4">验证手机</a></h4>
+            <input id="Token" name="Token" type="hidden" value=@ViewBag.Token>
+            <ul class="list3">
+                <li>
+                    <span class="span1">手机号码:</span>
+                    <input type="text" class="type1" id="Telephone" readonly="readonly" value=@ViewBag.Tel placeholder="请输入手机号码" size="30">
+                </li>
+                <li>
+                    <input type="button" name="submit" class="btnclass" onclick="SendSms(this)" value="免费获取验证码">
+                </li>
+                <li>
+                    <span class="span1">输入验证码:</span>
+                    <input type="text" id="VerifyCode" class="type1" size="20">
+                </li>
+                <li>
+                    <input type="button" name="submit" class="btnclass" onclick="checkCode()" value="确定">
+                </li>
+            </ul>
+        </div>
+    }
+}
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/jquery.cookie.js")
+    <script>
+        ShowMenu("box3");
+        Active('box3', 0);
+        var countdown = 60;
+
+        function SendSms(val) {
+            var option = {};
+            var tel = $("#Telephone").val();
+            if (tel == '') {
+                alert("手机号不能为空");
+                return false;
+            }
+            if (tel.length != 11) {
+                alert("您输入的手机号有误，请重新输入！");
+                return false;
+            }
+            option.tel = tel;
+            option.op = "sendsms";
+            $.ajax({ url: '/Account/SendSMS', data: { phone: tel, token: $("#Token").val() } }).done(function (ret) {
+                if (ret) {
+                    settime(val);
+                } else {
+                    alert("验证码发送失败");
+                }
+            });
+        }
+
+        function settime(val) {
+            $(val).attr("disabled", true);
+            if (countdown == 0) {
+                $(val).attr("disabled", false);
+                val.value = "免费获取验证码";
+                clearTimeout(time);
+
+                countdown = 60;
+                return false;
+            } else {
+                val.setAttribute("disabled", true);
+                val.value = "重新发送(" + countdown + ")";
+                countdown--;
+            }
+            time = setTimeout(function () {
+                settime(val);
+            }, 1000);
+        }
+
+        var checkCode = function () {
+            var option = {};
+            var code = $("#VerifyCode").val();
+            if (code == '') {
+                alert("验证码不能为空！");
+                return false;
+            }
+            if ($.cookie("code") != code) {
+                alert("验证码错误，请重新输入！");
+                $(this).focus();
+                return false;
+            }
+
+
+            $.post("/Account/Verify").done(function (ret) {
+                if (ret.status) {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+}

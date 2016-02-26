@@ -1,0 +1,61 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+@model Online.Web.Areas.Admin.Models.LoginViewModel
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>赢藏后台登录</title>
+    <style type="text/css">
+     	*{margin: 0; padding: 0;font-size: 16px;font-family: '微软雅黑';color:#164a76;font-weight:normal;}
+	a{text-decoration:none;}
+	.bg{background: url(/Image/images/login/mtftu.png) center center no-repeat;width: 100%;height:670px; padding-top:320px;}
+	.login_bg{background:url(/Image/images/login/yellow.png) center center no-repeat; width: 528px; height:312px; margin:0 auto;padding-top: 50px}
+	.input{width:368px;margin:0 auto;height:264px;}
+            #UserName, #Password {
+            width: 298px;
+            height: 60px;
+            border-radius: 5px;
+            border: 0;
+            margin-bottom: 40px;
+            padding-left: 70px;
+        }
+ 
+      #UserName {
+            background: url(/Image/images/login/uname.png) 14px center no-repeat;
+            background-color: #fff !important;
+        }
+
+        #Password {
+            background: url(/Image/images/login/upd.png) 14px center no-repeat;
+            background-color: #fff !important;
+        }
+
+	#button{width:136px;height:50px;border-radius:5px;border:0;background:#f06f19;color:#fff; margin:0 auto;display:block;cursor:pointer;font-size: 24px;outline:none;}
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="bg">
+            <div class="login_bg">
+                <div class="input">
+                    <div class="zi"></div>
+                    @Html.TextBoxFor(t => t.UserName, new { @class = "lt", placeholder = "请输入用户名/邮箱", autocomplete = "off" })
+                    @Html.PasswordFor(t => t.Password, new { @class = "lt", placeholder = "请输入密码", autocomplete = "off" })
+                    @*<input name="username" type="text" class="lt" id="in1" placeholder="请输入用户名" autocomplete="off">
+                        <input type="password" name="userpwd" class="lt" id="in2" placeholder="请输入密码" autocomplete="off">*@
+                    <input type="submit" class="lt" id="button" value="登   录">
+                    <div style="text-align: center;color: red">
+                        @Model.Message
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

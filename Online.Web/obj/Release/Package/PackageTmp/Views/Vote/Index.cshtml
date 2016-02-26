@@ -1,0 +1,172 @@
+﻿@using Online.DbHelper.Model;
+@model IEnumerable<UserVote>
+@{
+    ViewBag.Title = "投票";
+    Layout = null;
+}
+@Styles.Render("~/Content/base.css")
+@Styles.Render("~/Content/theme/green.css")
+@Styles.Render("~/Scripts/jqueryui_11.4/jquery-ui.css")
+@Scripts.Render("https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js")
+@Scripts.Render("~/Scripts/Web/VoteIndex.js")
+@Scripts.Render("~/Scripts/global.js")
+@Scripts.Render("~/Scripts/jqueryui_11.4/jquery-ui.js")
+<script src="~/Scripts/jqueryui_11.4/jquery-ui.js"></script>
+<ul id="votenav" class="mTop10">
+    <li class="curren">投票项管理</li>
+    <li>添加投票</li>
+    <li>投票记录</li>
+    <li></li>
+    <li class="clear"></li>
+</ul>
+<div class="clear"></div>
+<hr />
+<div class="vote_box votelistbox show">
+    <table class="votes votelists" style="width: 100%;" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <td>标题</td>
+                <td>创建人</td>
+                <td>截止时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserVote item in Model)
+            {
+                <tr>
+                    <td>@item.VoteTitle</td>
+                    <td>@item.CreateUser</td>
+                    <td>@item.VoteEndTime</td>
+                    <td><a class='pAll5 voteEdid' vid="@item.VoteID" begintime="@item.VoteBeginTime"   detail="@item.VoteSummary" result="@item.IsViewResult.ToString()" mult="@item.IsVoteMulti.ToString()" anony="@item.IsAnonymous.ToString()" uendtime="@item.VoteEndTime" votecount="@item.OptCount"  title="@item.VoteTitle">编辑</a><a class='pAll5 voteDel' vid="@item.VoteID">删除</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="vote_box addvotebox">
+    <div class="LineHeight45">
+        <label>标题：</label><input type="text" id="votetitle" />
+    </div>
+    <div class="LineHeight45 setvotebox">
+        <div>
+            <label>选项：</label><input type="text" name="voteoption" /><a class="mLeft15" href="javascript:;" id="btnvoteaddop">添加选项</a>
+        </div>
+        <div>
+            <label style="width:66px;"></label>
+            <input type="text" name="voteoption" /><a class="mLeft15" href="javascript:;" onclick="DelVoteColumDom(this)">删除</a>
+        </div>
+        <div>
+            <label style="width:66px;"></label>
+            <input type="text" name="voteoption" /><a class="mLeft15" onclick="DelVoteColumDom(this)">删除</a>
+        </div>
+    </div>
+    <div class="LineHeight45">
+        <label>每人几票：</label><input type="text" id="uservotecount" value="1" />
+    </div>
+    <div class="LineHeight45">
+        <label>开始时间：</label><input type="text" id="begintime" />
+    </div>
+    <div class="LineHeight45">
+        <label>截止时间：</label><input type="text" id="endtime" />
+    </div>
+    <div class="LineHeight45">
+        <label>匿名投票：</label><select class="form-control" id="selAnonymous">
+            <option value="0">不允许</option>
+            <option value="1">允许</option>
+        </select>
+    </div>
+    <div class="LineHeight45">
+        <label>多项投票：</label><select class="form-control" id="selMult">
+            <option value="0">不允许</option>
+            <option value="1">允许</option>
+        </select>
+    </div>
+    <div class="LineHeight45">
+        <label>结果可见：</label><select class="form-control" id="selResult">
+            <option value="1">允许</option>
+            <option value="0">不允许</option>
+        </select>
+    </div>
+    <div class="LineHeight45">
+        <label>投票说明：</label><input type="text" id="votedetail" />
+    </div>
+    <div class="LineHeight45">
+        <label></label>
+        <input type="button" value="添加" id="btnaddvote" class="btn" />
+    </div>
+</div>
+<div class="vote_box votelogbox">
+    <table class="votes voteresult" style="width: 100%;" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <td>标题</td>
+                <td>发起人</td>
+                <td>投票选项</td>
+                <td>投票结果</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>万众瞩目的非农行情本周即将来到！</td>
+                <td>fred</td>
+                <td>加入没有如果</td>
+                <td>
+                    100
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>今天有台风</td>
+                <td>
+                    65
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="vote_box addvotebox">
+    <div class="LineHeight45">
+        <label>标题：</label><input type="text" id="uvotetitle" />
+    </div>
+    <div class="LineHeight45  setvotebox1">
+    </div>
+    <div class="LineHeight45">
+        <label>每人几票：</label><input type="text" id="uuservotecount" value="1" />
+    </div>
+    <div class="LineHeight45">
+        <label>开始时间：</label><input type="text" id="ubegintime" disabled="disabled" />
+    </div>
+    <div class="LineHeight45">
+        <label>截止时间：</label><input type="text" id="uendtime" />
+    </div>
+    <div class="LineHeight45">
+        <label>匿名投票：</label><select class="form-control" id="uselAnonymous">
+            <option value="0">不允许</option>
+            <option value="1">允许</option>
+        </select>
+    </div>
+    <div class="LineHeight45">
+        <label>多项投票：</label><select class="form-control" id="uselMult">
+            <option value="0">不允许</option>
+            <option value="1">允许</option>
+        </select>
+    </div>
+    <div class="LineHeight45">
+        <label>结果可见：</label><select class="form-control" id="uselResult">
+            <option value="1">允许</option>
+            <option value="0">不允许</option>
+        </select>
+    </div>
+    <div class="LineHeight45">
+        <label>投票说明：</label><input type="text" id="uvotedetail" />
+    </div>
+    <div class="LineHeight45">
+        <label></label>
+        <input type="button"  value="保存" id="ubtnaddvote" class="btn" />
+    </div>
+</div>
+<script>
+   
+</script>

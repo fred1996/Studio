@@ -1,0 +1,322 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserCenterLayout.cshtml";
+}
+@model  List<Online.DbHelper.Model.UserAddress>
+@Styles.Render("../Content/jquery.fancybox.css")
+<style>
+    .easebuy-m {
+        border: 2px solid #e6e6e6;
+        margin: 0 0 10px;
+        overflow: hidden;
+        zoom: 1;
+    }
+
+    .del-btn {
+        margin-top: 10px;
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        text-indent: 99em;
+        background: url(../Image/images/close.png);
+        overflow: hidden;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .lable {
+        float: none;
+        display: block;
+        vertical-align: middle;
+        color: #999;
+        text-align: left;
+    }
+</style>
+
+<div class="admin_rightbar">
+    <h3>我的账户</h3>
+    <h4>
+        <a class="a4">地址管理</a>
+        <input type="button" value="新增地址" class="btnclass" id="Address_add_dialog" style="float: right; margin: 10px 20px 0 0" />
+    </h4>
+    <div id="AddressList">
+        @*@foreach (var item in Model)
+            {
+            <ul class='list3'>
+                <div class='easebuy-m'>
+                    <div style='float: right; margin: 0 10px 0 0;'>
+                        <a herf='#none' class='del-btn' onclick='del(@item.AddressID)'></a>
+                    </div>
+                    <li style='margin-top: 20px'><span class='span1'>邮箱:</span><span class='span2' size=' 30'>@item.Email</span></li>
+                    <li><span class='span1'>手机:</span><span class='span2' size='30'>@item.Telephone</span></li>
+                    <li><span class='span1'>所在区域:</span> <span class='span2' size='30'>@item.Country@item.Province@item.City@item.Area </span></li>
+                    <li style='float: left'><span class='span1'>具体地址:</span><span class='span2' size='30'>@item.DetailInfo</span></li>
+                    <div style='float: right; margin: 0 10px 0 0;'>
+                        <a href='#' onclick='edit(@item.AddressID)'>编辑</a>
+                    </div>
+                </div>
+            </ul>
+        }*@
+
+    </div>
+    <div style="float: right; margin-right: 20px;">
+        <input type="button" value="首页" id="first" class="pagebtn" />
+        <input type="button" value="上一页" id="prev" class="pagebtn" />
+        <input type="button" value="下一页" id="next" class="pagebtn" />
+        <input type="button" value="尾页" id="end" class="pagebtn" />
+    </div>
+
+</div>
+<div id="Address" style="display: none">
+    <div class="admin_rightbar2" style="float: none !important; width: auto !important; height: auto !important; border: 0px">
+        <div style='float: right; margin: 0 10px 0 0;'>
+            <a herf='#none' class='del-btn' id="del_btn"></a>
+        </div>
+        <ul class="list4">
+            <li>
+                <span class="span1">邮箱:</span>
+                <input type="text" class="type1" id="email" size="30">
+                <input type="hidden" id="address_id" />
+            </li>
+            <li>
+                <span class="span1">手机:</span>
+                <input type="text" class="type1" id="telephone" size="30">
+            </li>
+            <li>
+                <span class="span1">所在区域:</span>
+                <form name="form2">
+                    <select name="Province" id="cmbProvince" style="height: 30px; border-radius: 5px;"></select>
+                    <select name="City" id="cmbCity" style="height: 30px; border-radius: 5px;"></select>
+                    <select name="Area" id="cmbArea" style="height: 30px; border-radius: 5px;"></select>
+                </form>
+
+            </li>
+            <li>
+                <span class="span1">具体地址:</span>
+                <input type="text" class="type1" id="detailinfo" size="50">
+            </li>
+            <li>
+                <input type="button" class="btnclass" id="Address_add_save" value="确 定">
+            </li>
+        </ul>
+    </div>
+
+</div>
+@section scripts
+{
+    @Scripts.Render("../Scripts/jsAddress.js")
+    @Scripts.Render("../Scripts/jquery.fancybox.js")
+    @Scripts.Render("../Scripts/jquery.fancybox.pack.js")
+    @Scripts.Render("../Scripts/global.js")
+
+    <script>
+        ShowMenu("box2");
+        Active('box2', 2);
+        var pageIndex = 1;
+        var sumPage = 0;
+        $(function() {
+            $("#Address_add_dialog").click(function() {
+                clear();
+                address_dialog();
+            });
+            $("#del_btn").click(function() {
+                $.fancybox.close();
+            });
+            sumPage = $("#pageNum").val();
+            $("#first").attr("disabled", true);
+            $("#prev").attr("disabled", true);
+            Init(pageIndex);
+
+            if (sumPage <= 1) {
+                $("#next").attr("disabled", true);
+                $("#end").attr("disabled", true);
+            }
+            //保存地址
+            $("#Address_add_save").click(function() {
+                var option = {};
+                var email = $("#email").val();
+                if (email == '') {
+                    alert('邮箱不能为空!');
+                    return false;
+                }
+                if (!RegExp.isEmail(email)) {
+                    alert('请输入有效的邮箱!');
+                    return false;
+                }
+                var telephone = $("#telephone").val();
+                if (telephone == '') {
+                    alert('手机不能为空!');
+                    return false;
+                }
+                if (!RegExp.isMobile(telephone)) {
+                    alert('请输入有效手机号');
+                    return false;
+                }
+                var detailinfo = $("#detailinfo").val();
+                if (detailinfo == '') {
+                    alert('具体不能为空!');
+                    return false;
+                }
+                option.email = email;
+                option.addressid = $("#address_id").val();
+                option.telephone = telephone;
+                option.province = $("#cmbProvince").val();
+                option.city = $("#cmbCity").val();
+                option.area = $("#cmbArea").val();
+                option.detailInfo = detailinfo;
+                $.post("/Account/AddressOperation", { model: option }).done(function(ret) {
+                    if (ret.status) {
+                        alert(ret.msg);
+                        window.location.reload();
+                        $.fancybox.close();
+                    } else {
+                        alert(ret.msg);
+                    }
+
+                });
+            });
+
+            //第一页
+            $("#first").click(function() {
+                pageIndex = 1;
+                $("#first").attr("disabled", "disabled");
+                $("#prev").attr("disabled", "disabled");
+                $("#next").attr("disabled", false);
+                $("#end").attr("disabled", false);
+                Init(pageIndex);
+            });
+            //上一页
+            $("#prev").click(function() {
+                pageIndex--;
+                if (pageIndex == 1) {
+                    $("#prev").attr("disabled", true);
+                    $("#first").attr("disabled", true);
+                } else {
+                    $("#prev").attr("disabled", false);
+                    $("#first").attr("disabled", false);
+                }
+                $("#next").attr("disabled", false);
+                $("#end").attr("disabled", false);
+                Init(pageIndex);
+            });
+            //下一页
+            $("#next").click(function() {
+                pageIndex++;
+                if (pageIndex == sumPage) {
+                    $("#next").attr("disabled", "disabled");
+                    $("#end").attr("disabled", "disabled");
+                } else {
+                    $("#next").attr("disabled", false);
+                    $("#end").attr("disabled", false);
+
+                }
+                $("#prev").attr("disabled", false);
+                $("#first").attr("disabled", false);
+                Init(pageIndex);
+            });
+            //尾页
+            $("#end").click(function() {
+                pageIndex = sumPage;
+                $("#next").attr("disabled", "disabled");
+                $("#end").attr("disabled", "disabled");
+                $("#prev").attr("disabled", false);
+                $("#first").attr("disabled", false);
+                Init(pageIndex);
+            });
+
+        });
+
+        var edit = function(id) {
+            $.post("/Account/GetAddress", { addressid: id }).done(function(ret) {
+                var model = ret.data;
+                $("#email").val(model.Email);
+                $("#telephone").val(model.Telephone);
+                $("#detailinfo").val(model.DetailInfo);
+                $("#address_id").val(id);
+                addressInit(document.getElementById('cmbProvince'), document.getElementById('cmbCity'), document.getElementById('cmbArea'), model.Province, model.City, model.Area);
+
+                address_dialog();
+            });
+
+        }
+
+        var del = function(id) {
+            if (confirm("确定删除此地址吗？")) {
+                $.post("/Account/AddressDel", { addressid: id }).done(function(ret) {
+                    if (ret.status) {
+                        alert("删除成功");
+                        window.location.reload();
+                    } else {
+                        alert("删除失败");
+                    }
+                });
+                alert(res.Data);
+                if (!!res && !!res.IsSuccess) {
+                    Init(pageIndex);
+                } else {
+
+                }
+            }
+        }
+
+        var clear = function() {
+            $("#email").val("");
+            $("#telephone").val("");
+            $("#detailinfo").val("");
+            $("#address_id").val("");
+            addressInit(document.getElementById('cmbProvince'), document.getElementById('cmbCity'), document.getElementById('cmbArea'), '上海', '市辖区', '普陀区');
+        }
+
+        var page = function(index) {
+            //$("#AddressList").empty();
+            $.post("/Account/UserAddress", { pageindex: index });
+        }
+        var Init = function(pageindex) {
+
+            $("#AddressList").empty();
+
+            $.post("/Account/UserAddress", { pageindex: pageIndex }).done(function(ret) {
+                if (ret.status) {
+                    var data = ret.data;
+                    sumPage = ret.pageSum;
+                    var div = "<ul class='list3'><div class='easebuy-m'>";
+                    var enddiv = "</div></ul>";
+                    $(data).each(function(i, item) {
+                        var content = "<div style='float: right; margin: 0 10px 0 0;'><a herf='#none' class='del-btn' onclick='del(" + item.AddressID + ")'></a></div>" +
+                            "<li style='margin-top: 20px'><span class='span1'>邮箱:</span><span class='span2'' size='30'>" + item.Email + "</span></li>" +
+                            "<li><span class='span1'>手机:</span><span class='span2' size='30'>" + item.Telephone + "</span></li>" +
+                            "<li><span class='span1'>所在区域:</span> <span class='span2' size='30'>" + item.Country + item.Province + item.City + item.Area + "</span></li>" +
+                            "<li style='float: left'><span class='span1'>具体地址:</span><span class='span2' size='30'>" + item.DetailInfo + "</span></li> " +
+                            "<div style='float: right; margin: 0 10px 0 0;'><a href='#' onclick='edit(" + item.AddressID + ")'>编辑</a></div>";
+                        $("#AddressList").append(div + content + enddiv);
+                    });
+
+                    if (sumPage <= 1) {
+                        $("#next").attr("disabled", true);
+                        $("#end").attr("disabled", true);
+                    }
+                }
+            });
+        }
+        var address_dialog = function() {
+            $.fancybox.open($("#Address"), {
+                width: 525,
+                height: 250,
+                fitToView: false,
+                padding: 0,
+                margin: 0,
+                scrolling: 'no',
+                autoSize: false,
+                closeClick: false,
+                closeBtn: true,
+                openEffect: 'none',
+                closeEffect: 'none',
+                type: 'inline',
+                modal: true,
+                hideOnOverlayClick: false,
+                hideOnContentClick: false,
+                overlayShow: true,
+                //title: '添加地址'
+            });
+        }
+    </script>
+}

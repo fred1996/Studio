@@ -180,7 +180,7 @@ setting.methods = {
             if (data.theme != "" && data.theme != null) {
                 $("#theme_css").attr("href", "/content/theme/" + data.theme + "");
             } else {
-                $("#theme_css").attr("href", "/content/theme/theme_default.css");
+                $("#theme_css").attr("href", "/content/theme/theme_blue.css");
             }
         });
     },
@@ -197,7 +197,7 @@ setting.methods = {
             if (data.theme != "" && data.theme != null) {
                 $("#theme_css").attr("href", "/content/theme/" + data.theme + "");
             } else {
-                $("#theme_css").attr("href", "/content/theme/theme_default.css");
+                $("#theme_css").attr("href", "/content/theme/theme_blue.css");
             }
         });
 
@@ -261,7 +261,7 @@ setting.methods = {
                 var strhtml = new StringBuilder();
                 strhtml.Append("<div id='homeflyimgbox' style=\"background: url('/Image/images/Vote_Bg.png') repeat scroll 0 0 transparent;width: 800px;height: 300px;z-index:1112; position: fixed; margin:auto; left:0; right:0; top:0; bottom:0; opacity: 1; overflow: visible;\"><div class='closefly' onclick=\"hideflyimg()\"></div>");
                 strhtml.Append("<div>");
-                strhtml.Append("<div style='text-align: center;padding: 10px;font-size:16px;color:#D0A644;'>给自己取个好听的名字，就能与专业分析师及投资打人<span style='color:white;'>在线交流</span>哦</div>");
+                strhtml.Append("<div style='text-align: center;padding: 10px;font-size:16px;color:#D0A644;'>给自己取个好听的名字，就能与专业分析师及投资人<span style='color:white;'>在线交流</span>哦</div>");
                 strhtml.Append("<div style='text-align:center;'><input id=\"usernamether\" type='text' class='form-control' style='margin-right:20px;margin-bottom: 10px;'><button class='btn btn-primary' style='padding: 3px 25px;' id='btnconsave'>确认</button></div>");
                 strhtml.Append("</div>");
                 strhtml.Append("<div  id=\"heomefiyimg\" style=\"width:100%;height:300px;z-index:911200;\">");

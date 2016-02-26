@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>个人中心</title>
+    <script src="//cdn.bootcss.com/jquery/1.7.2/jquery.min.js"></script>
+    @Styles.Render("~/Content/adminstyle.css")
+    <script>
+    $(function () {
+        if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+            MobileCss();
+        }
+        function MobileCss() {
+            $(".list2 li:eq(2)").hide();
+            $(".admin_header").attr("style", "width:100%;");
+            $("body").attr("style", "width:100%;");
+            $(".k1").attr("style", "width:90%;");
+            $(".k2").attr("style", "width:100%;");
+            $(".admin_leftbar").attr("style", "width:35%;");
+            $(".admin_rightbar").css({ "width": "60%", "float": "left","margin-left":"2%","height":"auto" });
+            $(".admin_rightbar .list3").css("width","100%");
+            $(".con").css("width", "100%");
+            $(".admin_rightbar .list3 li .span1").css({ "text-align": "left","margin-left":"20px" });
+            $(".admin_rightbar .list3 li .span1").css("width", "100%");
+            $(".admin_rightbar .list3 li .span2").css({ "margin-left": "20px", "float": "left!important" });
+            $(".admin_rightbar .list3").css("padding", "0");
+            $(".type1").css({ "width": "80%", "margin-left": "20px" });
+            $(".btnclass").css({ "display": "block", "margin": "0 auto" });
+            $("input[type='file']").css("margin-left", "20px");
+            $(".admin_cop .k3").css({"text-align":"center","width":"100%"});
+        }
+    });
+    </script>
+
+</head>
+<body>
+    <div class="admin_header">
+        <div class="k1">
+            <a href="/Account/Index" id="head_name">@ViewBag.UserName</a> | <a href="/Account/Index">个人中心</a> | <a href="/Account/LoginOut" >退出</a>
+        </div>
+        <div class="k2">
+            <div class="logo">
+                <img src="~/Image/images/icon_logo.png" width="165" height="40" alt="" class="img1" />
+                <p class="p1">
+                    <a href="#">帮助中心</a> | <a href="http://www.mintaifu.com/html/about/">关于我们</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="clear15"></div>
+<div class="con">
+    @{
+        @Html.Partial("_LeftMenuPartial")
+    }
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</div>
+    <div class="clear15"></div>
+    <div class="admin_cop">
+        @*<div class="k3">中嘉财经版权所有</div>*@
+    </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_LiveLayout.cshtml";
 }
-<link href="/content/theme/theme_default.css" id="theme_css" rel="stylesheet" />
+<link href="/content/theme/theme_blue.css" id="theme_css" rel="stylesheet" />
 <script src="~/Scripts/scroll.js"></script>
 <input type="hidden" id="hidRoleID" value="0" />
 <a class='fancybox fancybox.iframe various hidden' id="uservote" href='/Home/UserVote'>投票</a>
@@ -12,7 +12,7 @@
     <![endif]-->
     <div id="TopbarWapper">
         <div class="topbar-logo left txtcenter">
-            <img src="../../Image/images/icon_logo.png" alt="融藏邮币卡" width="160" height="30" />
+            <img src="../../Image/images/icon_logo.png" alt="九鼎财经" width="160" height="30" />
             <span></span>
         </div>
         <div class="topbar-menu left">
@@ -30,10 +30,10 @@
                 @*<a href="http://www.mintaifu.com/html/download/" target="_blank">软件下载</a>*@
                 @*<span class="sep">|</span>*@
                 <a href="http://www.mintaifu.com/html/about/" target="_blank">关于我们</a>
-                <span class="sep">|</span>
+                @*<span class="sep">|</span>*@
                 @*<a href="javascript:;" onclick="setting.methods.ShowScheduleImg()">课程安排</a>*@
                 @*<span class="sep">|</span>*@
-                <a href="http://www.mintaifu.com/html/about/aboutus/" target="_black">公司介绍</a>
+                @*<a href="http://www.mintaifu.com/html/about/aboutus/" target="_black">公司介绍</a>*@
                 @*<span class="sep">|</span>*@
             </div>
             <div class="admin-setting hidden left mLeft15">
@@ -62,7 +62,6 @@
         <div class="topbar-userinfo qqzhuli right">
             <div id="ServiceQQs" style="position:relative;width:410px;">
                 <div class="serviceqq-list">
-
                 </div>
                 <div class="qqmore" style="width:20%;height:40px;line-height:40px;text-align:center;position:absolute;top:-5px;right:0;"><a href="javascript:;" onclick="openFlyImg()" style="font-size:14px; display:block;float:right;line-height:40px;padding-right:0;color:#000;">更多助理</a></div>
             </div>
@@ -110,7 +109,7 @@
                 <div class="myscroll" id="xwkx">
                     <ul class="marque_ul" data-bind="foreach:NewsFlash">
                         <li class="AdvancedTechnology-info" style="height: 32px;">
-                            <a href="#" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',10)'}" target="_blank">
+                            <a href="#" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',10)'}">
                             </a>
                         </li>
                     </ul>
@@ -158,33 +157,16 @@
                 </div>
                 <div id="commits" style="display: none;padding:20px;">
                     <img src="~/Image/images/close1.png" title="关闭" style="width: 24px" class="right" onclick="homeMain.showCommits('0')" />
-                    @*<div style="clear:both"></div>*@
-                    <table class="table table-bordered" style="width: 90%">
-                        <thead>
-                            <tr>
-                                <th style="width: 70%">标题</th>
-                                <th style="width: 20%">发布时间</th>
-                            </tr>
-                        </thead>
-                        <tbody id="zwp" data-bind="foreach:Comments">
-                            <tr class="AdvancedTechnologyList">
-                                <td style="width: 70%"><a class="commbx" href="javascript:void(0)" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',11)'}" style="background:rgba(31, 3, 3, 0.28)"></a></td>
-                                <td style="width: 20%"><label data-bind="text:CreateTime"></label></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @*<div id="ColumnInfoWrapper" style="display: none;">
-                        <div data-bind="foreach:Activitys">
-                            <div class="columninfo">
-                                <img src="#" data-bind="attr: { src: ItemImgUrl,alt: ItemName}" />
-                                <a href="#" data-bind="attr: { href: ItemLink }" target="_blank">
-                                    <div class="columninfo-title overflow_ellipsis"><span data-bind="html: ItemName"></span> </div>
+                    <div class="myscroll" id="zwp" style="width: 90%;max-height: 240px">
+                        <ul class="marque_ul" data-bind="foreach:Comments">
+                            <li class="AdvancedTechnology-info" style="height: 32px;">
+                                <a href="#" style="color: #ffffff; width: 20%" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',11)'}">
                                 </a>
-                                <div class="columninfo-summary"><span data-bind="html:ISummary"></span> </div>
-                            </div>
-                        </div>
-                    </div>*@
+                                <span style="float: right; width: 20%" data-bind="text:CreateTime"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -210,7 +192,7 @@
 
                 </div>
                 <div id="MsgListWrapper" class="nano has-scrollbar" style="height: 525px;">
-                    <div id="Msg" class="overthrow nano-content description" style="width:100%; margin-bottom:20px;outline: none;">
+                    <div id="Msg" class="overthrow nano-content description" style="width:100%;outline: none;">
                     </div>
                     @*<div id="mCSB_1_container" class="mCSB_container" style="position: relative; top: -219px; left: 0px;" dir="ltr" data-bind="foreach:Messages">
                             <div data-bind="if: msgtype == 1">
@@ -257,7 +239,7 @@
                         <span class="saying-tip">你好,<span class="from-user" data-bind="text:OnlineData.randUN"></span>,你正在对<span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>说：</span>
                     </div>*@
                 @*<div id="ClearToName" style="display:none; background-color:#fff;width:40px;height:20px;text-align:left;position: relative;left: 500px;"><a href="javascript:void(0);" style="display:inline-block;text-decoration:none;cursor:pointer;" data-bind="click:clearToUser">删除</a></div>*@
-                <div style="margin: 5px 20px;">
+                <div style="margin: 5px 20px;height: 22px;background: #3295B3;padding: 2px;height: 22px;">
                     <a class="qqface face-set" href="#">
                         @*<img src="../../Image/images/pic01.png" onclick="" class="face-set" style="vertical-align: middle;" />*@
                         表情

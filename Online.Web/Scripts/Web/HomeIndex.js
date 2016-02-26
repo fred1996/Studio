@@ -3,7 +3,8 @@
     ibrowser: {
         iPhone: navigator.userAgent.indexOf('iPhone') > -1,
         iPad: navigator.userAgent.indexOf('iPad') > -1,
-        mobile: !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)
+        mobile: !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/),
+        WeiXin: navigator.userAgent.indexOf('MicroMessenger') > -1,
     },
     OnlineData: {
         Title: ko.observable('九鼎财经直播室'),
@@ -97,7 +98,7 @@
         $.ajax({ url: "/Home/QueryComment" }).done(function (results) {
             homeMain.Comments.removeAll();
             for (var i = 0; i < results.length; i++) {
-                results[i].CreateTime=homeMain.ChangeDateFormat(results[i].CreateTime)
+                results[i].CreateTime = homeMain.ChangeDateFormat(results[i].CreateTime);
                 homeMain.Comments.push(results[i]);
             }
         });
@@ -221,7 +222,7 @@
                     $(".permission-list li").eq(2).hide();
                     if (homeMain.ibrowser.mobile) {
                         if (homeMain.OnlineData.UserRoleID() <= 0) {
-                           // $(".topbar-userinfo").hide();
+                            $(".topbar-userinfo").hide();
                         }
                     }
                 }
@@ -290,9 +291,13 @@
                             for (var i = 0; i < qqArrary.length; i++) {
                                 if (qqArrary[i])
                                     if (homeMain.ibrowser.mobile) {
-                                        //qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=' + qqArrary[i].split('-')[0] + '&site=qq&menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
+                                        if (homeMain.ibrowser.WeiXin) {
+                                            qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=' + qqArrary[i].split('-')[0] + '&site=qq&menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
+                                        }
+                                        else
                                         qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="mqq://im/chat?chat_type=wpa&uin=' + qqArrary[i].split('-')[0] + '&version=1&src_type=web"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
-                                    } else {
+                                    }  
+                                    else {
                                         qqhtml += '<a class="mRight10 mLeft10" href="tencent://message/?uin=' + qqArrary[i].split('-')[0] + '&amp;Site=www.yyzhiboshi.com&amp;Menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div> </a>';
                                     }
                             }
@@ -352,26 +357,7 @@
         $("#LoginUserCodeimg").show();
     },
     showCommits: function (type) {
-        //$.fancybox.open($("#Commentsbox"), {
-        //    fitToView: false,
-        //    padding: 0,
-        //    margin: 0,
-        //    minHeight: 0,
-        //    minWidth: 0,
-        //    maxWidth: 800,
-        //    maxHeight: 600,
-        //    scrolling: 'no',
-        //    autoSize: true,
-        //    closeClick: false,
-        //    closeBtn: true,
-        //    autoDimensions: true,
-        //    autoScale: false,
-        //    openEffect: 'none',
-        //    closeEffect: 'none',
-        //    type: 'inline'
-        //});
-        //$("#Commentsbox").show();
-        if (type=='1') {
+        if (type == '1') {
             $("#commits").show();
             $("#DisclaimerInfo").hide();
         } else {
@@ -389,7 +375,7 @@
             title = '早晚评';
         } else if (type == 10)
             title = "新闻快讯";
-        $.ajax({ url: "/Home/QueryArticleInfo", data: { id: id} }).done(function (result) {
+        $.ajax({ url: "/Home/QueryArticleInfo", data: { id: id } }).done(function (result) {
             if (result) {
                 $("#articleInfo").empty();
                 $.fancybox.open($("#articleInfo"), {
@@ -429,7 +415,7 @@
             }
         });
     },
-    ChangeDateFormat:function (val) {
+    ChangeDateFormat: function (val) {
         if (val != null) {
             var date = new Date(parseInt(val.replace("/Date(", "").replace(")/", ""), 10));
             //月份为0-11，所以+1，月份小于10时补个0
@@ -437,7 +423,6 @@
             var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
             return date.getFullYear() + "-" + month + "-" + currentDate;
         }
-
         return "";
     }
     ,
@@ -487,7 +472,7 @@
                     email: homeMain.RegisterData.Email(), nickName: $.trim(homeMain.RegisterData.UserName()),
                     phone: homeMain.RegisterData.Phone(), password: homeMain.RegisterData.Password(),
                     verifyCode: homeMain.RegisterData.Code(), qq: homeMain.RegisterData.QQ(),
-                    fromUrl:window.location.href
+                    fromUrl: window.location.href
                 }
             }).done(function (result) {
                 if (result) {
@@ -520,7 +505,17 @@
         qqArr = qqArr.split(',')
         var iNum = parseInt((qqArr.length - 1) * Math.random());
         var qqtc = document.createElement('div');
-        qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + qqArr[iNum] + "&Site=&Service=201' frameborder='0'></iframe>";
+        if (homeMain.ibrowser.mobile) {
+            if (homeMain.ibrowser.WeiXin) {
+                qqtc.innerHTML = "<iframe src='http://wpa.qq.com/msgrd?v=3&uin=" + qqArr[iNum] + "&site=qq&menu=yes' frameborder='0'></iframe>";
+            }
+            else
+                qqtc.innerHTML = "<iframe src='mqq://im/chat?chat_type=wpa&uin=" + qqArr[iNum] + "&version=1&src_type=web' frameborder='0'></iframe>";
+        }
+        else {
+            qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + qqArr[iNum] + "&Site=&Service=201' frameborder='0'></iframe>";
+        }
+        //qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + qqArr[iNum] + "&Site=&Service=201' frameborder='0'></iframe>";
         document.body.appendChild(qqtc);
         qqtc.style.display = "none";
     },
@@ -1212,13 +1207,10 @@
             if (result) {
                 $("#btnMoblie").html("己发送");
                 $("#btnMoblie").attr("disabled", "disabled");
-
                 setTimeout(function () {
                     $("#btnMoblie").removeAttr("disabled");
                     $("#btnMoblie").html("发送验证码");
                 }, 60000);
-            } else {
-
             }
         });
     },
@@ -1231,7 +1223,7 @@
         homeMain.QueryIntelligentTradings();
         homeMain.QueryNewsFlashs();
         homeMain.QueryComments();
-        homeMain.QueryActivitys();
+        //homeMain.QueryActivitys();
         homeMain.loadRoomInfo();
         homeMain.showUserRole();
         homeMain.QueryMessages();
@@ -1323,15 +1315,12 @@
         }, function () {
             $(".MonitorData_Zoom").removeAttr("style");
         });
-        $('#jczs,#gjjs,#zncx,#xwkx,#zwp').myScroll({
-        speed: 40, //数值越大，速度越慢
-        rowHeight: 32 //li的高度
-    });
+        setTimeout("$('#jczs,#gjjs,#zncx,#xwkx,#zwp').myScroll({speed: 40,rowHeight: 32  })", 2000);
 
     },
     IreSize: function () {
-        $("#MainContent").height($(window).innerHeight() - 52);
-        $("#ChatMsgWrapper").height($(window).innerHeight() - 93);
+        $("#MainContent").height($(window).height() - 52);
+        $("#ChatMsgWrapper").height($(window).height() - 93);
         $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - $("#ServiceQQs").height() - $("#ToolBarWapper").height() - $("#ClearToName").height() - $("#SayingInfoWrapper").height() - 100);
         if ($("#SysColumnWapper").is(":visible")) {
             $("#MainChatWapper").width($("#MainContent").width() - $("#SysColumnWapper").width() - $("#MainLiveTVWapper").width() - 40);
@@ -1346,19 +1335,19 @@
         if (homeMain.ibrowser.mobile == true) {
             $("#MainChatWapper").height($("#MainContent").height() - $("#MainLiveTVWapper").height());
             $("#ChatMsgWrapper").height($("#MainChatWapper").height() - 42);
-            $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - 150);            
+            $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - 150);
         }
-        if ($("body").width()<1400) {
+        if ($("body").width() < 1400) {
             $(".serviceqq-list a:not(:eq(0)),.qqmore").hide();
             $(".serviceqq-list,#ServiceQQs").css("width", "100px");
         } else {
             $(".serviceqq-list a:not(:eq(0)),.qqmore").show();
             $(".serviceqq-list").css("width", "90%");
-            $("#ServiceQQs").css("width","410px");
+            $("#ServiceQQs").css("width", "410px");
         }
     },
     mobileStyle: function () {
-        $("#chatbottom_qq").find(".btn").css({"padding":"2px 5px"});
+        $("#chatbottom_qq").find(".btn").css({ "padding": "2px 5px" });
     }
 };
 $(function () {
