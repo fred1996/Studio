@@ -49,6 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBHelp\i_User_Info.cs" />
+    <Compile Include="DBHelp\newUserContentBll.cs" />
+    <Compile Include="DBHelp\Roles.cs" />
+    <Compile Include="DBHelp\RolesMapping.cs" />
+    <Compile Include="DBHelp\UserInfoMapping.cs" />
+    <Compile Include="DBHelp\UserRoles.cs" />
+    <Compile Include="DBHelp\UserRolesMapping.cs" />
+    <Compile Include="DBHelp\Users.cs" />
+    <Compile Include="DBHelp\UsersMapping.cs" />
+    <Compile Include="DBHelp\VinvContextBll.cs" />
     <Compile Include="OldRole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,12 +67,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Online.DatabaseHelper\Online.DbHelper.csproj">
-      <Project>{9cf403c4-b329-4617-8aa7-d6b832977c35}</Project>
-      <Name>Online.DbHelper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

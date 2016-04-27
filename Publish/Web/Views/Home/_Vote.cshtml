@@ -1,0 +1,24 @@
+﻿<div id="vote"  class="hidden" style="background: url('/Image/images/Vote_Bg.png') repeat scroll 0 0 transparent;">
+    @*<div class="mLeft20 mBottom20">投票</div>*@
+    <div data-bind="foreach:Votes">
+        <div class="title_gray " style="background:url(/Image/images/Bg-0.png)">
+            <span class="pLeft20 left White" data-bind="text:VoteTitle"> </span>
+            @*<span class="right down_arrow"><img src="/Image/images/down_arrow_black.png"></span>*@
+        </div>
+        <table style="width: 100%;" class="pLeft20">
+            <tbody data-bind="foreach:UserVoteColums">
+                <tr>
+                    
+                    <td style="width: 80%;">
+                        <div style="width: 100%;  position: relative;height: 25px;">
+                            <div class="nav_paobar" data-bind="style:{width:NavPaobar}" style="background-color: #34ACE1; height: 25px; border-radius: 2px; display: inline-block; float: left; position: absolute;"></div>
+                            <div style="display: inline-block;float: left;position: absolute;line-height: 25px;font-size:12px;margin-left: 10px;"><span style="color:#fff;" data-bind="text:Columname"></span></div>
+                        </div>
+                    </td>
+                    <td style="width: 10%;" class="White txtcenter"><span class="votecountspan" data-bind="text:VoteCount"></span></td>
+                    <td style="width: 10%;" class="pRight10"><button class="btn_vote btnuservote Hand btn-success" data-bind="click:$parents[1].AddUserVoteItem">投票</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

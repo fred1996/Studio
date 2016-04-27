@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MVCVideo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MVC4.Video.2.0.0\lib\net40\MVCVideo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
@@ -155,6 +159,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\GiftController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LiveTvController.cs" />
     <Compile Include="Areas\Admin\Controllers\LogerController.cs" />
@@ -174,11 +179,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\tyleController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
-    <Compile Include="Controllers\YouBiKaIntroducesController.cs" />
     <Compile Include="DAL\AccountHandler.cs" />
     <Compile Include="DAL\BaseController.cs" />
     <Compile Include="DAL\ChatMessageCache.cs" />
     <Compile Include="DAL\DataQueueDal.cs" />
+    <Compile Include="DAL\GiftHandler.cs" />
     <Compile Include="DAL\SiteAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,12 +236,15 @@
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="config\theme.xml" />
+    <Content Include="Content\About\default.css" />
+    <Content Include="Content\About\reset.css" />
     <Content Include="Content\adminstyle.css" />
     <Content Include="Content\amazeui.min.css" />
     <Content Include="Content\base.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Column.css" />
+    <Content Include="Content\default.css" />
     <Content Include="Content\download\reset.css" />
     <Content Include="Content\download\style.css" />
     <Content Include="Content\indexstyle.css" />
@@ -267,6 +275,7 @@
     <Content Include="Content\logincss.css" />
     <Content Include="Content\one.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="Content\selfadaptstyle.css" />
     <Content Include="Content\SingleService\media-queries2.css" />
     <Content Include="Content\SingleService\style.css" />
@@ -308,6 +317,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\theme\green.css" />
     <Content Include="Content\theme\theme_blue.css" />
+    <Content Include="Content\theme\theme_blueTwo.css" />
     <Content Include="Content\theme\theme_city.css" />
     <Content Include="Content\theme\theme_classicalOne.css" />
     <Content Include="Content\theme\theme_default.css" />
@@ -316,14 +326,45 @@
     <Content Include="Content\theme\theme_red.css" />
     <Content Include="Content\theme\theme_whitegay.css" />
     <Content Include="cs.aspx" />
+    <Content Include="Download\dotNetFx40_Full_x86_x64.exe" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\about\articlePic.jpg" />
+    <Content Include="Image\about\banner.png" />
+    <Content Include="Image\about\catBanner.png" />
+    <Content Include="Image\about\catContPic.png" />
+    <Content Include="Image\about\dAndroid.png" />
+    <Content Include="Image\about\dCodeAndroid.png" />
+    <Content Include="Image\about\dCodeIOS.png" />
+    <Content Include="Image\about\dIOS.png" />
+    <Content Include="Image\about\dMBanner.jpg" />
+    <Content Include="Image\about\downIntro1.png" />
+    <Content Include="Image\about\downIntro2.png" />
+    <Content Include="Image\about\downIntro3.png" />
+    <Content Include="Image\about\downTitle.png" />
+    <Content Include="Image\about\dPc.png" />
+    <Content Include="Image\about\dPcIcon.png" />
+    <Content Include="Image\about\dPcPad.png" />
+    <Content Include="Image\about\hotline.png" />
+    <Content Include="Image\about\joinin.png" />
+    <Content Include="Image\about\listpic.png" />
+    <Content Include="Image\about\logo.png" />
+    <Content Include="Image\about\olService.png" />
+    <Content Include="Image\about\sideNavBg.png" />
     <Content Include="Image\images\0.jpg" />
     <Content Include="Image\images\404.png" />
     <Content Include="Image\images\404_msg.png" />
     <Content Include="Image\images\404_to_index.png" />
+    <Content Include="Image\images\AccountGuide.png" />
+    <Content Include="Image\images\AccountGuide\banner.png" />
+    <Content Include="Image\images\AccountGuide\bg.jpg" />
+    <Content Include="Image\images\AccountGuide\left.png" />
+    <Content Include="Image\images\AccountGuide\liuc.png" />
+    <Content Include="Image\images\AccountGuide\QQbtn.png" />
+    <Content Include="Image\images\AccountGuide\right.png" />
+    <Content Include="Image\images\ActivityOne.jpg" />
     <Content Include="Image\images\admin_but.png" />
     <Content Include="Image\images\admin_but2.png" />
     <Content Include="Image\images\admin_but_black.png" />
@@ -339,6 +380,8 @@
     <Content Include="Image\images\arrow_blue_up.png" />
     <Content Include="Image\images\Bg-0.png" />
     <Content Include="Image\images\bg.jpg" />
+    <Content Include="Image\images\bgblue.jpg" />
+    <Content Include="Image\images\default_bg.jpg" />
     <Content Include="Image\images\check.png" />
     <Content Include="Image\images\close.png" />
     <Content Include="Image\images\close1.png" />
@@ -354,6 +397,7 @@
     <Content Include="Image\images\error_cloud.png" />
     <Content Include="Image\images\face.png" />
     <Content Include="Image\images\favicon.ico" />
+    <Content Include="Image\images\giftblue.gif" />
     <Content Include="Image\images\heng.png" />
     <Content Include="Image\images\hotline.png" />
     <Content Include="Image\images\icon-msg2013.png" />
@@ -365,6 +409,7 @@
     <Content Include="Image\images\icon_index.png" />
     <Content Include="Image\images\icon_kj.png" />
     <Content Include="Image\images\icon_logo.png" />
+    <Content Include="Image\images\icon_logo2.png" />
     <Content Include="Image\images\icon_nc.png" />
     <Content Include="Image\images\icon_qq.png" />
     <Content Include="Image\images\icon_reg_error.png" />
@@ -423,6 +468,7 @@
     <Content Include="Image\images\login\upd.png" />
     <Content Include="Image\images\login\view.png" />
     <Content Include="Image\images\login\yellow.png" />
+    <Content Include="Image\images\LZInfoUser.jpg" />
     <Content Include="Image\images\Mesbg.png" />
     <Content Include="Image\images\modal_bg.png" />
     <Content Include="Image\images\moreadd.jpg" />
@@ -478,6 +524,7 @@
     <Content Include="Image\images\uploadpic.png" />
     <Content Include="Image\images\up_arrow.png" />
     <Content Include="Image\images\up_arrow_black.png" />
+    <Content Include="Image\images\v.mintaifu.com.png" />
     <Content Include="Image\images\Vote_Bg.png" />
     <Content Include="Image\images\wenxts.jpg" />
     <Content Include="Image\images\yccode.jpg" />
@@ -569,30 +616,7 @@
     <Content Include="Image\uploadfiles\qq\2850730071.png" />
     <Content Include="Image\uploadfiles\qq\2850730072.png" />
     <Content Include="Image\uploadfiles\qq\qq.png" />
-    <Content Include="Image\YouBiKaIntroduces\1%286%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp1%281%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp1%282%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp1%283%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp1.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2%281%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015110201.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015110202.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015110301.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015110302.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015110303.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015110304.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015122901.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015122902.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2015122903.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp2016010401.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp3.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp4%282%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp5.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp6%281%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\cp7%281%29.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\ef.jpg" />
-    <Content Include="Image\YouBiKaIntroduces\youbika.jpg" />
+    <Content Include="Scripts\base64.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
@@ -650,19 +674,41 @@
     <Content Include="Areas\Admin\Views\User\UserRelationAssistantEdit.cshtml" />
     <Content Include="Areas\Admin\Views\User\UserRelationAssistantIndex.cshtml" />
     <Content Include="Areas\Admin\Views\User\AddUserInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\GiftCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\GiftEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\UserGifts.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\UserGiftEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\UserGiftAdd.cshtml" />
+    <Content Include="Areas\Admin\Views\Gift\GiftLogIndex.cshtml" />
     <None Include="bin\Online.Web.dll.config" />
     <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
     <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <None Include="Properties\PublishProfiles\MinTaiFu.pubxml" />
+    <Content Include="Download\青岛九州商品交易中心交易系统手机端.rar" />
+    <Content Include="Download\青岛九州商品交易中心交易系统（实盘-6.3.3.9）.rar" />
+    <Content Include="Download\青岛九州商品交易中心交易系统（模拟-6.3.3.9）.rar" />
+    <Content Include="Download\青岛九州行情分析系统.rar" />
+    <Content Include="Download\九州行情分析系统-点证版.rar" />
+    <Content Include="Download\九州商品2.0app安装使用流程.docx" />
+    <Content Include="Download\九州行情分析系统-点证版（安卓端）.rar" />
+    <None Include="Properties\PublishProfiles\a.pubxml" />
+    <None Include="Properties\PublishProfiles\mtf_publish.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\browserDetect.js" />
     <Content Include="Scripts\chance.js" />
+    <Content Include="Scripts\ckplayer.js" />
     <Content Include="Scripts\daterangepicker\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\daterangepicker\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\daterangepicker\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="Scripts\IE7.js" />
     <Content Include="Scripts\IE8.js" />
     <Content Include="Scripts\IE9.js" />
+    <Content Include="Scripts\jquery-1.8.3.js" />
+    <Content Include="Scripts\LABjs-2.0.3\LAB-debug.min.js" />
+    <Content Include="Scripts\LABjs-2.0.3\LAB.js" />
+    <Content Include="Scripts\LABjs-2.0.3\LAB.min.js" />
+    <Content Include="Scripts\LABjs-2.0.3\LAB.src.js" />
     <Content Include="Scripts\respond.src.js" />
     <Content Include="Scripts\scroll.js" />
     <Content Include="Scripts\tinymce\langs\zh_CN.js" />
@@ -1375,6 +1421,7 @@
     <Content Include="Scripts\Web\settingHelper.js" />
     <Content Include="Scripts\Web\VoteIndex.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Image\images\rose.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1604,14 +1651,6 @@
     <Content Include="Views\Home\ShowScheduleImg.cshtml" />
     <Content Include="Views\Home\Download.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Shared\_YouBiKaIntroducesLayout.cshtml" />
-    <Content Include="Views\Shared\_YouBiKaLeftMenu.cshtml" />
-    <Content Include="Views\YouBiKaIntroduces\Coin.cshtml" />
-    <Content Include="Views\YouBiKaIntroduces\Currency.cshtml" />
-    <Content Include="Views\YouBiKaIntroduces\GoldCoin.cshtml" />
-    <Content Include="Views\YouBiKaIntroduces\PostageStamp.cshtml" />
-    <Content Include="Views\YouBiKaIntroduces\Stamp.cshtml" />
-    <Content Include="Views\YouBiKaIntroduces\YouBiKa.cshtml" />
     <Content Include="Views\Home\_Chat.cshtml" />
     <Content Include="Views\Home\_PopUp.cshtml" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
@@ -1642,11 +1681,13 @@
     <Content Include="Views\Home\SingleService.cshtml" />
     <Content Include="Views\Home\TeacherIntroduce.cshtml" />
     <Content Include="Views\Home\AdvancedTechColumn.cshtml" />
+    <Content Include="Views\Home\CompanyIntroduce.cshtml" />
+    <Content Include="Views\Home\_Vote.cshtml" />
+    <Content Include="Views\Home\AccountGuide.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="bin\zh-Hans\" />
-    <Folder Include="Download\" />
     <Folder Include="Image\images\uploadfiles\msgs\" />
     <Folder Include="Image\TincyUpload\" />
     <Folder Include="Image\uploadfiles\msgs\" />

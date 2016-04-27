@@ -1,0 +1,83 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.UserAddress>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "用户地址列表";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>用户地址管理</h2>
+<div>
+    <div class="left">
+        <div class="mAll10">
+            @using (Html.BeginForm("UserAddress", "User", FormMethod.Get, new { @style = "display:inline-block;", id = "form1" }))
+            {
+                <label>
+                    模糊查询（邮箱，手机）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
+                </label>
+
+                <button class="btn  btn-info " style="display:inline-block;" role="button">
+                    <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
+                </button>
+            }           
+        </div>
+
+    </div>
+</div>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>用户名</th>
+                <th>国家</th>
+                <th>省份</th>
+                <th>城市</th>
+                <th>区域</th>
+                <th>邮箱</th>
+                <th>联系手机</th>
+                <th>具体地址</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.AddressID</td>
+                        <td>@{var name = item.User == null ? "" : item.User.UserName;}@name</td>
+                        <td>@item.Country</td>
+                        <td>@item.Province</td>
+                        <td>@item.City</td>
+                        <td>@item.Area</td>
+                        <td>@item.Email</td>
+                        <td>@item.Telephone</td>
+                        <td>@item.DetailInfo</td>
+                        <td>
+                            <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/User/EditUserAddress?id=@item.AddressID" id="Edit" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                            </a>
+                            <a class="btn btn-danger delcss" role="button" href="/Admin/User/UserAddressRemove?address=@item.AddressID" data-id="@item.AddressID">
+                                <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan = "9" > 没有发现数据。</td></tr>
+            }
+        </tbody>
+    </table>
+    页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("UserAddress", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</div>
+<script>
+    $(function () {
+        ShowMenu("Users");
+        Active('Users',3);
+    });
+</script>

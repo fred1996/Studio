@@ -1,0 +1,85 @@
+﻿@using Online.Web.Areas.Admin.Enum
+@model PagedList.IPagedList<Online.DbHelper.Model.SysTVColumns>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "栏目管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<h2>栏目管理</h2>
+<a role="button" href="/Admin/SysTvColumn/Create" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div style="clear: both"></div>
+<div class="info">
+    <table class="table table-bordered table-hover table-striped" id="thetable">
+        <thead>
+            <tr>
+                <th style="width: 30px;">UID</th>
+                <th>所属房间</th>
+                <th>栏目标题</th>
+                <th>栏目名称</th>
+                <th>栏目图片地址</th>
+                <th>栏目链接</th>
+                <th>栏目类型</th>
+                <th>创建人</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.SysTVColumnID</td>
+                    <td>@item.LiveRooms.RoomName</td>
+                    <td>@item.ItemTitle</td>
+                    <td>@item.ItemName</td>
+                    <td>@item.ItemImgUrl</td>
+                    <td>@item.ItemLink</td>
+                    <td>
+                        @{var type = Enum.GetName(typeof(SysTvColumn), item.ItemType);}
+                        @type
+                    </td>
+                    <td>@item.CreateUser</td>
+                    <td>@item.CreateTime</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysTvColumn/Edit?id=@item.SysTVColumnID" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                        <a class="btn btn-danger delcss" role="button" data-id="@item.SysTVColumnID">
+                            <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                        </a>
+                    </td>
+                </tr>
+                            }
+        </tbody>
+    </table>
+
+    页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+
+<script>
+    $(function () {
+        ShowMenu("LiveTv");
+        Active('LiveTv', 2);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+        $(".info .table .delcss").click(function () {
+            if (confirm("是否删除此直播室栏目？")) {
+                var id = $(this).data("id");
+                $.post("/Admin/SysTvColumn/Delete", { id: id }).done(function (data) {
+                    if (data) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    })
+</script>

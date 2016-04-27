@@ -18,6 +18,8 @@ namespace Online.Web.Areas.Admin.Enum
         智能程序交易=9,
         新闻快讯=10,
         早晚评=11,
+        建仓提醒 = 12,
+        平仓提醒 = 13,
     }
 
     public enum SysInfoType
@@ -26,5 +28,10 @@ namespace Online.Web.Areas.Admin.Enum
         服务公告=2,
         飞屏=3,
         首屏弹图=4
+    }
+    public enum GiftType
+    {
+        鲜花=1,
+        钻石=2
     }
 }

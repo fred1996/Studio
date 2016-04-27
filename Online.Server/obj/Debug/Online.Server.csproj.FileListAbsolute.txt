@@ -9,3 +9,4 @@ G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server\bin\Online.Server.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server\bin\Online.Server.pdb
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server\obj\Debug\Online.Server.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server\obj\Debug\Online.Server.pdb
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server\obj\Debug\Online.Server.csprojResolveAssemblyReference.cache

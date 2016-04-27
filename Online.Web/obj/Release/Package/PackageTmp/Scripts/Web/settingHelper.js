@@ -12,18 +12,27 @@ setting.init = function () {
         openEffect: 'none',
         closeEffect: 'none'
     });
+    $(".various").fancybox({
+        maxWidth: 680,
+        fitToView: false,
+        width: '70%',
+        height: '50%',
+        autoSize: false,
+        closeClick: false,
+        openEffect: 'none',
+        closeEffect: 'none',
+        overlayShow: false
+    });
     setting.methods.initTheme();
     setting.methods.settingevent();
-    setting.methods.initVote();
-    //setting.methods.initSettingVis();
+    //setting.methods.initVote();
     setTimeout("setting.methods.initFly()", 3000);
 }
 setting.methods = {
     settingevent: function () {
         var html = new StringBuilder();
-        var wd = "170px";
+        var wd = "190px";
         html.Append('<div id="btnsetting" style=\'width:100px;height:' + wd + ';\'>');
-        //html.Append('<button onclick=\'c()\'>cc</button>');
         html.Append("<a href=\"javascript:;\" onclick=\"setting.methods.openThemeevent()\">主题</a>");
         html.Append("<a class='fancybox fancybox.iframe various'  href='/Vote/Index'>投票</a>");
         html.Append("<a class='fancybox fancybox.iframe various'  href='/Home/Announcement'>公告</a>");
@@ -31,6 +40,7 @@ setting.methods = {
         html.Append("<a href=\"javascript:;\" onclick=\"setting.methods.openFly()\">飞屏</a>");
         html.Append("<a class='fancybox fancybox.iframe various'  href='/Home/Playfigure'>弹图</a>");
         html.Append("<a href=\"javascript:;\" onclick=\"setting.methods.openServerQQ()\">QQ</a>");
+        html.Append("<a href=\"javascript:;\" onclick=\"setting.methods.ClearIp()\">清除IP名单</a>");
         html.Append("<div id='content'>");
         html.Append("<div>3</div>");
         html.Append("</div>");
@@ -144,7 +154,7 @@ setting.methods = {
                     if (data.start > 0) {
                         window.location.reload();
                     } else {
-                        alert("更换失败，请联系我们！");
+                        alert("已是当前选择的主题了，无需重复切换！");
                     }
                 });
             }
@@ -180,7 +190,7 @@ setting.methods = {
             if (data.theme != "" && data.theme != null) {
                 $("#theme_css").attr("href", "/content/theme/" + data.theme + "");
             } else {
-                $("#theme_css").attr("href", "/content/theme/theme_default.css");
+                $("#theme_css").attr("href", "/content/theme/theme_blue.css");
             }
         });
     },
@@ -197,10 +207,12 @@ setting.methods = {
             if (data.theme != "" && data.theme != null) {
                 $("#theme_css").attr("href", "/content/theme/" + data.theme + "");
             } else {
-                $("#theme_css").attr("href", "/content/theme/theme_default.css");
+                $("#theme_css").attr("href", "/content/theme/theme_blue.css");
             }
         });
-
+        $.ajaxSetup({
+            async: true
+        });
     },
     initFly: function () {
         $("#dofly").danmu({
@@ -216,7 +228,6 @@ setting.methods = {
             font_size_big: 38
         });
         $('#dofly').danmu('danmu_resume');
-
     },
     openFly: function () {
         $.fancybox.open($("#messagefly"), {
@@ -232,7 +243,6 @@ setting.methods = {
             openEffect: 'none',
             closeEffect: 'none',
             type: 'inline',
-
             //modal: true,
             //hideOnOverlayClick: false,
             //hideOnContentClick: false,
@@ -317,12 +327,37 @@ setting.methods = {
             maxHeight: 600,
             fitToView: false
         });
+    },
+    ClearIp: function () {
+        $.fancybox.open($("#ClearIp"), {
+            width: 400,
+            height: 150,
+            fitToView: false,
+            padding: 0,
+            margin: 0,
+            scrolling: 'no',
+            autoSize: false,
+            closeClick: false,
+            closeBtn: true,
+            openEffect: 'none',
+            closeEffect: 'none',
+            type: 'inline'
+        });
+        $("#btnClearIp").unbind("click").bind("click", function () {
+            var qq = $("#IpOrName").val();
+            if (qq)
+                $.post("/Home/ClearIpOrName", { name: qq }).done(function (ret) {
+                    if (ret) {
+                        $("#IpOrName").val();
+                        $("#clearips").empty();
+                        $("#btnClearIp").after("<span id='clearips' class='mLeft20'>清除成功</span>");
+                    }
+                });
+        });
     }
 };
-
 var timeID;
 var refreshRate = 600000;
-
 $(function () {
     $("#MainContent").click(function () {
         $("#homeflyimgbox").hide();
@@ -332,7 +367,6 @@ $(function () {
     setting.init();
     setTimeout("ShowRegLogin()", refreshRate);
 });
-
 function ShowRegLogin() {
     var roleid = $.cookie("UserRoleID");
     if (setting.oldImg == "" || typeof (setting.oldImg) == "undefined") setting.oldImg = $("#heomefiyimg img").attr('src');

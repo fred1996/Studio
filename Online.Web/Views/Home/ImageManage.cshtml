@@ -48,10 +48,10 @@
             margin-left: 60px;
         }
     </style>
-    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
-    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.iframe-transport.js"></script>
-    <script src="https://cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
+    <script src="../../Scripts/jquery-1.8.3.js"></script>
+    <script src="//cdn.bootcss.com/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="//cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.iframe-transport.js"></script>
+    <script src="//cdn.bootcss.com/blueimp-file-upload/9.10.4/jquery.fileupload.js"></script>
     <script src="~/Scripts/global.js"></script>
     <script>
         $(function () {
@@ -145,10 +145,10 @@
                     return
                 }
                 if ($(this).attr("sid") == undefined) {
-
                     $.post("/Home/AddImagemange", { title: title, content: desccontent, link: sourceurl, imgurl: $("#btnImages").attr("src"), coulmname: coulmname }, function (data) {
                         if (data) {
                             alert("添加成功");
+                            $("input[type='text']").val('');
                         } else {
                             alert("添加失败");
                         }
@@ -176,34 +176,51 @@
             });
         });
         function upload() {
-            var c = $("#icon");
-            var submitObj = null;
-            c.fileupload({
-                dataType: 'json',
-                url: '/Home/UploadFile',
+            $("#icon").fileupload({
+                url: '/Home/UploadFile?type=barner',
+                autoUpload: true,
                 type: 'POST',
-                autoUpload: false,
-                formData: {}, //传静参
+                dataType: 'json',
                 acceptFileTypes: '/(\.|\/)(jpg|jpeg|png|bmp|gif)$/i',
-                maxNumberOfFiles: 1,
-                maxFileSize: 40000000, // 40 MB
-                add: function (e, data) {
-                    $("#icon").val("");
-                    $("#icon").next("lable").remove();
-                    submitObj = data;
-                    submitObj.submit();
-                },
                 done: function (e, data) {
                     if (data.result) {
                         $("#icon").after("<lable>" + data.result + "</lable>");
                         $("#btnImages").attr("src", data.result);
                     } else {
-
+                        alert("你上传的图片不符合要求（图片最大2M）。");
+                        $("#icon").after("<lable></lable>");
+                        $("#btnImages").attr("src","");
                     }
-                },
-                fail: function (e, data) {
                 }
             });
+            //var c = $("#icon");
+            //var submitObj = null;
+            //c.fileupload({
+            //    dataType: 'json',
+            //    url: '/Home/UploadFile',
+            //    type: 'POST',
+            //    autoUpload: false,
+            //    formData: {}, //传静参
+            //    acceptFileTypes: '/(\.|\/)(jpg|jpeg|png|bmp|gif)$/i',
+            //    maxNumberOfFiles: 1,
+            //    maxFileSize: 40000000, // 40 MB
+            //    add: function (e, data) {
+            //        $("#icon").val("");
+            //        $("#icon").next("lable").remove();
+            //        submitObj = data;
+            //        submitObj.submit();
+            //    },
+            //    done: function (e, data) {
+            //        if (data.result) {
+            //            $("#icon").after("<lable>" + data.result + "</lable>");
+            //            $("#btnImages").attr("src", data.result);
+            //        } else {
+
+            //        }
+            //    },
+            //    fail: function (e, data) {
+            //    }
+            //});
         }
     </script>
 </head>
@@ -220,10 +237,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>本直播室交易观点</td>
-                    <td>本直播室交易观点</td>
-                    <td>本直播室交易观点</td>
-                    <td>本直播室交易观点</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>

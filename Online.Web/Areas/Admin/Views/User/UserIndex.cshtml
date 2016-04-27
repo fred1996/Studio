@@ -36,7 +36,7 @@
                 <th>昵称</th>
                 <th>IP</th>
                 <th>QQ</th>
-                <th>来源</th>
+                <th style="width: 10%">来源</th>
                 <th>手机</th>
                 <th>注册时间</th>
                 <th>操作</th>
@@ -53,7 +53,7 @@
                         <td>@item.UserName</td>
                         <td>@item.LastSigninIP</td>
                         <td>@item.QQ</td>
-                        <td>@item.RegSource</td>
+                        <td style="word-break: break-word;">@item.RegSource</td>
                         <td>@item.Telephone</td>
                         <td>@item.RegisterTime</td>
                         <td style="text-align:left;">
@@ -71,6 +71,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="/Admin/User/UserDetail?id=@item.UserID">用户详情</a></li>
                                     <li><a data-toggle="modal" data-target="#myModal" href="/Admin/User/EditUserRole?id=@item.UserID" id="btnrole" role="button">用户角色</a></li>
+                                    <li><a  data-toggle="modal" data-target="#myModal" href="/Admin/GIft/UserGiftAdd?id=@item.UserID">添加礼物</a></li>
                                 </ul>
                             </div>
                         </td>

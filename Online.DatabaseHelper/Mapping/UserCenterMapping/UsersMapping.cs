@@ -59,12 +59,14 @@ namespace Online.DbHelper.Mapping
             Property(t => t.SexTheme);
             Property(t => t.Score);
             Property(t => t.RecommendCode);
+            Property(t => t.ContinueCount);
 
             HasMany(t => t.UserRoleses).WithOptional(t => t.Users).HasForeignKey(t => t.UserId);
             HasMany(t => t.UserAddress).WithOptional(t => t.User).HasForeignKey(t => t.UserID);
             HasMany(t => t.UserActionlog).WithOptional(t => t.User).HasForeignKey(t => t.UserId);
-       
             HasMany(t => t.UserRelationAssistants).WithOptional(t => t.Assistant).HasForeignKey(t => t.AssistantId);
+            HasMany(t => t.UserGifts).WithOptional(t => t.User).HasForeignKey(t => t.UserId);
+
         }
     }
 }

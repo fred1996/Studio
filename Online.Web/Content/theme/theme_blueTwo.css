@@ -1,0 +1,95 @@
+﻿body{
+      background: url("../../Image/images/bgblue.jpg") repeat fixed!important;
+}
+.downclent{
+    background-color:#de0000!important;
+    /*color:red!important;*/
+}
+#TopbarWapper{
+  background-color:#0d3163!important;
+}
+#MainLiveTVWapper .video-tip{
+    background-color:#134270!important;
+}
+#RoomNoticeWrapper{
+     background-color: #0b2353!important;
+}
+#SubColumnsMenu{
+    background-color: #1d3041!important;
+}
+#SubColumnsMenu a{
+    background-color: #a90017!important;
+}
+#SubColumnsMenu a:hover{
+    background-color: #0f4cf3!important;
+}
+#ServiceMsg{
+    background-color: #c1e0fa;
+}
+#btnSayingTo{
+    background-color: #de0000;
+
+}
+#SysColumnWapper{
+    background-color:#103869!important;
+}
+#TopbarWapper .topbar-userlogin a{background-color: #f2ad21!important;}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.qqmore a{
+    color:#fff!important;
+}
+.messageclearbtn a{
+    color:#fff!important;
+}
+#ChatMsgWrapper .horizontalline{
+    border:0px!important;
+}
+.facecontent{
+    background-color:#0d3163!important;
+    line-height: 32px;
+    padding-left: 10px;
+    height:32px!important;    
+    padding-left: 10px!important;
+}
+#SubColumnsMenu .li1{
+    background-color:#ff1b1c!important;
+}
+#SubColumnsMenu .li2{
+    background-color:#f37600!important;
+}
+#SubColumnsMenu .li3{
+    background-color:#fea500!important;
+}
+#SubColumnsMenu .li4{
+    background-color:#1484cc!important;
+}
+#SubColumnsMenu .li5{
+    background-color:#295592!important;
+}
+#SubColumnsMenu .li6{
+    background-color:#273f7f!important;
+}
+.BoxVipBgColor {
+    color:white!important;
+    background-color:#de0000!important;
+}
+.BoxKaiHuBgColor {
+    color:white;
+    background-color:#00a2ff!important;
+}
+.btn-danger{
+    background-color:#ff1b1c!important;
+    color:white!important;
+}
+.btn-success{
+    background-color:#fea500!important;
+}
+.btn-info{
+    background-color:#1484cc!important;
+}
+#SayingInputVal{
+    background-color:#395c84!important;
+    border:0px;
+      color:white;
+}
+.myscroll a,.myscroll span{color:white!important;}

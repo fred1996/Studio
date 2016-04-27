@@ -17,4 +17,11 @@ namespace Online.Web.Models
 
         public string socketid { get; set; }
     }
+    public class UserOnline
+    {
+        public long UserId { get; set; }
+        public string UserName { get; set; }
+        public int RoleId { get; set; }
+        public DateTime CreateDateTime { get; set; }
+    }
 }

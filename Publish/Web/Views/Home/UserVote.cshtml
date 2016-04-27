@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "";
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @Styles.Render("~/Content/base.css")
+    @Scripts.Render("https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js", "~/Scripts/global.js")
+    <style>
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        #vote {
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+            #vote td {
+                width: 33%;
+            }
+        .title_gray {
+            background-color: #eee;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+        }
+        .down_arrow {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            position: relative;
+            left: -15px;
+            top: 20px;
+            cursor: pointer;
+        }
+        .btn_vote {
+            text-decoration: none;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            float: left;
+            color: #fff;
+            background-color: #2f53ca;
+            -moz-border-radius: 3px;
+            border: 0px;
+            border-radius: 2px;
+        }
+    </style>
+    <script>
+        $(function () {
+            var mobile = {
+                ibrowser: {
+                    iPhone: navigator.userAgent.indexOf('iPhone') > -1,
+                    iPad: navigator.userAgent.indexOf('iPad') > -1,
+                    mobile: !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)
+                }
+            };
+            $.ajax({ url: '/Home/GetUserVotes' }).done(function (data) {
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var html = new StringBuilder();
+                        var item = data[i];
+                        html.Append('<div class="title_gray""><span class="pLeft20 left">' + item.VoteTitle + '</span><span class="right down_arrow"><img src="/Image/images/down_arrow_black.png"/></span></div>');
+                        html.Append('<table id="vote" style="width:100%;" class="pLeft20">');
+                        for (var j = 0; j < item.UserVoteColums.length; j++) {
+                            html.Append("<tr>");
+                            if (mobile.ibrowser.mobile==true) {
+                                html.Append('<td style="width:10%;"><button class="btn_vote btnuservote Hand"   votecount=' + item.OptCount + ' voteid=' + item.VoteID + ' votecolumid=' + item.UserVoteColums[j].ID + '  style="width:20px;">+</button></td>');
+                            } else {
+                                html.Append('<td style="width:10%;"><button class="btn_vote btnuservote Hand"   votecount=' + item.OptCount + ' voteid=' + item.VoteID + ' votecolumid=' + item.UserVoteColums[j].ID + '>投票</button></td>');
+                            }
+                            var wid = 0;
+                            if (item.UserVoteColums[j].VoteCount > 0) {
+                                var wid = (item.UserVoteColums[j].VoteCount / 500) * 100;
+                            }
+                            if (mobile.ibrowser.mobile) {
+                                if (wid>0&&wid<1) {
+                                    wid = 1;
+                                }
+                                wid = parseInt(wid) * 2;
+                            } else {
+                                if (wid > 0 && wid <= 0.2) {
+                                    wid = 0.3;
+                                }
+                            }
+                            html.Append('<td style="width:80%;"><div style="width:100%;border:1px solid #dedede;"><div>' + item.UserVoteColums[j].Columname + '</div><div class="nav_paobar" style="width:' + wid + '%;background-color:#2f53ca;height:20px;border-radius:2px;"></div></div></td>');
+                            html.Append('<td style="width:10%;" class="pLeft10"> （<span class=\'votecountspan\'>' + item.UserVoteColums[j].VoteCount + '</span>人）</td>');
+                            html.Append("</tr>");
+                        }
+                        html.Append("</table>");
+                        $("#vote").append(html.toString());
+                    
+                        $(".btnuservote").unbind("click").bind('click', function () {
+                            var votecount = $(this).attr("votecount");
+                            var voteid = $(this).attr("voteid");
+                            var votecolumid = $(this).attr("votecolumid");
+                            var ob = $(this);
+                            $.ajax({ url: '/Home/AddUserVoteItem', data: { voteid: voteid, votecolumid: votecolumid, votecount: votecount } }).done(function (data) {
+                                if (data == "T") {
+                                    var s = parseInt(ob.parents("tr").find(".votecountspan").text()) + 1;
+                                    var sc = (s / 500) * 100;
+                                    if (sc > 0 && sc <= 0.2) {
+                                        sc = 0.3;
+                                    }
+                                    ob.parents("tr").find(".nav_paobar").css("width", sc + "%");
+                                    ob.parents("tr").find(".votecountspan").text(s);
+                                    alert("投票成功");
+                                } else if (data == "C") {
+                                    alert("已参与过该项投票，投票次数已达上线！");
+                                } else if (data == "F") {
+                                    alert("投票出现异常，稍后重试！");
+                                } else if (data == "Q") {
+                                    alert("该投票项不允许多项投！");
+
+                                } else {
+                                    alert("游客禁止投票！");
+                                }
+                            });
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body style="color:#333;font-weight:bold;font-size:14px;">
+    <div class="mLeft20 mBottom20">投票</div>
+    <div id="vote"></div>
+</body>
+</html>
+
+

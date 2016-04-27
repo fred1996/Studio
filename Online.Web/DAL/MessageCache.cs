@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Online.DbHelper.BLL;
+using Online.DbHelper.Common;
 using Online.DbHelper.Model;
 using Online.Web.Help;
 using Online.Web.Models;
@@ -10,6 +12,7 @@ namespace Online.Web.DAL
 {
     public class MessageCache
     {
+        private const Int32 CACHE_MAX_COUNT = 500;
         private MessageCache()
         {
             if (!MessageList.Any())
@@ -75,7 +78,7 @@ namespace Online.Web.DAL
 
         private static MessageCache _instance;
 
-        private static object SyncObj = new object();
+        private static readonly object SyncObj = new object();
 
         public static MessageCache Instance
         {
@@ -93,13 +96,40 @@ namespace Online.Web.DAL
         }
 
         public List<MessageInfo> MessageList = new List<MessageInfo>();
+        private static readonly object msgObj = new object();
 
         public void AddMessage(MessageInfo entity)
         {
-            entity.createTime=DateTime.Now;
-            MessageList.Add(entity);
-            if (MessageList.Count >= 300)
-                MessageList.Remove(MessageList.First(t => t.createTime == MessageList.Min(c => c.createTime)));
+            lock (msgObj)
+            {
+                try
+                {
+                    entity.createTime = DateTime.Now;
+                    if (MessageList != null)
+                    {
+                        if (MessageList.Any(p => p.ChatID == entity.ChatID))
+                        {
+                            MessageList.Remove(entity);
+                        }
+                        if (MessageList.Count >= CACHE_MAX_COUNT)
+                        {
+                            MessageList.Remove(MessageList.First(t => t.createTime == MessageList.Min(c => c.createTime)));
+                        }
+                    }
+
+                    MessageList.Add(entity);
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                }
+
+            }
+
+        }
+        public IEnumerable<MessageInfo> GetAll()
+        {
+            return MessageList.OrderByDescending(p => p.createTime).ToList();
         }
 
         public IEnumerable<MessageInfo> GetTop(int count)
@@ -141,15 +171,19 @@ namespace Online.Web.DAL
 
         public IEnumerable<MessageInfo> GetCheckedTop(int count)
         {
-            return MessageList.Where(t => t.ischeck == 1).OrderByDescending(t => t.createTime).Take(count);
+            return GetAll().Where(t => t.ischeck == 1).OrderByDescending(t => t.createTime).Take(count);
         }
 
+        private static readonly object delmsgObj = new object();
         public bool RemoveMessage(long chatId)
         {
-            var entity = MessageList.FirstOrDefault(t => t.ChatID == chatId);
-            if (entity != null)
-                MessageList.Remove(entity);
-            return true;
+            lock (delmsgObj)
+            {
+                var entity = MessageList.FirstOrDefault(t => t.ChatID == chatId);
+                if (entity != null)
+                    MessageList.Remove(entity);
+                return true;
+            }
         }
     }
 }

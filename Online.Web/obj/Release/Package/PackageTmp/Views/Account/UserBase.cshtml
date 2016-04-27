@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_UserCenterLayout.cshtml";
 }
-@Styles.Render("http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css")
+@Styles.Render("//cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css")
 @model Online.DbHelper.Model.Users
 @using (@Html.BeginForm("UserBase", "Account", FormMethod.Post, new { id = "myform" }))
 {

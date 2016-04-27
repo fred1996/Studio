@@ -6,11 +6,8 @@
 		speed:40,  //滚动速度,值越大速度越慢
 		rowHeight:24 //每行的高度
 	};
-	
 	var opts = $.extend({}, defaults, options),intId = [];
-	
 	function marquee(obj, step){
-	
 		obj.find("ul").animate({
 			marginTop: '-=1'
 		},0,function(){
@@ -21,7 +18,6 @@
 				}
 			});
 		}
-		
 		this.each(function(i){
 			var sh = opts["rowHeight"],speed = opts["speed"],_this = $(this);
 			intId[i] = setInterval(function(){
@@ -31,7 +27,6 @@
 					marquee(_this, sh);
 				}
 			}, speed);
-
 			_this.hover(function(){
 				clearInterval(intId[i]);
 			},function(){

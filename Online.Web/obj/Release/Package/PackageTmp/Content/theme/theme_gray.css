@@ -12,7 +12,7 @@
     background-color: #8c736f!important;
 }
 #RoomNoticeWrapper{
-     background-color: #584f50!important;
+     background-color: #907D7F!important;
 }
 #SubColumnsMenu{
     background-color:#484849;
@@ -24,6 +24,29 @@
     background-color:#C7C7C7;
 }
 #btnSayingTo{
-    background-color:#413332;
+    background-color:#797474;
 }
 #TopbarWapper .topbar-userlogin a{background-color:#4f5051;}
+
+.facecontent{
+     background-color: #8D9DAD!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color: #9C9C9C;
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #928A8A;
+}
+.qqmore a{
+    color:#fff!important;
+}
+.marque_ul a,.marque_ul span{
+    color:#000!important;
+}
+#btnsetting a:hover{
+    background: #A0A8AF;
+}
+.AdvancedTechnology-title{
+    color:#6C5858!important;
+}

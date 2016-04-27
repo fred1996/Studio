@@ -24,4 +24,11 @@ namespace ReportUserData
         子爵 = 8,
         会员 = 1
     }
+    public class DbUntilHelper
+    {
+        public static DateTime GetDefaultDateTime()
+        {
+            return new DateTime(1900, 1, 1);
+        }
+    }
 }

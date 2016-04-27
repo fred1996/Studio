@@ -10,12 +10,17 @@ using Online.Web.DAL;
 using Online.Web.Help;
 using Online.Web.Models;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using Newtonsoft.Json;
 using Online.DbHelper.Common;
 using PagedList;
+using ServiceStack;
+using Online.DbHelper.Model.UserCenter;
 
 namespace Online.Web.Controllers
 {
@@ -24,12 +29,12 @@ namespace Online.Web.Controllers
         public async Task<ActionResult> Index()
         {
             ViewBag.Title = LiveRooms == null ? "" : LiveRooms.RoomName;
-            var userName = GetUserNameFromCookie();
+            var userName = Users == null ? GetUserNameFromCookie() : Users.UserName;
             bool isUserInBlackList = false;
             var isInBlackList = await UserSource.UserBlackLists.AnyAsync(t => t.ClientIp == ClientIp && t.RoomId == RoomId && t.Type == 1);
             if (!string.IsNullOrEmpty(userName))
             {
-                isUserInBlackList = await UserSource.UserBlackLists.AnyAsync(t => t.Type == 2 && t.UserName == userName);
+                isUserInBlackList = UserSource.UserBlackLists.FirstOrDefault(t => (t.Type == 2 && t.UserName == userName) || (t.Type == 2 && t.ClientIp == ClientIp)) != null;
             }
             if (isInBlackList || isUserInBlackList)
                 return View("Invalid");
@@ -77,30 +82,25 @@ namespace Online.Web.Controllers
             }
         }
 
-        public ActionResult AddUserVoteItem(int voteid, int votecolumid, int votecount)
+        public ActionResult AddUserVoteItem(int votecolumid)
         {
             try
             {
                 if (UserId == 0 || User == null) return Json("Y", JsonRequestBehavior.AllowGet);
-                var vote = DataSource.UserVotes.Where(x => x.VoteID == voteid).ToList();
-                var colum = DataSource.UserVoteColums.Where(x => x.VoteID == voteid);
-                if (!vote[0].IsVoteMulti)
+                var colum = DataSource.UserVoteColums.FirstOrDefault(x => x.ID == votecolumid);
+                if (colum == null) throw new Exception("投票项不存在！");
+                if (!colum.UserVote.IsVoteMulti)
                 {
-                    foreach (UserVoteColum item in colum)
+                    var isVote = DataSource.VoteItemses.Any(x => x.UserVoteColum.VoteID == colum.VoteID && x.VoteUserID == UserId);
+                    if (isVote)
                     {
-                        var items = DataSource.VoteItemses.Count(x => x.UserVoteColumID == item.ID && x.VoteUserID == UserId);
-                        if (items > 0)
-                        {
-                            return Json("Q", JsonRequestBehavior.AllowGet);
-                        }
+                        return Json("Q", JsonRequestBehavior.AllowGet);
                     }
                 }
                 var count = DataSource.VoteItemses.Count(t => t.VoteUserID == Users.UserID && t.UserVoteColumID == votecolumid);
-                if (count >= votecount)
+                if (count >= colum.UserVote.OptCount)
                     return Json("C", JsonRequestBehavior.AllowGet);
-                var exist = DataSource.UserVoteColums.FirstOrDefault(t => t.ID == votecolumid);
-                if (exist == null) throw new Exception("投票项不存在！");
-                exist.VoteCount = exist.VoteCount + 1;
+                colum.VoteCount = colum.VoteCount + 1;
                 var entity = new VoteItems
                 {
                     UserVoteColumID = votecolumid,
@@ -217,7 +217,6 @@ namespace Online.Web.Controllers
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 throw ex;
             }
-
         }
 
         public ActionResult QueryIntelligentTradings()
@@ -278,6 +277,66 @@ namespace Online.Web.Controllers
             }
         }
 
+        public ActionResult QueryVotes()
+        {
+            try
+            {
+                var date = DateTime.Now.Date;
+                var voteList = DataSource.UserVotes.Where(t => t.RoomID == RoomId && !t.IsDeleted && t.VoteBeginTime <= date && t.VoteEndTime >= date && t.UserVoteColums.All(c => c.VoteItemses.All(a => a.VoteUserID != UserId))).ToList();
+                var results = voteList.Select(x => new
+                {
+                    x.VoteTitle,
+                    x.OptCount,
+                    x.VoteCount,
+                    x.VoteID,
+                    x.CreateUser,
+                    UserVoteColums = x.UserVoteColums.Select(t => new
+                    {
+                        t.ID,
+                        t.Columname,
+                        t.VoteCount,
+                        NavPaobar = (((float)t.VoteCount / x.UserVoteColums.Sum(c => c.VoteCount)) * 100) + "%"
+                    })
+                });
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                throw ex;
+            }
+        }
+
+        public ActionResult RefrshVotes()
+        {
+            try
+            {
+                var date = DateTime.Now.Date;
+                var voteList = DataSource.UserVotes.Where(t => t.RoomID == RoomId && !t.IsDeleted && t.VoteBeginTime <= date && t.VoteEndTime >= date).ToList();
+                var results = voteList.Select(x => new
+                {
+                    x.VoteTitle,
+                    x.OptCount,
+                    x.VoteCount,
+                    x.VoteID,
+                    x.CreateUser,
+                    UserVoteColums = x.UserVoteColums.Select(t => new
+                    {
+                        t.ID,
+                        t.Columname,
+                        t.VoteCount,
+                        NavPaobar = (((float)t.VoteCount / x.UserVoteColums.Sum(c => c.VoteCount)) * 100) + "%"
+                    })
+                });
+                return Json(results, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                throw ex;
+            }
+        }
+
         public ActionResult QueryAdvancedTechnology()
         {
             try
@@ -311,6 +370,11 @@ namespace Online.Web.Controllers
         {
             try
             {
+                //刷新之前先同步消息集合
+                RedisClienHelper.List_GetList<MessageInfo>("Chat_Message").Each((item) =>
+                {
+                    AddMessage(JsonConvert.SerializeObject(item));
+                });
                 IEnumerable<MessageInfo> entityList;
                 if (Users != null && Roleses != null && Roleses.Any(t => t.PowerId >= (int)UserRoleEnum.XUGUAN))
                     entityList = MessageCache.Instance.GetTop(1000);
@@ -356,7 +420,6 @@ namespace Online.Web.Controllers
             {
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
             }
-
         }
 
         public Users CheckLogin(string userName, string password)
@@ -377,6 +440,28 @@ namespace Online.Web.Controllers
         {
             try
             {
+                //更新连续登陆次数，获取最后登陆时间，如果最后登陆时间为昨天，连续登陆次数加1，否则重置为1
+
+                var now = DateTime.Today;
+                var lastSignInTime = user.LastSignInTime;
+                if (user.ContinueCount != -1)   //连续登陆次数等于-1 表示系统已赠送鲜花，当月不再赠送
+                {
+                   
+                    //当最后登陆时间加一天等于今天的日期并且月份相同时，连续登陆次数加1
+                    if (lastSignInTime.AddDays(1).Date == now.Date && lastSignInTime.Month == now.Month)
+                    {
+                        user.ContinueCount++;
+                    }
+                    else
+                    {
+                        user.ContinueCount = 1;
+                    }
+                }
+                else if (lastSignInTime.Month!= now.Month) 
+                {
+                    user.ContinueCount = 1;
+                }
+
                 user.LastSigninIP = ClientIp;
                 user.LastSignInTime = DateTime.Now;
                 user.LastChangeTime = DateTime.Now;
@@ -386,7 +471,6 @@ namespace Online.Web.Controllers
             {
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
             }
-
         }
 
         private void AddUserRole(Users user)
@@ -401,7 +485,7 @@ namespace Online.Web.Controllers
             UserSource.SaveChanges();
         }
 
-        private Users SaveUser(string email, string nickName, string phone, string password, string qq,string fromUrl)
+        private Users SaveUser(string email, string nickName, string phone, string password, string qq, string fromUrl)
         {
             var user = new Users();
             user.Salt = string.Empty;//Guid.NewGuid().ToString().Replace("-", "").ToLower();
@@ -418,7 +502,7 @@ namespace Online.Web.Controllers
             user.Device = 1;
             user.LastChangeTime = DateTime.Now;
             user.RegisterTime = DateTime.Now;
-            user.RegSource = fromUrl??"";
+            user.RegSource = fromUrl ?? "";
             UserSource.Userses.Add(user);
             UserSource.SaveChanges();
             return user;
@@ -438,12 +522,14 @@ namespace Online.Web.Controllers
             return true;
         }
 
-        public ActionResult Register(string email, string nickName, string phone, string password, string verifyCode, string qq,string fromUrl)
+        public ActionResult Register(string email, string nickName, string phone, string password, string verifyCode, string qq, string fromUrl)
         {
             try
             {
                 CheckUserName(nickName, email, phone);
-                var user = SaveUser(email, nickName, phone, password, qq,fromUrl);
+                var user = SaveUser(email, nickName, phone, password, qq, fromUrl);
+                //注册赠送100颗钻石
+                GiftHandler.Instance.RegistAddGift(user);
                 AddUserRole(user);
                 var result = new
                 {
@@ -555,8 +641,18 @@ namespace Online.Web.Controllers
                     SysConfigs.IsFilterMsg,
                     FilterWords = WordFilters,
                     SysConfigs.ServiceQQs,
-                    Token = UntilHelper.Token,
+                    Token = UntilHelper.Token
                 };
+                //目前只读取钻石
+                var gift = UserSource.Gifts.Where(x => x.GiftName == Online.Web.Areas.Admin.Enum.GiftType.钻石.ToString()).Select(t => new
+                {
+                    GiftId = t.GiftId,
+                    GiftType = t.GiftType,
+                    GiftUnit = t.GiftUnit,
+                    GiftName = t.GiftName,
+                    GiftLogo = "/Image/images/giftblue.gif"
+                });
+
                 if (UserId > 0 && Users != null)
                 {
                     var user = new
@@ -570,9 +666,9 @@ namespace Online.Web.Controllers
                         Users.UserID,
                         Users.UserName,
                     };
-                    return Json(new { Entity = roomInfo, Conf = conf, User = user }, JsonRequestBehavior.AllowGet);
+                    return Json(new { Entity = roomInfo, Conf = conf, User = user, GiveModel = gift }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { Entity = roomInfo, Conf = conf, }, JsonRequestBehavior.AllowGet);
+                return Json(new { Entity = roomInfo, Conf = conf, GiveModel = gift }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -599,23 +695,63 @@ namespace Online.Web.Controllers
             catch (Exception ex)
             {
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
-
             }
+        }
+        /// <summary>
+        /// 验证当前ip 用户名 或者 用户id 是否在黑名单中
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckInBlackList()
+        {
+            var userName = GetUserNameFromCookie();
 
+            var isInBlackList = UserSource.UserBlackLists.Any(t => (t.ClientIp == ClientIp || t.UserName == userName) || (t.UserId != 0 && t.UserId == UserId));
+
+            return isInBlackList;
         }
 
         public ActionResult CachingMsgList(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) throw new Exception("消息不能为空");
-            if (input.Contains("??????")) throw new Exception("乱码"); ;
-
+            if (CheckInBlackList()) return Json(0, JsonRequestBehavior.AllowGet);
             try
             {
                 MessageInfo entity = JsonConvert.DeserializeObject<MessageInfo>(input);
+                if (!string.IsNullOrWhiteSpace(entity.msg))
+                {
+                    Int32 resFlag = 0;
+                    foreach (string word in WordFilters)
+                    {
+                        if (!string.IsNullOrWhiteSpace(word) && entity.msg.Contains(word))
+                        {
+                            resFlag++;
+                        }
+                    }
+
+                    if (resFlag > 0)
+                    {
+                        return Json("发言内容不合法", JsonRequestBehavior.AllowGet);
+                    }
+
+                    entity.msg = HTMLFilter(entity.msg);
+                }
+                //if (input.Contains("??????")) throw new Exception("乱码"); ;
                 var item = SaveMessage(entity);
                 entity.ChatID = item.ChatID;
-                NotifyCachingMsgList(entity);
                 MessageCache.Instance.AddMessage(entity);
+                new Task(() =>
+                {
+                    //Thread.Sleep(3000);
+                    NotifyCachingMsgList(entity);
+                }).Start();
+                //保存到redis
+                if (RedisClienHelper.List_Count("Chat_Message") >= CACHE_MAX_COUNT * 2)
+                {
+                    var messageList = RedisClienHelper.List_GetList<MessageInfo>("Chat_Message");
+                    RedisClienHelper.List_Remove("Chat_Message",
+                        messageList.FirstOrDefault(t => t.createTime == messageList.Min(c => c.createTime)));
+                }
+                RedisClienHelper.List_Add("Chat_Message", entity);
 
                 return Json(entity.ChatID, JsonRequestBehavior.AllowGet);
             }
@@ -631,6 +767,14 @@ namespace Online.Web.Controllers
             try
             {
                 var entity = JsonConvert.DeserializeObject<MessageInfo>(input);
+                if (MessageCache.Instance.MessageList.Any(t => t.ChatID == entity.ChatID))
+                {
+                    var model = MessageCache.Instance.MessageList.FirstOrDefault(t => t.ChatID == entity.ChatID);
+                    if (model != null)
+                    {
+                        MessageCache.Instance.MessageList.Remove(model);
+                    }
+                }
                 MessageCache.Instance.AddMessage(entity);
                 return Json(entity.ChatID, JsonRequestBehavior.AllowGet);
             }
@@ -645,6 +789,7 @@ namespace Online.Web.Controllers
         {
             if (NotifyWebUrlList.Any())
             {
+                entity.createTime = Convert.ToDateTime(entity.createTime);
                 var input = JsonConvert.SerializeObject(entity);
                 NotifyWebUrlList.ForEach(url =>
                 {
@@ -668,6 +813,9 @@ namespace Online.Web.Controllers
                 entity.IsCheck = item.ischeck == 1;
                 entity.FilePath = string.IsNullOrWhiteSpace(item.postfile) ? string.Empty : item.postfile;
                 entity.SendTime = DateTime.Now;
+                entity.UpdateTime = DateTime.Now;
+                entity.ClientIp = ClientIp;
+                entity.OperatorName = string.Empty;
             }
             DataSource.SysChatMsgses.Add(entity);
             DataSource.SaveChanges();
@@ -683,9 +831,6 @@ namespace Online.Web.Controllers
             try
             {
                 if (string.IsNullOrEmpty(socketids)) return Json(true, JsonRequestBehavior.AllowGet);
-                //var user = UserSource.Userses.FirstOrDefault(t => t.UserName == socketids);
-                //if (user != null && user.UserRoleses.Any(t => t.RoleId >= 9))
-                //    RedisClienHelper.Hash_Remove<UserOnlineInfo>("ONLINE_Admin_USERS_" + RoomId, user.UserID.ToString());
             }
             catch (Exception ex)
             {
@@ -705,6 +850,82 @@ namespace Online.Web.Controllers
                 });
             }
         }
+        public ActionResult RemoveUserGag(string name, string userid)
+        {
+            try
+            {
+                bool userg = RedisClienHelper.Hash_Remove(name + "userGag");
+                if (userg)
+                {
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 判断是否可以发言
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CheckUserGag(string name, string userid)
+        {
+            try
+            {
+                var user_gagList = RedisClienHelper.Hash_Get<object>(name + "userGag", name);
+                if (user_gagList != null)
+                {
+                    //for (int i = 0; i < user_gagList.Count; i++)
+                    //{
+                    var obj = JsonConvert.SerializeObject(user_gagList);
+                    UserActionLog userlog = UserSource.UserActionLogs.FirstOrDefault(t => t.UserName != null && t.UserName == name);//根据用户名查询当前用户的Ip
+                    if (obj.Contains(name) && obj.Contains(userid) || obj.Contains(userlog.UserIp))
+                    {
+                        return Json(true, JsonRequestBehavior.AllowGet);
+                    }
+                    //if ((obj.Contains(name) && obj.Contains(userid)) ||obj.Contains(userlog.UserIp))
+                    //{
+                    //return Json(true, JsonRequestBehavior.AllowGet);
+                    //    }                        
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 用户一小时禁言
+        /// tpye 禁言时间 1=1小时  2=5分钟
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UserOneHourGag(string userid, string name, string type)
+        {
+            try
+            {
+                UserActionLog userlog = UserSource.UserActionLogs.FirstOrDefault(t => t.UserName != null && t.UserName == name);//根据用户名查询当前用户的Ip
+                RedisClienHelper.Hash_Set(name + "userGag", name, new { ClientIp = userlog != null ? userlog.UserIp : "", Username = name, userid = userid });
+                if (type == "1")
+                {
+                    RedisClienHelper.Hash_SetExpire(name + "userGag", DateTime.Now.AddHours(1));
+                }
+                else
+                {
+                    RedisClienHelper.Hash_SetExpire(name + "userGag", DateTime.Now.AddMinutes(5));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult CheckMsgitem(long chartId)
         {
@@ -713,13 +934,25 @@ namespace Online.Web.Controllers
                 if (chartId > 0)
                 {
                     var first = MessageCache.Instance.FirstOrDefault(chartId);
+                    first = first == null
+                        ? RedisClienHelper.List_GetList<MessageInfo>("Chat_Message")
+                            .FirstOrDefault(t => t.ChatID == chartId) : first;
                     if (first == null)
                     {
                         throw new Exception("无效数据或已损坏");
                     }
                     if (first.ischeck == 0)
                     {
+                        //先移除未审核的
+                        var nocheck =
+                          RedisClienHelper.List_GetList<MessageInfo>("Chat_Message")
+                              .FirstOrDefault(t => t.ChatID == chartId);
+                        RedisClienHelper.List_Remove("Chat_Message", nocheck);
                         first.ischeck = 1;
+                        //如果内存中没有该消息，将消息添加到内存集合中
+                        //var message = JsonConvert.SerializeObject(first);
+                        MessageCache.Instance.AddMessage(first);
+
                         var result = MessageCache.Instance.SetChecked(first.ChatID);
                         if (result)
                         {
@@ -727,9 +960,18 @@ namespace Online.Web.Controllers
                             if (entity != null)
                             {
                                 entity.IsCheck = true;
+                                entity.UpdateTime = DateTime.Now;
+                                entity.OperatorName = Users.UserID + "_" + Users.UserName;
                                 DataSource.SaveChanges();
                             }
-                            NotifyCheckMsgitem(chartId);
+                            RedisClienHelper.List_Add("Chat_Message", first);
+                            //异步同步消息审核状态
+                            //new Task(() =>
+                            //{
+                            //    Stopwatch sw = new Stopwatch();
+                            //    sw.Start();
+                            //    NotifyCheckMsgitem(chartId);
+                            //});
                             return Json(first, JsonRequestBehavior.AllowGet);
                         }
                     }
@@ -751,7 +993,7 @@ namespace Online.Web.Controllers
         {
             try
             {
-                var results = SystemInfos.Select(t => new
+                var results = SystemInfos.Where(t => t.InfoType == 1).Select(t => new
                 {
                     t.InfoType,
                     SendTime = t.SendTime.ToString("yyyy-MM-dd hh:mm:ss"),
@@ -770,6 +1012,7 @@ namespace Online.Web.Controllers
         {
             try
             {
+                UserOnlineInfo changeUser = new UserOnlineInfo();
                 var adminulist = RedisClienHelper.Hash_GetAll<UserOnlineInfo>("ONLINE_Admin_USERS_" + RoomId);
                 if (adminulist != null && adminulist.Count > 0)
                 {
@@ -830,24 +1073,26 @@ namespace Online.Web.Controllers
             }
         }
 
-        public ActionResult JoinBlackList(string userId, string userName)
+        public ActionResult JoinBlackList(string userId, string userName, int type)
         {
             try
             {
                 var id = Convert.ToInt64(userId);
                 var user = UserSource.Userses.FirstOrDefault(t => t.UserID == id);
-                if ((user == null || user.UserRoleses.Any(t => t.Roles.PowerId >= 100)) && string.IsNullOrEmpty(userName))
+                if ((user != null && user.UserRoleses.Any(t => t.Roles.PowerId >= 100)) || string.IsNullOrEmpty(userName))
                 {
                     throw new Exception("添加黑名单失败");
                 }
+                var model = UserSource.UserBlackLists.FirstOrDefault(t => t.UserName == userName || t.ClientIp == ClientIp) != null;
+                if (model) return Json(false, JsonRequestBehavior.AllowGet);
                 var entity = new UserBlackList
                 {
                     UserId = Convert.ToInt64(id),
-                    ClientIp = user != null ? user.LastSigninIP : "",
+                    ClientIp = user != null ? user.LastSigninIP : GetUserLastSignIpByUserName(userName),
                     RoomId = RoomId,
                     OperateName = Users.UserName,
                     CreateTime = DateTime.Now,
-                    Type = string.IsNullOrEmpty(userName) ? 1 : 2,
+                    Type = type,
                     UserName = userName
                 };
                 UserSource.UserBlackLists.Add(entity);
@@ -861,17 +1106,29 @@ namespace Online.Web.Controllers
             }
         }
 
-        public ActionResult DelBlackList(string userId)
+        private string GetUserLastSignIpByUserName(string userName)
+        {
+            var entity = GetLastUserActionLog(userName);
+            return entity == null ? "" : entity.UserIp;
+        }
+
+        private UserActionLog GetLastUserActionLog(string userName)
+        {
+            //return UserSource.UserActionLogs.Where(t => t.UserName == userName).OrderByDescending(t => t.CreateTime).FirstOrDefault();
+            var a = UserSource.UserActionLogs.Where(t => t.UserName == userName).ToList();
+            return UserSource.UserActionLogs.Where(t => t.UserName == userName).OrderByDescending(t => t.CreateTime).FirstOrDefault();
+        }
+
+        public ActionResult DelBlackList(string userId, string userName)
         {
             try
             {
                 var id = Convert.ToInt64(userId);
-                var user = UserSource.UserBlackLists.FirstOrDefault(t => t.UserId == id);
+                var user = id != 0 ? UserSource.UserBlackLists.FirstOrDefault(t => t.UserId == id) : UserSource.UserBlackLists.FirstOrDefault(t => t.UserName == userName);
                 if (user == null)
                 {
                     throw new Exception("删除黑名单失败");
                 }
-
                 UserSource.UserBlackLists.Remove(user);
                 UserSource.SaveChanges();
                 return Json(true, JsonRequestBehavior.AllowGet);
@@ -900,20 +1157,6 @@ namespace Online.Web.Controllers
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 throw ex;
             }
-        }
-
-        private void AddUpdateSettingLog(string title, string description, int type)
-        {
-            var entity = new UserActionLog();
-            entity.UserId = UserId;
-            entity.Title = title;
-            entity.Description = description;
-            entity.Type = type;
-            entity.ProjectId = ProjectId;
-            entity.UserIp = ClientIp;
-            entity.CreateTime = DateTime.Now;
-            entity.RoomId = RoomId;
-            DataQueueDal.Instance.Add(entity);
         }
 
         public ActionResult UpdateUserSextheme(string style)
@@ -982,6 +1225,13 @@ namespace Online.Web.Controllers
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 throw ex;
             }
+        }
+        [HttpPost]
+        public ActionResult ClearIpOrName(string name)
+        {
+            ClearIp(name);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetIsUserVotes()
@@ -1233,7 +1483,7 @@ namespace Online.Web.Controllers
                     tm.ItemLink = link;
                     tm.ItemName = coulmname;
                     DataSource.SaveChanges();
-                    RefreshLiveRoom();
+                    //RefreshLiveRoom();
                     AddUpdateSettingLog("更改专题活动", content, 12);
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
@@ -1259,12 +1509,13 @@ namespace Online.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogHelper.Instance.WriteError(ex.Message + ex.StackTrace + url, GetType(), MethodBase.GetCurrentMethod().Name);
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public ActionResult UploadFile()
+        public ActionResult UploadFile(string type = "")
         {
             try
             {
@@ -1272,32 +1523,63 @@ namespace Online.Web.Controllers
                 if (Request.Files.Count > 0)
                 {
                     var file = Request.Files[0];
-                    if (file != null && file.ContentLength > 0 && UntilHelper.IsUploadImage(Path.GetExtension(file.FileName)))
+                    string strFileDir = System.IO.Path.GetDirectoryName(file.FileName);
+                    if (file != null && file.ContentLength > 0 && UntilHelper.IsImage(file) && UntilHelper.IsUploadImage(Path.GetExtension(file.FileName)))
                     {
-                        string fileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + "-" + Path.GetFileName(file.FileName);
-                        var imageUrl = Path.Combine(Server.MapPath("/Image/uploadfiles/"), fileName);
-                        savaurl = "/Image/uploadfiles/" + fileName;
-                        file.SaveAs(imageUrl);
-                        try
+                        if (file.ContentLength <= 2097152)//2兆一下的
                         {
-                            var url = GetUrlPath(imageUrl);
-                            LogHelper.Instance.WriteInformation("UploadFile url is " + url + " path is " + imageUrl);
-                            NotifyDownloadFile(url, savaurl);
-                        }
-                        catch (Exception ex)
-                        {
-                            LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                            string fileName = string.Empty;
+                            if (String.IsNullOrEmpty(type))
+                            {
+                                fileName = "chat_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + Path.GetExtension(file.FileName);
+                            }
+                            else if (type == "figure")
+                            {
+                                fileName = "homefly_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + Path.GetExtension(file.FileName);
+                            }
+                            else if (type == "barner")
+                            {
+                                fileName = "barner_" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + Path.GetExtension(file.FileName);
+                            }
+                            if (!Directory.Exists(Server.MapPath("/Image/uploadfiles/")))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("/Image/uploadfiles/"));
+                            }
+                            var imageUrl = Path.Combine(Server.MapPath("/Image/uploadfiles/"), fileName);
+                            savaurl = "/Image/uploadfiles/" + fileName;
+                            file.SaveAs(imageUrl);
+                            try
+                            {
+                                var url = GetUrlPath(imageUrl);
+                                LogHelper.Instance.WriteInformation("UploadFile url is " + url + " path is " + imageUrl);
+                                if (string.IsNullOrEmpty(type))
+                                {
+                                    return Json(url, "text/html");
+                                }
+                                else
+                                {
+                                    new Task(() =>
+                                    {
+                                        //Thread.Sleep(3000);
+                                        NotifyDownloadFile(url, savaurl);
+                                    }).Start();
+                                    return Json(savaurl, "text/html");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                            }
                         }
                     }
                 }
-                return Json(savaurl, "text/html");
+                return Json(string.Empty, "text/html");
             }
             catch (Exception ex)
             {
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 throw ex;
             }
-
         }
 
         private void NotifyDownloadFile(string url, string path)
@@ -1332,7 +1614,7 @@ namespace Online.Web.Controllers
                     };
                     db.SysTvColumnses.Add(info);
                     db.SaveChanges();
-                    RefreshLiveRoom();
+                    //RefreshLiveRoom();
                     AddUpdateSettingLog("新增专题活动", content, 12);
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }
@@ -1341,9 +1623,9 @@ namespace Online.Web.Controllers
             {
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 return Json(false, JsonRequestBehavior.AllowGet);
-
             }
         }
+
         public ActionResult DelImagemange(int sid)
         {
             try
@@ -1384,7 +1666,7 @@ namespace Online.Web.Controllers
                 var s = DataSource.SystemInfos.FirstOrDefault(t => t.SysInfoID == sid);
                 DataSource.SystemInfos.Remove(s);
                 DataSource.SaveChanges();
-                RefreshLiveRoom();
+                //RefreshLiveRoom();
                 AddUpdateSettingLog("删除图片", sid.ToString(), 13);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
@@ -1431,9 +1713,18 @@ namespace Online.Web.Controllers
             try
             {
                 var entity = MessageCache.Instance.FirstOrDefault(chartId);
+                entity = entity == null
+                    ? RedisClienHelper.List_GetList<MessageInfo>("Chat_Message")
+                        .FirstOrDefault(t => t.ChatID == chartId) : entity;
                 if (entity != null)
                 {
+                    //删除数据库中的聊天消息
+                    var msg = DataSource.SysChatMsgses.FirstOrDefault(t => t.ChatID == chartId);
+                    DataSource.SysChatMsgses.Remove(msg);
+                    DataSource.SaveChanges();
+
                     MessageCache.Instance.RemoveMessage(chartId);
+                    RedisClienHelper.List_Remove("Chat_Message", entity);
                     NotifyRemoveMessage(chartId);
                 }
                 return Json(entity?.ischeck ?? 1, JsonRequestBehavior.AllowGet);
@@ -1516,13 +1807,13 @@ namespace Online.Web.Controllers
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 throw ex;
             }
-
         }
 
         public ActionResult Download()
         {
             return View();
         }
+
         public ActionResult About()
         {
             return View();
@@ -1533,11 +1824,9 @@ namespace Online.Web.Controllers
             var entity = DataSource.SysTvColumnses.FirstOrDefault(t => t.SysTVColumnID == id);
             if (entity == null)
                 return Invalid();
-
             if ((entity.ItemType == 7 && (Users == null || Users.UserRoleses.Any(t => t.Roles.PowerId < 40)))
                 || (entity.ItemType == 8 && (Users == null || Users.UserRoleses.Any(t => t.Roles.PowerId < 1)))
                     || (entity.ItemType == 9 && (Users == null || Users.UserRoleses.Any(t => t.Roles.PowerId < 60))))
-
                 entity.ISummary = "<div style=\"font-size:18px;text-align : center; \">对不起，你没有权限，详情请联系助理。</div>";
             return View(entity);
         }
@@ -1583,7 +1872,20 @@ namespace Online.Web.Controllers
                 throw ex;
             }
         }
-
+        public ActionResult QueryBanner()
+        {
+            try
+            {
+                DataSource.Configuration.ProxyCreationEnabled = false;
+                var list = DataSource.SysTvColumnses.Where(x => x.RoomID == RoomId && x.ItemType == 5).ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                throw ex;
+            }
+        }
         public ActionResult QueryComment()
         {
             try
@@ -1591,21 +1893,20 @@ namespace Online.Web.Controllers
                 IEnumerable<SysTVColumns> q;
                 if (LiveRooms?.SysTvColumnses == null)
                 {
-                    q = DataSource.SysTvColumnses.Where(t => t.RoomID == RoomId && t.ItemType == 11);
+                    q = DataSource.SysTvColumnses.Where(t => t.RoomID == RoomId && t.ItemType == 11).OrderByDescending(x => x.CreateTime).Take(20);
                 }
                 else
                 {
-                    q = LiveRooms.SysTvColumnses.Where(t => t.ItemType == 11);
+                    q = DataSource.SysTvColumnses.Where(t => t.RoomID == RoomId && t.ItemType == 11).OrderByDescending(x => x.CreateTime).Take(20);
+                    //q = LiveRooms.SysTvColumnses.Where(t => t.ItemType == 11).OrderByDescending(x => x.CreateTime).Take(20);
                 }
                 var entitylist = q.Select(t => new
                 {
                     t.ItemTitle,
-                    //t.CreateTime,
                     t.CreateTime,
                     t.SysTVColumnID
                 }).ToList();
                 return Json(entitylist, JsonRequestBehavior.AllowGet);
-                //return JsonDate(entitylist);
             }
             catch (Exception ex)
             {
@@ -1613,13 +1914,67 @@ namespace Online.Web.Controllers
                 throw ex;
             }
         }
-
+        public ActionResult QueryQmined()
+        {
+            try
+            {
+                IEnumerable<SysTVColumns> q;
+                if (LiveRooms?.SysTvColumnses == null)
+                {
+                    q = DataSource.SysTvColumnses.Where(t => t.RoomID == RoomId && t.ItemType == 12).OrderByDescending(x => x.CreateTime).Take(20);
+                }
+                else
+                {
+                    q = LiveRooms.SysTvColumnses.Where(t => t.ItemType == 12).OrderByDescending(x => x.CreateTime).Take(20);
+                }
+                var entitylist = q.Select(t => new
+                {
+                    t.ItemTitle,
+                    t.CreateTime,
+                    t.SysTVColumnID
+                }).ToList();
+                return Json(entitylist, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                throw ex;
+            }
+        }
+        public ActionResult QueryIRminde()
+        {
+            try
+            {
+                IEnumerable<SysTVColumns> q;
+                if (LiveRooms?.SysTvColumnses == null)
+                {
+                    q = DataSource.SysTvColumnses.Where(x => x.RoomID == RoomId && x.ItemType == 13).OrderByDescending(x => x.CreateTime).Take(20);
+                }
+                else
+                {
+                    q = LiveRooms.SysTvColumnses.Where(x => x.ItemType == 13).OrderByDescending(x => x.CreateTime).Take(20);
+                    //q = DataSource.SysTvColumnses.Where(x => x.RoomID == RoomId && x.ItemType == 13).OrderByDescending(x => x.CreateTime).Take(20);
+                }
+                var entitylist = q.Select(t => new
+                {
+                    t.ItemTitle,
+                    t.CreateTime,
+                    t.SysTVColumnID
+                }).ToList();
+                return Json(entitylist, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                throw ex;
+            }
+        }
         public ActionResult QueryArticleInfo(int id)
         {
             try
             {
-               var result = DataSource.SysTvColumnses.FirstOrDefault(t => t.SysTVColumnID == id);
-                var entitylist =  new
+                var result = DataSource.SysTvColumnses.FirstOrDefault(t => t.SysTVColumnID == id);
+                var entitylist = new
                 {
                     result.ItemTitle,
                     result.ItemName,
@@ -1627,7 +1982,7 @@ namespace Online.Web.Controllers
                     result.CreateTime,
                     result.ISummary,
                     result.SysTVColumnID
-                } ;
+                };
                 return Json(entitylist, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1635,10 +1990,14 @@ namespace Online.Web.Controllers
                 LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
                 throw ex;
             }
-
         }
- 
+
         public ActionResult SingleService()
+        {
+            return View();
+        }
+
+        public ActionResult CompanyIntroduce()
         {
             return View();
         }
@@ -1648,10 +2007,125 @@ namespace Online.Web.Controllers
             return View();
         }
 
-        public ActionResult AdvancedTechColumn(int page=1)
+        public ActionResult AdvancedTechColumn(int page = 1)
         {
             var entityList = DataSource.SysTvColumnses.Where(t => t.ItemType == 7).OrderBy(t => t.CreateTime);
-            return View(entityList.ToPagedList(page,10));
+            return View(entityList.ToPagedList(page, 10));
+        }
+
+        public ActionResult AddUserActionLog(string userName, string fromUrl, string currentUrl)
+        {
+            try
+            {
+                var entity = new UserActionLog();
+                entity.UserId = UserId;
+                entity.Title = "进入直播室";
+                entity.Description = LiveRooms == null ? "" : LiveRooms.RoomName;
+                entity.Type = 8;
+                entity.ProjectId = ProjectId;
+                entity.UserIp = ClientIp;
+                entity.CreateTime = DateTime.Now;
+                entity.RoomId = RoomId;
+                entity.FromUrl = fromUrl;
+                entity.CurrentUrl = currentUrl;
+                entity.UserName = userName;
+                DataQueueDal.Instance.Add(entity);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AccountGuide()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 根据userName删除下线用户
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult RomveOnlineUser(string userName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(userName)) return Json(true, JsonRequestBehavior.AllowGet);
+                ChatMessageCache.Instance.RemoveUserOnline(userName);
+                NotifyRomveOnlineUser(userName);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                //throw ex;
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult NotifyRomveUserOnline(string userName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(userName)) return Json(true, JsonRequestBehavior.AllowGet);
+                ChatMessageCache.Instance.RemoveUserOnline(userName);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                throw ex;
+            }
+        }
+
+        private void NotifyRomveOnlineUser(string userName)
+        {
+
+            if (NotifyWebUrlList.Any())
+            {
+                NotifyWebUrlList.ForEach(t =>
+                {
+                    NotifyService(t + "Home/NotifyRomveUserOnline?userName=" + userName);
+                });
+            }
+        }
+        /// <summary>
+        /// 登陆用户给老师送礼物。
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GiveTecherGift(int giftID, int giftCount = 0, string toUserName = "", string giftName = "",int userid=0,string username="")
+        {
+            try
+            {
+                UserGifts userGifts = GiftHandler.Instance.GetUserGifts(userid, giftID);
+                if (userGifts == null || userGifts.GiftNum < giftCount)
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
+                GiftLog log = new GiftLog()
+                {
+                    CreateTime = DateTime.Now,
+                    GiftName = giftName,
+                    GiftNum = giftCount,
+                    ToUserId = 0,
+                    ToUserName = toUserName,
+                    UserId = userid,
+                    UserName = username,
+                };
+                if (GiftHandler.Instance.AddUserGift(log, true))
+                {
+                    return Json(100, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(1, JsonRequestBehavior.AllowGet);//赠送礼物出现异常！
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+            }
+            return Json(100, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,0 +1,103 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>单线服务</title>
+    <meta name=“viewport” content=“width=device-width; initial-scale=1.0”>
+    <link href="/Content/SingleService/style.css" rel="stylesheet" type="text/css">
+    <!-- media queries css -->
+    <link href="/Content/SingleService/media-queries2.css" rel="stylesheet" type="text/css">
+    <!-- html5.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- css3-mediaqueries.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function OpenQQ() {
+            $.ajax({ url: '/Home/GetRandomQQ' }).done(function (result) {
+                if (result) {
+                    var qqtc = document.createElement('div');
+                    qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + result + "&Site=&Service=201' frameborder='0'></iframe>";
+                    document.body.appendChild(qqtc);
+                    qqtc.style.display = "none";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="part1"></div>
+    <div id="part2">
+        <div class="img1"><img src="/Image/images/SingleService/pic1.jpg" width="334" height="75" alt="" /></div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />当你在单子上有疑问或交易有疑虑的时候，可以得到老师的细致处理。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />跟着分析师同步合理进场，止损设置，止盈出场，控制风险的同时大幅提高准确率和利润。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />不用时刻等待盘面交易机会，避免疲劳交易，可以轻松等待分析师即时通知，轻松快乐体会趋势交易。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />跟着分析师同步学习分析市场，合理控制风险和资金管理，在技术和盘感上得到快速提升。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />可以和分析师细致交流交易经验和心得，在交易心理上大幅强化，对心理健康和身体健康提供基本的交易心态，养成享受交易的充实生活习惯。</div>
+    </div>
+    <div id="part3">
+        <div class="clear111">
+            <div class="tit"><h2><a href="javascript:OpenQQ();">大海老师房间</a></h2></div>
+            <div class="jieshao">
+                讲授交易技术，实盘喊单，愿与业界同道一起，在交易市场中共进退，同扬帆，实现致富梦。
+            </div>
+        </div>
+        <div class="clear111">
+            <div class="tit">
+                <h2><a href="javascript:OpenQQ();">全老师房间</a></h2>
+            </div>
+            <div class="jieshao">授人以鱼不如授人以渔，得趋势者得天下。</div>
+        </div>
+        <div class="clear111">
+            <div class="tit">
+                <h2><a href="javascript:OpenQQ();">天使老师房间</a></h2>
+            </div>
+            <div class="jieshao">自创天使短线无趋势冲击交易系统脱胎于美国海龟交易系统和幽灵交易法。</div>
+        </div>
+        <div class="clear111">
+            <div class="tit">
+                <h2>
+                    <a href="javascript:OpenQQ();">波波老师房间</a>
+                </h2>
+            </div>
+            <div class="jieshao">谙熟波浪时空趋势转化运行规律，实盘操作经验丰富。</div>
+        </div>
+        <div class="clear111">
+            <div class="tit">
+                <h2><a href="javascript:OpenQQ();">金刚老师房间</a></h2>
+            </div>
+            <div class="jieshao">在实战中善于将各种技术理论如周期共振理论混沌理论以及各种资金管理形态指标等融汇贯通。</div>
+        </div>
+    </div>
+    <div id="part4">
+        <div id="p4inn">
+            <div class="tit2">投资建议</div>
+            <div class="ttt"><img src="/Image/images/SingleService/pic3.jpg" width="25" height="25" alt="" />选择多空方向时，切记不要情绪化，宁可错过机会，决不冒险做错！</div>
+            <div class="ttt">
+                <img src="/Image/images/SingleService/pic3.jpg" width="25" height="25" alt="" />战胜自己。贪婪、急躁、失控的情绪、没有警戒意识等，很容易让投资者忽略市场走势，进而<br>
+                导致错误的交易决定。
+            </div>
+            <div class="ttt"><img src="/Image/images/SingleService/pic3.jpg" width="25" height="25" alt="" />闲钱投机，赢钱投资，做到手中有粮，心中不慌。</div>
+            <div class="ttt">
+                <img src="/Image/images/SingleService/pic3.jpg" width="25" height="25" alt="" />于适当价位果断斩获盈利，于止损价位坚决终止损失，切勿急于开始新的交易，而应冷静观察、<br>
+                分析行情，期待新的交易时机。
+            </div>
+            <div class="ttt"><img src="/Image/images/SingleService/pic3.jpg" width="25" height="25" alt="" />应制定每次操作的交易计划，做好市场、技术分析，把握进出点，避免盲目跟风和亲信他人。</div>
+        </div>
+    </div>
+    <div class="jd_copyright">
+        <div class="copyt">
+            <p><a href="javascript:OpenQQ();"><img src="/Image/images/SingleService/jd_qq2.png" width="97" height="36" alt="" /></a></p>
+            <p>Copyright 2016 九鼎财经版权所有</p>
+        </div>
+    </div>
+</body>
+</html>

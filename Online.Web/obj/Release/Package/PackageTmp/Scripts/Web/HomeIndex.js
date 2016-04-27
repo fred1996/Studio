@@ -1,5 +1,9 @@
-﻿var homeMain = {
+﻿var MAX_MSG_COUNT = 30;
+
+var homeMain = {
     isscroll: true,
+    FooterTimer: null,
+    socketuurl: "172.16.15.200:1235",//io.jrzbs.com://172.16.15.24:1288
     ibrowser: {
         iPhone: navigator.userAgent.indexOf('iPhone') > -1,
         iPad: navigator.userAgent.indexOf('iPad') > -1,
@@ -26,7 +30,7 @@
         ToSayUserId: ko.observable(0),
         SayWord: ko.observable(''),
         PostedFilePath: ko.observable(),
-        Token: ko.observable(),
+        Token: ko.observable(),        
     },
     LoginData: {
         UserName: ko.observable(),
@@ -48,9 +52,12 @@
     dataTemplate: {
         'SEND_MSG': '<img src="../../Image/images/face.png" style="vertical-align: middle;width:25px;height:25px;" onclick="" class="face-set" /> <span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay">所有人</span><input type="text" id="SayingInputVal"  data-bind="textInput: OnlineData.SayWord" /><a id="btnSayingTo" href="javascript:void(0);" onclick="client.events.sendMsgClick();">发送</a><div class="clear"></div>'
          , 'DISABLED_POST': '<div class="disabled-post">当前房间不允许任何人发言</div>'
-         , 'PERMISSION_POPUP': '<div id="roomboxc" class="hidden permission-list roombox" > <ul style="color:#333;padding:0px;margin:0px;"> <li onclick="homeMain.toSaying(\'#UserName#\',\'#UserID#\')" class="Hand">对他说</li> <li onclick="homeMain.kickRoom(\'#UserName#\',\'#UserID#\',3600)" class="Hand">禁言1小时</li> <li onclick="homeMain.joinBalckList(\'#UserName#\',\'#UserID#\',\'\')" class="Hand">封它IP</li><li onclick="homeMain.joinBalckList(\'#UserName#\',\'#UserID#\',\'#UserName#\')" class="Hand">加入黑名单</li>  <li onclick="homeMain.kickRoom(\'#UserName#\',\'#UserID#\',300)" class="Hand">禁言5分钟</li> <li onclick="homeMain.recoveryPost (\'#UserName#\',\'#UserID#\')" class="Hand">恢复发言</li><li onclick="homeMain.DelBalckList (\'#UserID#\')" class="Hand">删除黑名单</li></ul></div>'
+         , 'PERMISSION_POPUP': '<div id="roomboxc" class="hidden permission-list roombox" > <ul style="color:#333;padding:0px;margin:0px;"> <li onclick="homeMain.toSaying(\'#UserName#\',\'#UserID#\')" class="Hand">对他说</li> <li onclick="homeMain.kickRoom(\'#UserName#\',\'#UserID#\',3600)" class="Hand">禁言1小时</li> <li onclick="homeMain.joinBalckList(\'#UserName#\',\'#UserID#\',1)" class="Hand">封它IP</li><li onclick="homeMain.joinBalckList(\'#UserName#\',\'#UserID#\',2)" class="Hand">加入黑名单</li>  <li onclick="homeMain.kickRoom(\'#UserName#\',\'#UserID#\',300)" class="Hand">禁言5分钟</li> <li onclick="homeMain.recoveryPost (\'#UserName#\',\'#UserID#\')" class="Hand">恢复发言</li><li onclick="homeMain.DelBalckList (\'#UserID#\',\'#UserName#\')" class="Hand">删除黑名单</li></ul></div>'
     },
     wordFilterStr: ko.observableArray(),
+    LiveTvs: ko.observableArray(),
+    LeftVotes: ko.observableArray(),
+    TvFunctions: ko.observableArray(),
     AdvancedTechnologys: ko.observableArray(),
     BasicKnowledges: ko.observableArray(),
     IntelligentTradings: ko.observableArray(),
@@ -58,7 +65,20 @@
     Activitys: ko.observableArray(),
     Messages: ko.observableArray(),
     NewsFlash: ko.observableArray(),
-    Comments: ko.observableArray(),
+    Icomment: ko.observableArray(),
+    Pmined: ko.observableArray(),
+    IRmined: ko.observableArray(),
+    BannerImg: ko.observableArray(),
+    Votes: ko.observableArray(),
+    NewUsers: ko.observableArray(),
+    AllUsers: ko.observableArray(),
+    ChatMessages: ko.observableArray(),
+    ChatData: {
+        ToUserName: ko.observable(),
+        ToUserId: ko.observable(0),
+        Message: ko.observable(),
+        ChatRole: ko.observable(85),
+    },
     Query: function () {
         homeMain.OnlineData.SaveDesktopUrl('/Home/SaveDesktop?url=' + window.location.href + '&title=' + homeMain.OnlineData.Title());
     },
@@ -95,11 +115,48 @@
         });
     },
     QueryComments: function () {
+        //var comode = $("#commits").find(".marque_ul");
+        //var builder= new StringBuilder();
         $.ajax({ url: "/Home/QueryComment" }).done(function (results) {
-            homeMain.Comments.removeAll();
+            homeMain.Icomment.removeAll();
             for (var i = 0; i < results.length; i++) {
                 results[i].CreateTime = homeMain.ChangeDateFormat(results[i].CreateTime);
-                homeMain.Comments.push(results[i]);
+                homeMain.Icomment.push(results[i]);
+                //builder.Append('<li  class="AdvancedTechnology-info">');
+                //builder.Append('<div style="height: 32px;">');
+                //builder.Append('<a href="javascript:homeMain.showArticleInfo(' + results[i].SysTVColumnID + ',11);" style="color: #002e8e; width: 20%">' + results[i].ItemTitle + '</a>');
+                //builder.Append('<span style="float: right; width: 20%;color: #002e8e;">' + results[i].CreateTime + '</span>');
+                //builder.Append('</div>');
+                //builder.Append('</li>');
+            }
+            //comode.append(builder.toString());
+        });
+    },
+    QueryPRemind:function()
+    {
+        $.ajax({ url: "/Home/QueryQmined" }).done(function (data) {
+            homeMain.Pmined.removeAll();
+            for (var i = 0; i < data.length; i++) {
+                data[i].CreateTime = homeMain.ChangeDateFormat(data[i].CreateTime);
+                homeMain.Pmined.push(data[i]);
+            }
+        });
+    },
+    QueryIRemind: function () {
+        $.ajax({ url: "/Home/QueryIRminde" }).done(function (data) {
+            homeMain.IRmined.removeAll();
+            for (var i = 0; i < data.length; i++) {
+                data[i].CreateTime = homeMain.ChangeDateFormat(data[i].CreateTime);
+                homeMain.IRmined.push(data[i]);
+            }
+        });
+    },
+    QueryBanner: function () {
+        $.ajax({ url: "/Home/QueryBanner" }).done(function (results) {
+            homeMain.BannerImg.removeAll();
+            for (var i = 0; i < results.length; i++) {
+                results[i].CreateTime = homeMain.ChangeDateFormat(results[i].CreateTime);
+                homeMain.BannerImg.push(results[i]);
             }
         });
     },
@@ -125,14 +182,12 @@
         });
     },
     QueryMessages: function () {
+        $.ajaxSetup({ cache: false });
         $.ajax({ url: '/Home/QueryMsgs', async: false }).done(function (results) {
             if (results) {
                 var msgHtml = new StringBuilder();
                 for (var i = 0; i < results.length; i++) {
                     var item = results[i];
-                    //if (item.from == homeMain.OnlineData.randUN()) {
-                    //    item.msgtype = 5;
-                    //}
                     if (homeMain.OnlineData.UserRoleID() >= 100) {
                         msgHtml.Append(client.methods.initMsgHtml(item.msgtype, item));
                     } else {
@@ -143,17 +198,74 @@
                 }
                 $("#Msg").empty();
                 $("#Msg").append(msgHtml.toString());
-                homeMain.ShowChatPopup();
+                homeMain.BindTipEvent(null);
                 $("#MsgListWrapper .msgInfo .sayingMan,.toSayingMan").tooltipster("show");
             }
         });
+        $.ajaxSetup({ cache: true });
     },
-    ShowChatPopup: function () {
-        $("#MsgListWrapper .msgInfo .sayingMan,.toSayingMan").tooltipster({
+    QueryVotes: function () {
+        $.ajax({ url: '/Home/QueryVotes' }).done(function (results) {
+            homeMain.Votes.removeAll();
+            for (var i = 0; i < results.length; i++) {
+                homeMain.Votes.push(results[i]);
+            }
+            if (homeMain.Votes().length > 0)
+                homeMain.ShowVote();
+        });
+    },
+    RefrshVotes: function () {
+        $.ajax({ url: '/Home/RefrshVotes' }).done(function (results) {
+            homeMain.Votes.removeAll();
+            for (var i = 0; i < results.length; i++) {
+                homeMain.Votes.push(results[i]);
+            }
+        });
+    },
+    AddUserVoteItem: function (data, event) {
+        $.ajax({ url: '/Home/AddUserVoteItem', data: { votecolumid: data.ID } }).done(function (data) {
+            if (data == "T") {
+                alert("投票成功");
+                homeMain.RefrshVotes();
+                client.methods.NotifyRefrshShowVote();
+            } else if (data == "C") {
+                alert("已参与过该项投票，投票次数已达上线！");
+            } else if (data == "F") {
+                alert("投票出现异常，稍后重试！");
+            } else if (data == "Q") {
+                alert("该投票项不允许多项投！");
+            } else {
+                alert("游客禁止投票！");
+            }
+        });
+    },
+    ShowVote: function () {
+        $.fancybox.open($("#vote"), {
+            width: 400,
+            height: "auto",
+            maxHeight: 600,
+            fitToView: false,
+            padding: 0,
+            margin: 0,
+            // scrolling: 'no',
+            autoSize: false,
+            closeClick: false,
+            closeBtn: true,
+            openEffect: 'none',
+            closeEffect: 'none',
+            type: 'inline',
+            //modal: true,
+            //hideOnOverlayClick: false,
+            //hideOnContentClick: false,
+            overlayShow: true
+        });
+    },
+    ShowChatPopup: function (currObj) {
+        currObj.tooltipster({
             delay: 0,
             theme: 'tooltipster-light',
             touchDevices: true,
-            trigger: 'hover',
+            trigger: 'click',
             contentAsHTML: true,
             multiple: true,
             position: 'bottom',
@@ -179,6 +291,16 @@
             }
         });
     },
+    BindTipEvent: function (sender) {
+        var currObj = null;
+        if (!!sender) {
+            currObj = sender;
+        }
+        else {
+            currObj = $("#MsgListWrapper .msgInfo .sayingMan,.toSayingMan");
+        }
+        homeMain.ShowChatPopup(currObj)
+    },
     initEmojiHtml: function () {
         $("#ToolBarWapper .face-set").qqFace({
             id: "Facebox",
@@ -196,6 +318,7 @@
             if (result) {
                 var $data = result;
                 homeMain.OnlineData.RoomId($data.Entity.RoomId);
+                $("#hidRoomID").val($data.Entity.RoomId);
                 homeMain.OnlineData.RoomName($data.Entity.RoomName);
                 if ($data.User) {
                     homeMain.initUserLoginedHtml($data.User);
@@ -269,8 +392,6 @@
                             //$("#btnUserReg").removeAttr("disabled");
                             if (!!$data.Conf.IsVerifyPhone) {
                                 //不显示验证码，显示文字发短信“获取验证码”
-                            } else {
-                                //显示验证码
                             }
                         }
                         if (!$data.Conf.IsCheckMsg) {
@@ -295,8 +416,8 @@
                                             qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=' + qqArrary[i].split('-')[0] + '&site=qq&menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
                                         }
                                         else
-                                        qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="mqq://im/chat?chat_type=wpa&uin=' + qqArrary[i].split('-')[0] + '&version=1&src_type=web"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
-                                    }  
+                                            qqhtml += '<a class="mRight10 mLeft10" target="_blank" href="mqq://im/chat?chat_type=wpa&uin=' + qqArrary[i].split('-')[0] + '&version=1&src_type=web"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div></a>';
+                                    }
                                     else {
                                         qqhtml += '<a class="mRight10 mLeft10" href="tencent://message/?uin=' + qqArrary[i].split('-')[0] + '&amp;Site=www.yyzhiboshi.com&amp;Menu=yes"><div class="serverqqlist " qqnum=' + qqArrary[i].split('-')[0] + '><span style=\'padding-left:25px;\'>助理' + qqArrary[i].split('-')[1] + '</span></div> </a>';
                                     }
@@ -341,7 +462,19 @@
                     alert("此房间不存在");
                     return false;
                 }
+                if ($data.GiveModel!=null) {
+                    console.log($data.GiveModel[0].GiftLogo);
+                    $(".diamond").attr("src", $data.GiveModel[0].GiftLogo);//礼物图标
+                    $(".diamond").data("id", $data.GiveModel[0].GiftId);//礼物的ID
+                    $(".diamond").data("gifttype", $data.GiveModel[0].GiftType);//礼物的类型
+                    $(".diamond").data("giftname", $data.GiveModel[0].GiftName);//礼物的名称
+                } else {
+                    $(".diamond").hide();
+                }
             }
+        }).fail(function (err) {
+            console.log(err);
+            return false;
         });
     },
     RandomSort: function (a, b) {
@@ -359,13 +492,51 @@
     showCommits: function (type) {
         if (type == '1') {
             $("#commits").show();
+            $("#positionsRemind").hide();
+            $("#interestRemind").hide();
             $("#DisclaimerInfo").hide();
-        } else {
+            if (homeMain.Icomment().length > 7) {
+                homeMain.MarqueePlugin("zwp");
+            }           
+            //$("#commits,marque_ul").removeClass("zIndex0").addClass('zIndex99');
+            //$("#positionsRemind,marque_ul").addClass("zIndex0").removeClass("zIndex99");
+            //$("#interestRemind,marque_ul").addClass("zIndex0").removeClass("zIndex99");
+            //$("#DisclaimerInfo").addClass("zIndex0").removeClass("zIndex99");
+        } else if (type == '2') {
+            $("#positionsRemind").show();
+            $("#commits").hide();
+            $("#interestRemind").hide();
+            $("#DisclaimerInfo").hide();
+            if (homeMain.Pmined().length > 7) {
+                homeMain.MarqueePlugin("jctx");
+            }            
+            //$("#positionsRemind,marque_ul").removeClass("zIndex0").addClass('zIndex99');
+            //$("#commits,marque_ul").addClass("zIndex0").removeClass("zIndex99");
+            //$("#DisclaimerInfo").addClass("zIndex0").removeClass("zIndex99");
+            //$("#interestRemind,marque_ul").addClass("zIndex0").removeClass("zIndex99");
+        } else if (type == '3') {
+            $("#interestRemind").show();
+            $("#commits").hide();
+            $("#positionsRemind").hide();
+            $("#DisclaimerInfo").hide();
+            if (homeMain.IRmined().length > 7) {
+                homeMain.MarqueePlugin("pctx");
+            }
+            //$("#interestRemind,marque_ul").removeClass("zIndex0").addClass('zIndex99');
+            //$("#DisclaimerInfo").addClass("zIndex0").removeClass("zIndex99");
+            //$("#commits,marque_ul").addClass("zIndex0").removeClass("zIndex99");;
+            //$("#positionsRemind,marque_ul").addClass("zIndex0").removeClass("zIndex99");
+        } else if (type == '0') {
             $("#DisclaimerInfo").show();
             $("#commits").hide();
+            $("#positionsRemind").hide();
+            $("#interestRemind").hide();
+            //$("#DisclaimerInfo").removeClass("zIndex0").addClass('zIndex99');
+            //$("#commits,marque_ul").addClass("zIndex0").removeClass("zIndex99");;
+            //$("#positionsRemind,marque_ul").addClass("zIndex0").removeClass("zIndex99");
+            //$("#interestRemind,marque_ul").addClass("zIndex0").removeClass("zIndex99");
         }
-    }
-    ,
+    },
     showArticleInfo: function (id, type) {
         var title = '';
         if (type == 11) {
@@ -373,8 +544,21 @@
                 return homeMain.ShowLogin();
             }
             title = '早晚评';
-        } else if (type == 10)
+        } else if (type == 10){
             title = "新闻快讯";
+        }else if(type==12){ 
+            title = "建仓提醒";
+            if (homeMain.OnlineData.UserRoleID() == 0) {
+                return homeMain.ShowLogin();
+            }
+            if (homeMain.OnlineData.UserRoleID()<40) {
+                alert("黄金会员或黄金以上会员才能查看，如有疑问请联系右上方客服助理！！");
+                homeMain.DialogQQ();
+                return;
+            }
+        } else if (type == 13) {
+            title = "平仓提醒";            
+        }
         $.ajax({ url: "/Home/QueryArticleInfo", data: { id: id } }).done(function (result) {
             if (result) {
                 $("#articleInfo").empty();
@@ -424,8 +608,7 @@
             return date.getFullYear() + "-" + month + "-" + currentDate;
         }
         return "";
-    }
-    ,
+    },
     ShowRegister: function () {
         $.fancybox.close();
         homeMain.clearForminfo("reg");
@@ -472,7 +655,7 @@
                     email: homeMain.RegisterData.Email(), nickName: $.trim(homeMain.RegisterData.UserName()),
                     phone: homeMain.RegisterData.Phone(), password: homeMain.RegisterData.Password(),
                     verifyCode: homeMain.RegisterData.Code(), qq: homeMain.RegisterData.QQ(),
-                    fromUrl: window.location.href
+                    fromUrl: document.referrer
                 }
             }).done(function (result) {
                 if (result) {
@@ -480,20 +663,7 @@
                     $.fancybox.close();
                 }
             }).fail(function (data) {
-                //var htmlDoc = data.responseText;
-                //var doms = $.parseHTML(htmlDoc);
-                //var msg = doms[1].innerHTML;
-                //alert(msg);
                 alert("用户名或邮箱或手机号重复啦。");
-                //$("#UserEmail").parents().next().find("img").attr("src", "../../Image/images/icon_reg_error.png");
-                //$("#UserEmail").parents().next().find("img").show();
-                //$("#UserEmailError").show();
-                //$("#UserTel").parents().next().find("img").attr("src", "../../Image/images/icon_reg_error.png");
-                //$("#UserTel").parents().next().find("img").show();
-                //$("#UserTelError").show();
-                //$("#UserNickname").parents().next().find("img").attr("src", "../../Image/images/icon_reg_error.png");
-                //$("#UserNickname").parents().next().find("img").show();
-                //$("#UserNMError").show();
             });
         }
     },
@@ -502,7 +672,7 @@
         $(".serviceqq-list div").each(function () {
             qqArr += $(this).attr("qqnum") + ",";
         });
-        qqArr = qqArr.split(',')
+        qqArr = qqArr.split(',');
         var iNum = parseInt((qqArr.length - 1) * Math.random());
         var qqtc = document.createElement('div');
         if (homeMain.ibrowser.mobile) {
@@ -515,7 +685,6 @@
         else {
             qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + qqArr[iNum] + "&Site=&Service=201' frameborder='0'></iframe>";
         }
-        //qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + qqArr[iNum] + "&Site=&Service=201' frameborder='0'></iframe>";
         document.body.appendChild(qqtc);
         qqtc.style.display = "none";
     },
@@ -595,32 +764,8 @@
         theImage = null;
     },
     userLogin: function () {
-        //if (!homeMain.LoginData.UserName()) {
-        //    alert("请输入用户名/邮箱");
-        //    $("#lblUserName").text('请输入用户名/邮箱');
-        //    $("#lblUserName").show();
-        //    return;
-        //} else {
-        //    $("#lblUserName").hide();
-        //}
-        //if (!homeMain.LoginData.Password()) {
-        //    alert("请输入密码");
-        //    $("#lblUPwd").text('请输入密码');
-        //    $("#lblUPwd").show();
-        //    return;
-        //} else {
-        //    $("#lblUPwd").hide();
-        //}
-        //if (!homeMain.LoginData.Code()) {
-        //    alert("请输入验证码");
-        //    return;
-        //}
         var username = $.trim(homeMain.LoginData.UserName());
         var upwd = homeMain.LoginData.Password();
-        var randcodeError = homeMain.LoginData.CodeError();
-        //if (username === "" || upwd === "" || randcodeError) {
-        //    return false;
-        //}
         if (homeMain.validateLoginInputError()) {
             $.ajax({ url: '/Home/UserLogin', type: "POST", async: false, data: { userName: username, password: upwd } }).done(function (result) {
                 if (result == 1) {
@@ -629,6 +774,7 @@
                 else if (result == 2) {
                     window.location.href = '/Home/Invalid';
                 } else if (result) {
+                    var old = homeMain.OnlineData.randUN();
                     homeMain.OnlineData.randUN(username);
                     $.cookie("UserName", result.UserName, { expires: 30 });
                     for (var i = 0; i < result.RoleList.length; i++) {
@@ -642,12 +788,20 @@
                     setting.methods.initTheme();
                     homeMain.initUserLoginedHtml(result);
                     setting.methods.initVote();
-                    if (client.socket);
+                    if (!!client.socket && client.socket != undefined);
                     client.socket.emit('onlineEvent', {
                         roomid: homeMain.OnlineData.RoomId(),
                         uid: homeMain.OnlineData.UserId(),
                         from: homeMain.OnlineData.randUN(),
-                        rid: homeMain.OnlineData.UserRoleID(),
+                        roleid: homeMain.OnlineData.UserRoleID(),
+                        socketid: (client.socket.id || ""),
+                    });
+                    client.socket.emit('RefreshUserList', {
+                        roomid: homeMain.OnlineData.RoomId(),
+                        uid: 0,
+                        from: old,
+                        roleid: 0,
+                        socketid: (client.socket.id || "")
                     });
                     homeMain.QueryMessages();
                     $.fancybox.close();
@@ -656,15 +810,17 @@
                         $(".nano").nanoScroller();
                         $(".nano").nanoScroller({ scroll: 'bottom' });
                     }
+                    homeMain.QueryVotes();
+                    //homeMain.clearPrivateChatState();
                 }
             }).fail(function (data) {
                 // var htmlDoc = data.responseText;
                 // var doms = $.parseHTML(htmlDoc);
                 //var msg = doms[1].innerHTML;
                 alert("用户名或密码不正确！");
+                return false;
             });
         }
-
     },
     userLogout: function () {
         $.ajax({ url: '/Home/Logout', type: "POST", async: false }).done(function (result) {
@@ -674,8 +830,9 @@
             homeMain.OnlineData.UserRoleID(0);
             window.location.reload();
         });
-        if (client.socket)
-            client.socket.emit('disconnect');
+        if (client.socket) {
+            client.methods.disconnect();
+        }
     },
     RandomWord: function (num) {
         var str = "",
@@ -876,7 +1033,6 @@
             $("#UserNickname").parents().next().find("img").show();
             $("#UserNMError").empty();
         }
-
         var tmpVal = $("#UserTel").val();
         if (!tmpVal || tmpVal == '' || tmpVal == 'undefined') {
             $("#UserTelError").text('手机号不能空');
@@ -972,13 +1128,11 @@
             alert("短信验证码不正确");
             return false;
         }
-
         if ($("#UserEmail").val() === "" || $("#UserNickname").val() === "" || $("#UserTel").val() === "" || $("#UserPwd").val() === "" || $("#UserRepwd").val() === "" || $("#UserRandcode").val() === "") {
             return false;
         } else {
             return true;
         }
-
     },
     validateLoginInputError: function () {
         var tmpVal = $("#UserName").val();
@@ -1039,32 +1193,41 @@
                 time: sec * 1000
             };
             client.socket.emit('kickRoomEvent', data);
-            homeMain.OnlineData.isKickRoom = setTimeout(function () {
-                homeMain.OnlineData.SayWord('');
-                homeMain.OnlineData.isKickRoom = null;
-            }, (sec * 1000));
-            alert("己禁言");
+            var type = sec == 3600 ? 1 : 2;
+            homeMain.UserOneHourGag(un, uid, type);
         }
     },
-    joinBalckList: function (un, uid, userName) {
+    GetClientIp: function () {
+        var ip = null;
+        var url = 'http://chaxun.1616.net/s.php?type=ip&output=json&callback=?&_=' + Math.random();
+        $.ajaxSettings.async = false;
+        $.getJSON(url, function (data) {
+            ip = data.Ip;
+        });
+        $.ajaxSettings.async = true;
+        return ip;
+    },
+    joinBalckList: function (un, uid, type) {
         if (un && un !== "undefined" && uid && uid != "undefined") {
-            if (uid > 0 || userName) {
-                $.ajax({ url: '/Home/JoinBlackList', data: { userId: uid, userName: userName } }).done(function (result) {
-                });
-            }
-            var data = {
-                roomid: homeMain.OnlineData.RoomId(),
-                uid: uid,
-                from: un,
-            };
-            client.socket.emit('forceLogOutEvent', data);
-            alert("添加成功");
-            return true;
+            $.ajax({ url: '/Home/JoinBlackList', data: { userId: uid, userName: un, type: type } }).done(function (result) {
+                if (!result) {
+                    alert("该用户已被加入黑名单，无需重复加入！");
+                    return false;
+                }
+                var data = {
+                    roomid: homeMain.OnlineData.RoomId(),
+                    uid: uid,
+                    from: un,
+                };
+                client.socket.emit('forceLogOutEvent', data);
+                alert("添加成功");
+                return true;
+            });
         }
     },
-    DelBalckList: function (uid) {
+    DelBalckList: function (uid, username) {
         if (uid && uid != "undefined") {
-            $.ajax({ url: '/Home/DelBlackList', data: { userId: uid } }).done(function (result) {
+            $.ajax({ url: '/Home/DelBlackList', data: { userId: uid,userName: username  } }).done(function (result) {
                 alert("删除成功！");
                 return true;
             });
@@ -1080,19 +1243,21 @@
                 uid: uid,
                 from: un
             };
+            homeMain.ClearUserGag(un, uid);
             client.socket.emit('recoveryPostEvent', data);
-            alert("恢复发言成功");
         }
     },
     clearScreen: function () {
         $("#MsgListWrapper #Msg").empty();
+        if (BrowserDetect.browser.toLocaleUpperCase() === "IE") {
+            CollectGarbage();
+        }
     },
     scrollScreen: function (e) {
         this.isscroll = !this.isscroll;
         if (!this.isscroll) $("#isscroll").addClass("noscroll");
         if (this.isscroll) $("#isscroll").removeClass("noscroll");
     },
-
     initRoomPosts: function (postDat) {
         if (postDat) {
             var col1Html = new StringBuilder();
@@ -1129,15 +1294,16 @@
             //    $(".service-infoMore").hide();
             //}
             var roomScroll = new Marquee("RoomPosts");
-            roomScroll.Direction = 2;
+            roomScroll.Direction = 1;
             roomScroll.Behavior = "scroll";
             //roomScroll.Step = 2;
-            //roomScroll.Width = 630;
+            roomScroll.Width = $("#RoomPosts").width() - 30;
             roomScroll.Height = 36;
             roomScroll.Timer = 30;
             roomScroll.DelayTime = 4000;
             roomScroll.WaitTime = 2000;
             roomScroll.Start();
+
         }
     },
     showCompletePost: function () {
@@ -1156,7 +1322,6 @@
             $("#ChatMsgWrapper .service-infoMore").css("top", -22);
             $("#ServiceQQs").css("margin-top", "15px");
         }
-
     },
     showMoreServiceQQ: function () {
         var hei = $("#ServiceQQs .serviceqq-list").height();
@@ -1181,8 +1346,13 @@
             done: function (e, data) {
                 if (data.result) {
                     homeMain.OnlineData.PostedFilePath(data.result);
-                    homeMain.OnlineData.SayWord(homeMain.OnlineData.SayWord() + "[pf_url]");
+                    var pattern = /\[pf_url\]/gm,
+                          str = '[pf_url]';
+                    if (!pattern.test($("#SayingInputVal").val())) {
+                        homeMain.OnlineData.SayWord(homeMain.OnlineData.SayWord() + "[pf_url]");
+                    }
                 } else {
+                    alert("你上传的图片不符合要求（图片最大2M）。");
                     homeMain.OnlineData.PostedFilePath("");
                 }
             }
@@ -1207,34 +1377,90 @@
             if (result) {
                 $("#btnMoblie").html("己发送");
                 $("#btnMoblie").attr("disabled", "disabled");
-
                 setTimeout(function () {
                     $("#btnMoblie").removeAttr("disabled");
                     $("#btnMoblie").html("发送验证码");
                 }, 60000);
-            } else {
-
+            }
+        });
+    },
+    ClearUserGag: function (un, uid) {
+        $.ajax({
+            url: "/Home/RemoveUserGag",
+            data: { name: un, userid: uid }
+        }).done(function (data) {
+            if (data) {
+                alert("恢复发言成功");
+            }
+        });
+    },
+    QueryUserGag: function () {
+        $.ajax({
+            url: "/Home/CheckUserGag",
+            data: { name: homeMain.OnlineData.randUN(), userid: homeMain.OnlineData.UserId }
+        }).done(function (data) {
+            if (data) {
+                homeMain.OnlineData.SayWord('');
+                homeMain.OnlineData.isKickRoom = null;
+                $("#SayingInfoWrapper").empty();
+                $("#SayingInfoWrapper").append(homeMain.dataTemplate.DISABLED_POST);
+                $("#SayingInfoWrapper .disabled-post").text("你已被禁言，请联系管理员");
+            }
+        });
+    },
+    UserOneHourGag: function (un, uid, type) {
+        $.ajax({
+            url: "/Home/UserOneHourGag",
+            data: { name: un, userid: uid, type: type }
+        }).done(function (data) {
+            if (data) {
+                alert("己禁言");
+            }
+        });
+    },
+    ///登陆用户赠送礼物
+    ///@12016-4-26
+    ///@fred
+    GiveGift: function () {
+        if (homeMain.OnlineData.UserRoleID() == 0) {
+            homeMain.DialogQQ();
+        }
+        $.ajax({
+            url: "/Home/GiveTecherGift",
+            data: { giftID: $(".diamond").data("id"), giftCount: $(".giftinputval").val(), toUserName: $(".Selrose").val(), giftName: $(".diamond").data("giftname"), userid: homeMain.OnlineData.UserId(), username: homeMain.OnlineData.randUN() }
+        }).done(function(data){
+            if (data==0) {//表示没有查询到用户礼物或者送的礼物的数量大于余额
+                homeMain.DialogQQ();
+            }
+            if (data == 100) {
+                client.methods.sendGift(homeMain.OnlineData.randUN(),$(".Selrose").val(), $(".giftinputval").val());
+            }
+            if (data==1) {
+                alert("赠送礼物出现异常！");
             }
         });
     },
     Init: function () {
-        $.ajaxSetup({ cache: false });
         homeMain.InitStartUserItem();
         homeMain.Query();
         homeMain.QueryAdvancedTechnology();
         homeMain.QueryBasicKnowledges();
         homeMain.QueryIntelligentTradings();
-        homeMain.QueryNewsFlashs();
         homeMain.QueryComments();
-        homeMain.QueryActivitys();
+        homeMain.QueryPRemind();
+        homeMain.QueryIRemind();
+        homeMain.QueryBanner();
+        homeMain.AddUserActionLog();
         homeMain.loadRoomInfo();
         homeMain.showUserRole();
         homeMain.QueryMessages();
         homeMain.LoadSystemInfos();
         homeMain.QueryDisclaimer();
-        //homeMain.validateLoginInputError();
-        //homeMain.validateRegInputError();
         homeMain.UploadPostFile();
+        homeMain.QueryVotes();
+        homeMain.FooterTimerSwitch();
+        homeMain.QueryUserGag();
+        homeMain.PtipMonitorData_Zoom();
     },
     InitContext: function () {
         $(".nano").nanoScroller({
@@ -1318,12 +1544,32 @@
         }, function () {
             $(".MonitorData_Zoom").removeAttr("style");
         });
-        setTimeout("$('#jczs,#gjjs,#zncx,#xwkx,#zwp').myScroll({speed: 40,rowHeight: 32  })", 2000);
-
+        //$('#jczs,#gjjs,#zncx,#xwkx,#zwp').myScroll({ speed: 40, rowHeight: 32 });
+        setTimeout(function () {
+            //    $('#jczs').jcMarquee({ 'marquee': 'y', 'margin_right': '0', 'speed': 40, 'index': 1 });
+            //    $('#gjjs').jcMarquee({ 'marquee': 'y', 'margin_right': '0', 'speed': 40, 'index': 1 });
+            //    $('#zncx').jcMarquee({ 'marquee': 'y', 'margin_right': '0', 'speed': 40, 'index': 1 });
+            //    $('#zwp').jcMarquee({ 'marquee': 'y', 'margin_right': '0', 'speed': 40, 'index': 1 });
+            if (homeMain.BasicKnowledges().length>3) {
+                homeMain.MarqueePlugin("jczs", 102);
+            }
+            if (homeMain.IntelligentTradings().length >3) {
+                homeMain.MarqueePlugin("zncx", 102);
+            }
+            if (homeMain.AdvancedTechnologys().length >3) {
+                homeMain.MarqueePlugin("gjjs", 102);
+            }                      
+        }, 2000);
+        $(".columninfo").on("mouseover", function () {            
+            clearInterval(homeMain.FooterTimer);
+        }).on("mouseout",function () {
+            homeMain.FooterTimerSwitch();
+        });
     },
     IreSize: function () {
-        $("#MainContent").height($(window).Height() - 52);
-        $("#ChatMsgWrapper").height($(window).Height() - 93);
+        //$("#RoomPosts").width($("#RoomNoticeWrapper").width() - 30);
+        $("#MainContent").height($(window).height() - 52);
+        $("#ChatMsgWrapper").height($(window).height() - 93);
         $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - $("#ServiceQQs").height() - $("#ToolBarWapper").height() - $("#ClearToName").height() - $("#SayingInfoWrapper").height() - 100);
         if ($("#SysColumnWapper").is(":visible")) {
             $("#MainChatWapper").width($("#MainContent").width() - $("#SysColumnWapper").width() - $("#MainLiveTVWapper").width() - 40);
@@ -1335,12 +1581,22 @@
         } else {
             $("#ServiceQQs").show();
         }
+        //$("#MainLiveTVWapper").css("height", $("#MainContent").height());
+        $(".subcolumn-wrapper").attr("style", "height:" + ($("#MainLiveTVWapper").height() - $(".video-content").height() - 30) + "px");
+        //$("#DisclaimerInfo").attr("style", "height:" + ($(".subcolumn-wrapper").height() - $("#SubColumnsMenu").height()) + "px");
+        //$(".video-content").attr("style", "height:"+($("#MainLiveTVWapper").height() - $(".subcolumn-wrapper").height())+"px");        
         if (homeMain.ibrowser.mobile == true) {
             $("#MainChatWapper").height($("#MainContent").height() - $("#MainLiveTVWapper").height());
             $("#ChatMsgWrapper").height($("#MainChatWapper").height() - 42);
             $("#MsgListWrapper").height($("#ChatMsgWrapper").height() - 150);
         }
-        if ($("body").width() < 1400) {
+        if (document.body.clientHeight < 700) {
+            $(".video-tip").attr("style", "height:25px;position:relative");
+            $(".video-tip img").attr("style", "margin: 3px 10px 5px 10px;");
+            $(".video-tip>#mobiletel").attr("style", "width:auto;margin:2px 10px 0px 10px;font-size:14px");
+            $(".video-tip>.refresh").attr("style", "top:2px;");
+        }
+        if ($("body").width() < 1300) {
             $(".serviceqq-list a:not(:eq(0)),.qqmore").hide();
             $(".serviceqq-list,#ServiceQQs").css("width", "100px");
         } else {
@@ -1348,25 +1604,172 @@
             $(".serviceqq-list").css("width", "90%");
             $("#ServiceQQs").css("width", "410px");
         }
+        //$("#DisclaimerInfo .nano").nanoScroller();
+        //$("#DisclaimerInfo .nano").nanoScroller({ scroll: 'bottom' });
+        $(".subcolumn-wrapper #DisclaimerInfo img").height($("#MainContent").height() - $(".video-content").height() - $("#SubColumnsMenu").height() - 20);
     },
     mobileStyle: function () {
         $("#chatbottom_qq").find(".btn").css({ "padding": "2px 5px" });
-    }
+    },
+    AddUserActionLog: function () {
+        $.ajax({ url: '/Home/AddUserActionLog', data: { userName: homeMain.OnlineData.randUN(), fromUrl: document.referrer, currentUrl: window.location.href } }).done(function (result) {
+        });
+    },
+    ShowVote: function () {
+        $.fancybox.open($("#vote"), {
+            width: 400,
+            //height: 300,
+            height: "auto",
+            maxHeight: 600,
+            fitToView: false,
+            padding: 0,
+            margin: 0,
+            // scrolling: 'no',
+            autoSize: false,
+            closeClick: false,
+            closeBtn: true,
+            openEffect: 'none',
+            closeEffect: 'none',
+            type: 'inline',
+            //modal: true,
+            //hideOnOverlayClick: false,
+            //hideOnContentClick: false,
+            overlayShow: true
+        });
+    },
+    NoWinError: function () {
+        var oldError = window.onerror;
+        window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+            if (oldError) {
+                return oldError(errorMsg, url, lineNumber);
+            }
+            return false;
+        }
+    },
+    FooterTimerSwitch: function () {
+        var iNow = 0;
+        homeMain.FooterTimer = setInterval(function () {
+            iNow++;
+            if (iNow > $(".columninfo dl").length - 1) {
+                iNow = 0;
+            };
+            $(".columninfo dl").removeClass('current');
+            $(".columninfo dl").eq(iNow).addClass('current');
+        }, 3000);
+    },
+    MarqueePlugin: function (obj) {
+        if ($("#"+obj).find("table").length==0) {
+            var Marquee1 = new Marquee(obj);
+            Marquee1.Step = 1;
+            Marquee1.Timer = 50;
+            Marquee1.DelayTime = 0;
+            Marquee1.WaitTime = 0;
+            Marquee1.ScrollStep = 52;
+            Marquee1.Start();
+        }
+    },
+    TimerCollectGarbage: function () {
+        if (BrowserDetect.browser.toLocaleUpperCase() === "IE") {
+            setInterval("CollectGarbage();", 1800000);//半个小时调用一次
+        }
+    },
+    DisposeOldMsgs: function () {
+        if (homeMain.OnlineData.UserRoleID() >= 100) {
+            MAX_MSG_COUNT = 150;
+        }
+
+        var msgCount = $("#Msg .msgInfo").length;
+        if (msgCount > MAX_MSG_COUNT) {
+            var msgArry = $("#Msg .msgInfo");
+            for (var i = 0; i < (msgCount - MAX_MSG_COUNT) ; i++) {
+                if (!!msgArry.eq(i) && msgArry.eq(i) != undefined) {
+                    msgArry.eq(i).remove();
+                }
+            }
+            homeMain.TimerCollectGarbage();
+        }
+    },
+    GetMaxCount: function () {
+        if (homeMain.OnlineData.UserRoleID() >= 100)
+            return 150;
+        else if (homeMain.OnlineData.UserRoleID() >= 0)
+            return 100;
+        else {
+            return 50;
+        }
+    },
+    AddNewUser: function (userId, userName, msgCount) {
+        if (userName == homeMain.OnlineData.randUN()) {
+            return;
+        }
+        if (homeMain.OnlineData.UserRoleID() != homeMain.ChatData.ChatRole()) {
+            homeMain.IsMyAssistant(userId, userName, msgCount);
+        }
+        else {
+            homeMain.IsMyUser(userId, userName, msgCount);
+        }
+    },
+    RemoveUser: function (userName) {
+        //new user     
+        for (var i = 0; i < homeMain.NewUsers().length; i++) {
+            if (homeMain.NewUsers()[i].UserName == userName) {
+                homeMain.NewUsers.remove(homeMain.NewUsers()[i]);
+            }
+        }
+        //all user
+        for (var i = 0; i < homeMain.AllUsers().length; i++) {
+            if (homeMain.AllUsers()[i].UserName == userName) {
+                homeMain.AllUsers.remove(homeMain.AllUsers()[i]);
+            }
+        }
+    },
+    PtipMonitorData_Zoom: function () {
+        $("#getcalendars").hover(function () {
+            if ($(".MonitorData_Zoom").find("#FinceIframe").length <= 0) {
+                $(".MonitorData_Zoom").html('<iframe id="FinceIframe" frameborder="0"width="100%" src="http://www.yy.com/index/fin/news" scrolling="auto" hspace="0"></iframe>');
+                $(".MonitorData_Zoom").attr('style', "display:block");
+            } else {
+                $(".MonitorData_Zoom").css({ 'display': "block" });
+            }
+        }, function () {
+            $(".MonitorData_Zoom").css('display', "none");
+        });
+    },
+    OpenFlowers: function () {
+        //$.fancybox.open($("#FlowersBox"), {
+        //    width: '90%',
+        //    height: '70%',
+        //    maxWidth: 525,
+        //    maxHeight: 400,
+        //    minHeight: 550,
+        //    fitToView: false,
+        //    padding: 0,
+        //    margin: 0,
+        //    scrolling: 'no',
+        //    autoSize: false,
+        //    closeClick: false,
+        //    closeBtn: true,
+        //    modal: false,
+        //    overlayShow: true,
+        //    overlayOpacity: 0,
+        //    overlayColor:'#fff'
+        //});
+    },
 };
-$(function () {
-    var oldError = window.onerror;
-    window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
-        if (oldError)
-            return oldError(errorMsg, url, lineNumber);
-        return false;
-    }
+$(function () {    
+    homeMain.NoWinError();
     homeMain.IreSize();
     ko.applyBindings(homeMain);
     homeMain.Init();
     homeMain.InitContext();
+    //homeMain.InitChat();
+    //homeMain.FooterTimerSwitch();
+    homeMain.TimerCollectGarbage();
     if (homeMain.ibrowser.mobile) {
         homeMain.mobileStyle();
     }
+    homeMain.TimerCollectGarbage();
+    $(".subcolumn-wrapper .nano").nanoScroller({ scroll: 'top', sliderMinHeight: 40, alwaysVisible: true });    
 });
 $(window).resize(function () {
     homeMain.IreSize();

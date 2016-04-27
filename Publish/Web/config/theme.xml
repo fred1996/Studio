@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<theme>
+  <name title="blue" url="theme_blue.css">蓝色</name>
+  <name title="red" url="theme_red.css">红色</name>
+  <name title="chen" url="theme_orange.css">橙色</name>
+  <name title="qins" url="theme_whitegay.css">黑白</name>
+  <name title="lv" url="theme_city.css">城市</name>
+  <name title="jianj" url="theme_gray.css">灰色</name>
+  <name title="default" url="theme_classicalOne.css">经典一</name>
+  <name title="default" url="theme_default.css">默认</name>
+</theme>

@@ -12,10 +12,12 @@
     <menu name="黑名单管理" url="/Admin/User/BlackList"></menu>
     <menu name="用户字典管理" url="/Admin/User/UserKeys"></menu>
     <menu name="用户地址管理" url="/Admin/User/UserAddress"></menu>
+    <menu name="用户礼物管理" url="/Admin/Gift/UserGifts"></menu>
   </menus>
   <menus name="日志管理" Icon="glyphicon glyphicon-list-alt" id="Logger">
     <menu name="用户日志管理" url="/Admin/Loger/UserLogerIndex"></menu>
     <menu name="后台操作日志" url="/Admin/Loger/AreasLogerIndex"></menu>
+    <menu name="用户礼物日志" url="/Admin/Gift/GiftLogIndex"></menu>
   </menus>
   <menus name="报表管理" Icon="glyphicon glyphicon-file" id="Report">
     <menu name="每日注册量" url="/Admin/Report/Index"></menu>
@@ -26,5 +28,6 @@
     <menu name="角色权限管理" url="/Admin/SysSetting/RolePermissionIndex"></menu>
     <menu name="系统字典管理" url="/Admin/SysSetting/SysDictionarieIndex"></menu>
     <menu name="课程安排管理" url="/Admin/SysSetting/TVClassScheduleIndex"></menu>
+    <menu name="礼物管理" url="/Admin/Gift/Index"></menu>
   </menus>
 </Runtor.CRM>

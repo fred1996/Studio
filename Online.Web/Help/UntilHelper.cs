@@ -165,5 +165,22 @@ namespace Online.Web.Help
             return isImage;
         }
         public static string Token = Guid.NewGuid().ToString().Replace("-", "");
+        /// <summary>
+        /// 判断文件是否为图片
+        /// </summary>
+        /// <param name="path">文件的完整路径</param>
+        /// <returns>返回结果</returns>
+        public static bool IsImage(HttpPostedFileBase file)
+        {
+            try
+            {
+                Image img = Image.FromStream(file.InputStream);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

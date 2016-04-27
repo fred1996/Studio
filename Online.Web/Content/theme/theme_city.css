@@ -1,21 +1,21 @@
 ﻿body{
     background: url("../../Image/images/theme/backgroundchenshi.jpg")  repeat fixed!important;
 }
+.downclent{
+    background-color:#c9242b!important;
+    /*color:red!important;*/
+}
 #TopbarWapper{
-    background: -moz-linear-gradient(top,#00579c,#002e62)!important; /*火狐*/
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#00579c), to(#002e62))!important; /*谷歌*/
-    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #00579c),color-stop(1, #002e62))!important; /* Safari & Chrome*/
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00579c', endColorstr='#002e62')!important; /*IE6 & IE7*/
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#00579c', endColorstr='#002e62')"!important; /* IE8 */
+   background-color:#272727!important;
 }
 #MainLiveTVWapper .video-tip{
-    background-color: #0b7bba!important;
+    background-color: #2b3e4e!important;
 }
 #RoomNoticeWrapper{
-     background-color: #1a5e9f!important;
+     background-color: #162633!important;
 }
 #SubColumnsMenu{
-    background-color:#006bb3;
+    background-color:#0a0a0a!important;
 }
 #SubColumnsMenu a{
     background-color:#0b7bba!important;
@@ -24,6 +24,81 @@
     background-color:#C3CDD2;
 }
 #btnSayingTo{
-    background-color:#003873;
+    background-color:#0962BF;
 }
 #TopbarWapper .topbar-userlogin a{background-color:#0d7bb6;}
+
+.facecontent{
+     background-color: rgba(50, 149, 179, 0)!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color: rgba(47, 139, 236, 0);
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #2D76C3;
+}
+.qqmore a{
+    color:#fff!important;
+}
+.marque_ul a,.marque_ul span{
+    color:#fff!important;
+}
+.messageclearbtn a{
+    color:#fff!important;
+}
+#TopbarWapper .topbar-userlogin a{background-color: #c9242b!important;}
+.BoxVipBgColor {
+    color:white!important;
+    background-color:#c9242b!important;
+}
+.BoxKaiHuBgColor {
+    color:white;
+    background-color:#004789!important;
+}
+
+#SubColumnsMenu .li1{
+    background-color:#b22423!important;
+}
+#SubColumnsMenu .li2{
+    background-color:#ff191b!important;
+}
+#SubColumnsMenu .li3{
+    background-color:#a2720f!important;
+}
+#SubColumnsMenu .li4{
+    background-color:#1484cc!important;
+}
+#SubColumnsMenu .li5{
+    background-color:#0970b2!important;
+}
+#SubColumnsMenu .li6{
+    background-color:#004382!important;
+}
+#SubColumnsMenu a:hover{
+    background-color: #0f4cf3!important;
+}
+#ChatMsgWrapper .horizontalline{
+    border:0px!important;
+}
+#SayingInputVal{
+    background-color:#3a3a3a!important;
+    border:0px;
+    color:white;
+}
+.facecontent{
+    background-color:#272727!important;
+    line-height: 32px;
+    padding-left: 10px;
+    height:32px!important;    
+    padding-left: 10px!important;
+}
+#btnSayingTo{
+    background-color: #c9242b;
+}
+.msgInfo .sendTime{background-color:#272727!important;}
+.msgInfo .userRole span{background-color:#3a3a3a!important;}
+#sayingInfo{
+    /*background-color:#6098c9!important;*/
+}
+#MsgListWrapper .sayingMan, .toSayingMan{background-color:#c9242b!important;}

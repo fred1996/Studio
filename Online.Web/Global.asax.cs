@@ -16,6 +16,12 @@ namespace Online.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //MvcHandler.DisableMvcResponseHeader = true;
+        }
+        public override void Init()
+        {
+            base.Init();
+            //Online.Web.DAL.PreApplicationStartCode.PreStart();
         }
     }
 }

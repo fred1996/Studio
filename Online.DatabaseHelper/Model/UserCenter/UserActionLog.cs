@@ -17,6 +17,9 @@ namespace Online.DbHelper.Model
         public string UserIp { get; set; }
         public int? RoomId { get; set; }
         public DateTime CreateTime { get; set; }
+        public string FromUrl { get; set; }
+        public string CurrentUrl { get; set; }
+        public string UserName { get; set; }
         public virtual Users User { get; set; }
     }
 }

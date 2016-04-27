@@ -1,6 +1,69 @@
 ﻿@{
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
 }
+@Scripts.Render("~/Scripts/tinymce/tinymce.min.js", "~/Scripts/jquery-ui-1.11.4.min.js")
+<script>
+        function RoxyFileBrowser(fieldName, url, type, win) {
+            var roxyFileman = '@Url.Content("~/Scripts/tinymce/plugins/Roxy_Fileman/index.html")';
+            if (roxyFileman.indexOf("?") < 0) {
+                roxyFileman += "?type=" + type;
+            }
+            else {
+                roxyFileman += "&type=" + type;
+            }
+            roxyFileman += '&input=' + fieldName + '&value=' + win.document.getElementById(fieldName).value;
+            if (tinyMCE.activeEditor.settings.language) {
+                roxyFileman += '&langCode=zh_CN';
+            }
+            tinyMCE.activeEditor.windowManager.open({
+                file: roxyFileman,
+                title: 'Roxy Fileman',
+                width: 850,
+                height:650,
+                resizable: "yes",
+                plugins: "media",
+                inline: "yes",
+                close_previous: "no"
+            }, { window: win, input: fieldName });
+            return false;
+        }
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor",
+                'link image'
+            ],
+            height: 300,
+            width: 600,
+            toolbar1: "undo redo | cut copy paste | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+            toolbar2: " searchreplace | bullist numlist | outdent indent blockquote | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+            toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+            menubar: false,
+            toolbar_items_size: 'small',
+            relative_urls: false,
+            //picture manager
+            file_browser_callback: RoxyFileBrowser,
+            //we should set "convert_urls" set to "false" (because of "relative_urls" requirement)
+            //otherwise, it'll break existing links when editing message template
+            convert_urls: false,
+            style_formats: [
+                { title: 'Bold text', inline: 'b' },
+                { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                { title: 'Example 1', inline: 'span', classes: 'example1' },
+                { title: 'Example 2', inline: 'span', classes: 'example2' },
+                { title: 'Table styles' },
+                { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+            ],
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ],
+            language: 'zh_CN'
+        });
+</script>
 <div class="modal-content" style="width: 800px!important;">
     @using (Html.BeginForm("CreateSave", "SysTvColumn", FormMethod.Post))
     {
@@ -9,9 +72,7 @@
             <h4 class="modal-title" id="myModalLabel">房间配置新增</h4>
         </div>
         <div class="modal-body">
-
             @Html.AntiForgeryToken()
-
             <div class="form-horizontal">
                 <div class="form-group form-group-sm">
                     <div class="col-md-6">
@@ -63,7 +124,6 @@
                             @Html.TextArea("ISummary", new { @class = "form-control", style = "height:200px" })
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

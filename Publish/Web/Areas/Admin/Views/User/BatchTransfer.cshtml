@@ -1,0 +1,51 @@
+﻿@model Online.DbHelper.Model.UserRelationAssistant
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Edit.cshtml";
+}
+<div class="modal-content">
+    @using (Html.BeginForm("BatchTransferSave", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">助理用户关系批量转移</h4>
+        </div>
+        <div class="modal-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">原助理：</label>
+                    <div class="col-md-8">
+                        <input type="text" value="@Model.Assistant.UserName" class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">新助理：</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(t => t.AssistantId, ViewBag.Assistants as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                @*<div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">用户Id：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(t => t.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm">
+                    <label class="col-md-4 control-label">用户名：</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(t => t.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>*@
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <button class="btn btn-primary" id="editSave">保存</button>
+        </div>
+    }
+</div>
+

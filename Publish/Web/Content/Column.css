@@ -1,0 +1,47 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+*{padding:0; margin:0;}
+ul{ list-style:none;}
+body{ background:#ffffff; font-size:14px; font-family:"微软雅黑";}
+a{ text-decoration:none; color:#656565;}
+a:hover{ text-decoration:none; color:#be262d;}
+a:active{ text-decoration:none; color:#656565;}
+.clear200{ height:270px; clear:both; overflow:hidden; width:1000px; margin:0 auto;}
+.clear20{ height:40px; clear:both; overflow:hidden; width:1000px; margin:0 auto;}
+.fl{ float:left;}
+.fr{ float:right;}
+.zbsbtn{ margin-left: 40px; float:left;}
+
+.jd_header{ height:70px; width:1000px; margin:0 auto; overflow:hidden; padding-top:30px; clear:both;}
+.jd_logo{ width:180px; height:48px; float:left;}
+.jd_tel{ width:420px; height:48px; float:right;}
+.jd_tel .img1{ margin-right:40px;}
+
+
+.jd_menu{ height: 50px; clear:both; margin:0px auto; background:#be262d;clear:both;}
+.jd_menu .ulm{ width:1000px; margin:0 auto; }
+#jsddm{margin: 0;padding: 0;height: 50px; float:left;}
+#jsddm li{	float: left;list-style: none;text-align:center;font-size:16px; }
+#jsddm li a{display: block;text-decoration: none;border-right: 1px solid #9b0013;width: 185px;height: 50px;line-height:50px;color: #ffffff;white-space: nowrap}
+#jsddm li a:hover{background: #d23339;}
+
+.jd_banner{width:100%; height:225px; position:relative; margin:20px auto 0; position:relative; clear:both; background: #be262d url(/Image/images/Column/jd_banner.png) no-repeat top center;}
+
+
+.jd_copyright{ width:100%; background:#be262d; height:120px; clear:both; overflow:hidden; margin-top:20px;bottom: 0;position: relative;}
+.copyt{ width:1082px; margin:30px auto; text-align:center; line-height:30px; font-size:12px; color:#fff; letter-spacing:1px;}
+.copyt a{ color:#fff;}
+.copyt a:actived{ color:#fff;}
+
+.jd_inn_er{ width:1000px;clear:both; overflow:hidden; margin:20px auto; border-radius:10px; background:#f7f7f7; border:#dedede 1px solid;min-height: 200px}
+#con{ width:85%; margin:40px auto; overflow:hidden;}
+#con h3{ display: block; font-size:25px; text-align:center; letter-spacing:2px;  color:#7D7D7D; font-weight:normal; margin:45px 0 0 0;}
+#con .text{ color:#7d7d7d; line-height:25px; letter-spacing:2px; margin:20px auto;}
+#con .line{ border-bottom:#dedede 1px solid; margin:20px 0 30px 0;}
+.pre{ margin:10px auto; clear:both; color:#333;}
+.next{ margin:10px auto; clear:both; color:#333;}
+.lflist3{ list-style:none; display:block; float:left;width:710px;overflow:hidden;}
+.lflist3 li{ line-height:35px; display:block; clear:both;}
+.lflist3 li a{ display:block; float:left; overflow:hidden;}
+.lflist3 li span{ display:block; float:right;}

@@ -1,0 +1,143 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.Users>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "每日注册量";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<link href="~/Scripts/daterangepicker/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/daterangepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/daterangepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<h2>每日注册量</h2>
+<div>
+    <div class="left">
+        <div class="mAll10">
+            @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @style = "", id = "form1", @class = "form-horizontal" }))
+            {
+                <label style="float:left">
+                    模糊查询（ID，邮箱，手机，姓名）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
+                </label>
+                <div class="form-group">
+                    <div style="float:left">
+                        <label for="dtp_input1" class="col-md-2 control-label" style="width:initial;">开始日期</label>
+                        <div class="input-group date form_datetime" style="width:300px;" data-date="@ViewBag.reservation" data-date-format="yyyy-mm-dd hh:ii:00 " data-link-field="dtp_input1">
+                            <input class="form-control" size="16" type="text" value="@ViewBag.reservation" readonly name="reservation" id="reservation">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input1" value="" /><br />
+                    </div>
+                    <div style="float:left">
+                        <label for="dtp_input2" class="col-md-2 control-label" style="width:initial;">结束日期</label>
+                        <div class="input-group date form_datetime1" style="width:300px;" data-date="@ViewBag.endreservation" data-date-format="yyyy-mm-dd hh:ii:59 " data-link-field="dtp_input2">
+                            <input class="form-control" size="16" type="text" value="@ViewBag.endreservation" readonly name="endreservation" id="endreservation">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="dtp_input2" value="" /><br />
+                    </div>
+                    <button class="btn  btn-info mLeft15" style="" role="button">
+                        <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
+                    </button>
+                    <div style="clear:both;"></div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>账户</th>
+                <th>昵称</th>
+                <th>角色</th>
+                <th>性别</th>
+                <th>QQ</th>
+                <th>注册时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserID</td>
+                        <td>@item.Email</td>
+                        <td>@item.UserName</td>
+                        <td>
+                            @if (item.UserRoleses.Count > 0)
+                            {
+                                <label>@item.UserRoleses[0].Roles.RoleName</label>
+                            }
+                        </td>
+                        <td>@item.Sex</td>
+                        <td>@item.QQ</td>
+                        <td>@item.RegisterTime</td>
+                        <td>
+                            <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/Report/EditIndex?userid=@item.UserID" id="Edit" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8">没有查找到用户</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount 总条数 @Model.TotalItemCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { currentFilter = ViewBag.CurrentFilter, reservation = ViewBag.reservation, endreservation = ViewBag.endreservation, page = page }))
+</div> 
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+</div>
+<script>
+    $(function () {
+        ShowMenu("Report");
+        Active('Report', 0);
+        var time = new Date().toLocaleDateString();
+        var date1 = new Date();
+        $('.form_datetime').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+        $('.form_datetime1').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+        var date = new Date();
+        var enddate = new Date();
+        if ($("#reservation").val().length>0) {
+            date = new Date($("#reservation").val());
+        }
+        if ($("#endreservation").val().length > 0) {
+            enddate = new Date($("#endreservation").val());
+        }
+        //$('.form_datetime').datetimepicker('update',new Date());
+        //$('.form_datetime1').datetimepicker('update', new Date());
+        $('.form_datetime').datetimepicker('update', "");
+        $('.form_datetime1').datetimepicker('update', "");
+        $(".glyphicon-remove").click(function () {
+            $(this).parents(".input-group").find("input").val('');
+        });
+    });
+</script> 

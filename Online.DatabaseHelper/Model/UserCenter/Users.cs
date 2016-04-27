@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Online.DbHelper.Help;
+using Online.DbHelper.Model.UserCenter;
 
 namespace Online.DbHelper.Model
 {
@@ -141,11 +142,17 @@ namespace Online.DbHelper.Model
         public int Score { get; set; }
 
         public string RecommendCode { get; set; }
+        /// <summary>
+        /// 连续登陆次数
+        /// </summary>
+        public int ContinueCount { get; set; }
 
         public virtual List<UserRoles> UserRoleses { get; set; }
         public virtual List<UserAddress> UserAddress { get; set; }
         public virtual List<UserActionLog> UserActionlog { get; set; }
         public virtual List<UserRelationAssistant> UserRelationAssistants { get; set; }
+
+        public virtual List<UserGifts> UserGifts { get; set; }
  
 
     }

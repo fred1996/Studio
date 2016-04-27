@@ -22,56 +22,60 @@
     @Scripts.Render("~/bundles/jquery")
     <script>
         function OpenQQ() {
-            $.ajax({ url: '/Home/GetRandomQQ'  }).done(function (result) {
-                if (result ) {
+            $.ajax({ url: '/Home/GetRandomQQ' }).done(function (result) {
+                if (result) {
                     var qqtc = document.createElement('div');
                     qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + result + "&Site=&Service=201' frameborder='0'></iframe>";
                     document.body.appendChild(qqtc);
                     qqtc.style.display = "none";
-                } else {
-
                 }
             });
         }
-
     </script>
 </head>
 <body>
     <div id="part1"></div>
     <div id="part2">
         <div class="img1"><img src="/Image/images/SingleService/pic1.jpg" width="334" height="75" alt="" /></div>
-        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />当你在单子上有疑问或交易有疑虑的时候，可以得到专业老师的细致处理。</div>
-        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />跟着高级分析师同步合理进场，止损设置，止盈出场，控制风险的同时大幅提高准确率和利润。</div>
-        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />不用时刻等待盘面交易机会，避免疲劳交易，可以轻松等待高级分析师即时通知，轻松快乐体会趋势交易。</div>
-        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />跟着高级分析师同步学习分析市场，合理控制风险和资金管理，在技术和盘感上得到快速提升。</div>
-        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />可以和老师细致交流交易经验和心得，在交易心理上大幅强化，对心理健康和身体健康提供基本的交易心态，养成享受交易的充实生活习惯。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />当你在单子上有疑问或交易有疑虑的时候，可以得到老师的细致处理。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />跟着分析师同步合理进场，止损设置，止盈出场，控制风险的同时大幅提高准确率和利润。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />不用时刻等待盘面交易机会，避免疲劳交易，可以轻松等待分析师即时通知，轻松快乐体会趋势交易。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />跟着分析师同步学习分析市场，合理控制风险和资金管理，在技术和盘感上得到快速提升。</div>
+        <div class="text"><img src="/Image/images/SingleService/pic4.jpg" width="25" height="25" alt="" />可以和分析师细致交流交易经验和心得，在交易心理上大幅强化，对心理健康和身体健康提供基本的交易心态，养成享受交易的充实生活习惯。</div>
     </div>
     <div id="part3">
         <div class="clear111">
             <div class="tit"><h2><a href="javascript:OpenQQ();">大海老师房间</a></h2></div>
             <div class="jieshao">
-                多次被邀出席同行商业讲座活动，并同时担任多家银行风险控制培训工作，有丰富的实战操盘经验
-                技巧和独特的交易理念。
+                随趋势交易，把握波段起爆点，一览众山小。
             </div>
         </div>
         <div class="clear111">
             <div class="tit">
-                <h2><a href="javascript:OpenQQ();">全老师房间</a></h2>
+                <h2><a href="javascript:OpenQQ();">全胜老师房间</a></h2>
             </div>
-            <div class="jieshao">对波浪理论的独到见解深得广大投资者青睐，曾运用波浪理论准确狙击英镑捕捉3000点历史性空头行情获得丰厚利润。</div>
+            <div class="jieshao">无为无极天地之气,两阴两阳定律之交;趋势交易赢在起爆点,<br /><<全胜定律>>-无极战法之华山论剑</div>
         </div>
         <div class="clear111">
             <div class="tit">
-                <h2><a href="javascript:OpenQQ();">韦老师房间</a></h2>
+                <h2><a href="javascript:OpenQQ();">乾坤老师房间</a></h2>
             </div>
-            <div class="jieshao">多年实战经验形成自己独有交易体系，实战经验丰富主要从事白银、石油交易风险控制管理，曾经在多家金融公司任职首席分析师。</div>
+            <div class="jieshao">乾坤之道，一阴一阳。得之所愿，失之无憾。</div>
         </div>
-        @*<div class="clear111">
+        <div class="clear111">
             <div class="tit">
-                <h2><a href="javascript:OpenQQ();">悟空老师房间</a></h2>
+                <h2>
+                    <a href="javascript:OpenQQ();">若风老师房间</a>
+                </h2>
             </div>
-            <div class="jieshao">擅长波段操作，短期高频交易，形成多套成功率极高实战理论,如趋势交易-短线战法，15分钟交易系统、细菌战法等。</div>
-        </div>*@
+            <div class="jieshao">以趋势为生，做市场的跟随者。合理控制风险，让利润奔腾。</div>
+        </div>
+        <div class="clear111">
+            <div class="tit">
+                <h2><a href="javascript:OpenQQ();">飞雪老师房间</a></h2>
+            </div>
+            <div class="jieshao">时间，空间，唯独。历史会将重现，玩控市场鼓掌之间。</div>
+        </div>
     </div>
     <div id="part4">
         <div id="p4inn">
@@ -92,7 +96,7 @@
     <div class="jd_copyright">
         <div class="copyt">
             <p><a href="javascript:OpenQQ();"><img src="/Image/images/SingleService/jd_qq2.png" width="97" height="36" alt="" /></a></p>
-            <p>Copyright 2016 九鼎财经版权所有</p>
+            <p>Copyright 2016 杭州梵尚版权所有（九鼎财经技术支持）</p>
         </div>
     </div>
 </body>

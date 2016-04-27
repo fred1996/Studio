@@ -41,6 +41,7 @@ G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\Online.Web.dll.config
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\Online.Web.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\Online.Web.pdb
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\Aspose.Cells.dll
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\MVCVideo.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\Online.DbHelper.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\PagedList.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\bin\PagedList.Mvc.dll

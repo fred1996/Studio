@@ -1,0 +1,49 @@
+@media screen and (max-width: 1920px){
+.part2 {}
+}
+/* 当浏览器的可视区域小于1280px */
+@media screen and (max-width: 1280px) {
+
+
+}
+/* 当浏览器的可视区域小于980px */
+@media screen and (max-width: 980px) {
+}
+
+
+/* 当浏览器的可视区域小于768px */
+@media screen and (max-width: 768px) {
+
+    .p2_l {
+        background: url(../images/k2.png) no-repeat 0 0;
+        width: 782px;
+        height: 742px;
+        float: left;
+    }
+
+    .p2_r {
+        background: url(../images/r2.png) no-repeat 0 0;
+        width: 229px;
+        height: 718px;
+        float: right;
+    }
+}
+/* 当浏览器的可视区域小于720px */
+@media screen and (max-width: 720px) {
+body{ background:#3f0060 url(../images/bg2.jpg) no-repeat top center;}
+.part1{ height:276px; }
+.p2_l{ background:url(../images/k2.png) no-repeat 0 0; width:782px; height:742px; float:left;}
+.p2_r{ background:url(../images/r2.png) no-repeat 0 0; width:229px; height:718px; float:right;}
+}
+/* 当浏览器的可视区域小于360px */
+@media screen and (max-width: 360px) {
+.part2{ width:90%; margin:0 auto; }
+.p1_l{ background:#ffffff;  width:95%; height: auto; border-radius:5px; margin:15px auto;}
+.p1_r{ background: none; width:0px; height:0px; }
+.p2_l{ background:#ffffff;  width:95%; height: auto; border-radius:5px; margin:15px auto;}
+.p2_r{ background: none; width:0px; height:0px;}
+.copyt{ width:90%;}
+.laos{ width:90%; margin:20px auto;}
+.biaot{ display:block; width:180px; height:50px; background:#FFC827; color:#d00022; font-size:22px; line-height:50px; padding-left: 25px; margin-bottom:20px; font-weight:normal; letter-spacing:1px;}
+.clear50{ height:20px; clear:both; overflow:hidden; margin:0 auto;}
+}

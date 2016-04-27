@@ -27,10 +27,15 @@ using System.Drawing;
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web;
+using System.Web.Mvc;
 using System.Text.RegularExpressions;
 using System.Drawing.Imaging;
 using System.IO.Compression;
+using System.Linq;
+using System.Net;
+using System.Text;
 
 public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
 {
@@ -39,14 +44,16 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     HttpResponse _r = null;
     HttpContext _context = null;
     string confFile = "../conf.json";
-    public void ProcessRequest (HttpContext context) {
+    public void ProcessRequest(HttpContext context)
+    {
         _context = context;
         _r = context.Response;
         string action = "DIRLIST";
-        try{
+        try
+        {
             if (_context.Request["a"] != null)
                 action = (string)_context.Request["a"];
-            
+
             VerifyAction(action);
             switch (action.ToUpper())
             {
@@ -102,31 +109,35 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
                     _r.Write(GetErrorRes("This action is not implemented."));
                     break;
             }
-        
+
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
             if (action == "UPLOAD" && !IsAjaxUpload())
             {
                 _r.Write("<script>");
                 _r.Write("parent.fileUploaded(" + GetErrorRes(LangRes("E_UploadNoFiles")) + ");");
                 _r.Write("</script>");
             }
-            else{
+            else
+            {
                 _r.Write(GetErrorRes(ex.Message));
             }
         }
-        
+
     }
     private string FixPath(string path)
     {
-        if (!path.StartsWith("~")){
+        if (!path.StartsWith("~"))
+        {
             if (!path.StartsWith("/"))
                 path = "/" + path;
             path = "~" + path;
         }
         return _context.Server.MapPath(path);
     }
-    private string GetLangFile(){
+    private string GetLangFile()
+    {
         string filename = "../lang/" + GetSetting("LANG") + ".json";
         if (!File.Exists(_context.Server.MapPath(filename)))
             filename = "../lang/en.json";
@@ -142,12 +153,13 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
 
         return ret;
     }
-    protected string GetFileType(string ext){
+    protected string GetFileType(string ext)
+    {
         string ret = "file";
         ext = ext.ToLower();
-        if(ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif")
+        if (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif")
             ret = "image";
-          else if(ext == ".swf" || ext == ".flv")
+        else if (ext == ".swf" || ext == ".flv")
             ret = "flash";
         return ret;
     }
@@ -172,58 +184,66 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
             if (!tmp.Contains(ext))
                 ret = false;
         }
-        
+
         return ret;
     }
-    protected Dictionary<string, string> ParseJSON(string file){
-        Dictionary<string, string> ret = new Dictionary<string,string>();
+    protected Dictionary<string, string> ParseJSON(string file)
+    {
+        Dictionary<string, string> ret = new Dictionary<string, string>();
         string json = "";
-        try{
+        try
+        {
             json = File.ReadAllText(_context.Server.MapPath(file), System.Text.Encoding.UTF8);
         }
-        catch(Exception ex){}
+        catch (Exception ex) { }
 
         json = json.Trim();
-        if(json != ""){
+        if (json != "")
+        {
             if (json.StartsWith("{"))
                 json = json.Substring(1, json.Length - 2);
             json = json.Trim();
             json = json.Substring(1, json.Length - 2);
             string[] lines = Regex.Split(json, "\"\\s*,\\s*\"");
-            foreach(string line in lines){
+            foreach (string line in lines)
+            {
                 string[] tmp = Regex.Split(line, "\"\\s*:\\s*\"");
-                try{
+                try
+                {
                     if (tmp[0] != "" && !ret.ContainsKey(tmp[0]))
                     {
-                       ret.Add(tmp[0], tmp[1]);
+                        ret.Add(tmp[0], tmp[1]);
                     }
                 }
-                catch(Exception ex){}
+                catch (Exception ex) { }
             }
         }
         return ret;
     }
-    protected string GetFilesRoot(){
+    protected string GetFilesRoot()
+    {
         string ret = GetSetting("FILES_ROOT");
         if (GetSetting("SESSION_PATH_KEY") != "" && _context.Session[GetSetting("SESSION_PATH_KEY")] != null)
             ret = (string)_context.Session[GetSetting("SESSION_PATH_KEY")];
-        
-        if(ret == "")
+
+        if (ret == "")
             ret = _context.Server.MapPath("../Uploads");
         else
             ret = FixPath(ret);
         return ret;
     }
-    protected void LoadConf(){
-        if(_settings == null)
+    protected void LoadConf()
+    {
+        if (_settings == null)
             _settings = ParseJSON(confFile);
     }
-    protected string GetSetting(string name){
+    protected string GetSetting(string name)
+    {
         string ret = "";
         LoadConf();
-        if(_settings.ContainsKey(name))
+        if (_settings.ContainsKey(name))
             ret = _settings[name];
-        
+
         return ret;
     }
     protected void CheckPath(string path)
@@ -241,13 +261,13 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         if (!setting.StartsWith("/"))
             setting = "/" + setting;
         setting = ".." + setting;
-        
+
         if (_context.Server.MapPath(setting) != _context.Server.MapPath(_context.Request.Url.LocalPath))
             throw new Exception(LangRes("E_ActionDisabled"));
     }
     protected string GetResultStr(string type, string msg)
     {
-        return "{\"res\":\"" + type + "\",\"msg\":\"" + msg.Replace("\"","\\\"") + "\"}";
+        return "{\"res\":\"" + type + "\",\"msg\":\"" + msg.Replace("\"", "\\\"") + "\"}";
     }
     protected string GetSuccessRes(string msg)
     {
@@ -261,12 +281,15 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     {
         return GetResultStr("error", msg);
     }
-    private void _copyDir(string path, string dest){
-        if(!Directory.Exists(dest))
+    private void _copyDir(string path, string dest)
+    {
+        if (!Directory.Exists(dest))
             Directory.CreateDirectory(dest);
-        foreach(string f in  Directory.GetFiles(path)){
+        foreach (string f in Directory.GetFiles(path))
+        {
             FileInfo file = new FileInfo(f);
-            if (!File.Exists(Path.Combine(dest, file.Name))){
+            if (!File.Exists(Path.Combine(dest, file.Name)))
+            {
                 File.Copy(f, Path.Combine(dest, file.Name));
             }
         }
@@ -280,23 +303,25 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     {
         CheckPath(path);
         CheckPath(newPath);
-        DirectoryInfo dir = new  DirectoryInfo(FixPath(path));
+        DirectoryInfo dir = new DirectoryInfo(FixPath(path));
         DirectoryInfo newDir = new DirectoryInfo(FixPath(newPath + "/" + dir.Name));
-        
+
         if (!dir.Exists)
         {
-            throw new Exception(LangRes("E_CopyDirInvalidPath"));    
+            throw new Exception(LangRes("E_CopyDirInvalidPath"));
         }
         else if (newDir.Exists)
         {
             throw new Exception(LangRes("E_DirAlreadyExists"));
         }
-        else{
+        else
+        {
             _copyDir(dir.FullName, newDir.FullName);
         }
         _r.Write(GetSuccessRes());
     }
-    protected string MakeUniqueFilename(string dir, string filename){
+    protected string MakeUniqueFilename(string dir, string filename)
+    {
         string ret = filename;
         int i = 0;
         while (File.Exists(Path.Combine(dir, ret)))
@@ -313,13 +338,16 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         newPath = FixPath(newPath);
         if (!file.Exists)
             throw new Exception(LangRes("E_CopyFileInvalisPath"));
-        else{
+        else
+        {
             string newName = MakeUniqueFilename(newPath, file.Name);
-            try{
+            try
+            {
                 File.Copy(file.FullName, Path.Combine(newPath, newName));
                 _r.Write(GetSuccessRes());
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception(LangRes("E_CopyFile"));
             }
         }
@@ -328,13 +356,14 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     {
         CheckPath(path);
         path = FixPath(path);
-        if(!Directory.Exists(path))
+        if (!Directory.Exists(path))
             throw new Exception(LangRes("E_CreateDirInvalidPath"));
-        else{
+        else
+        {
             try
             {
                 path = Path.Combine(path, name);
-                if(!Directory.Exists(path))
+                if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
                 _r.Write(GetSuccessRes());
             }
@@ -351,8 +380,8 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         if (!Directory.Exists(path))
             throw new Exception(LangRes("E_DeleteDirInvalidPath"));
         else if (path == GetFilesRoot())
-            throw new Exception(LangRes("E_CannotDeleteRoot")); 
-        else if(Directory.GetDirectories(path).Length > 0 || Directory.GetFiles(path).Length > 0)
+            throw new Exception(LangRes("E_CannotDeleteRoot"));
+        else if (Directory.GetDirectories(path).Length > 0 || Directory.GetFiles(path).Length > 0)
             throw new Exception(LangRes("E_DeleteNonEmpty"));
         else
         {
@@ -386,21 +415,25 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
             }
         }
     }
-    private List<string> GetFiles(string path, string type){
+    private List<string> GetFiles(string path, string type)
+    {
         List<string> ret = new List<string>();
-        if(type == "#")
+        if (type == "#")
             type = "";
         string[] files = Directory.GetFiles(path);
-        foreach(string f in files){
+        foreach (string f in files)
+        {
             if ((GetFileType(new FileInfo(f).Extension) == type) || (type == ""))
                 ret.Add(f);
         }
         return ret;
     }
-    private ArrayList ListDirs(string path){
+    private ArrayList ListDirs(string path)
+    {
         string[] dirs = Directory.GetDirectories(path);
         ArrayList ret = new ArrayList();
-        foreach(string dir in dirs){
+        foreach (string dir in dirs)
+        {
             ret.Add(dir);
             ret.AddRange(ListDirs(dir));
         }
@@ -409,26 +442,28 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     protected void ListDirTree(string type)
     {
         DirectoryInfo d = new DirectoryInfo(GetFilesRoot());
-        if(!d.Exists)
+        if (!d.Exists)
             throw new Exception("Invalid files root directory. Check your configuration.");
-            
+
         ArrayList dirs = ListDirs(d.FullName);
         dirs.Insert(0, d.FullName);
-        
+
         string localPath = _context.Server.MapPath("~/");
         _r.Write("[");
-        for(int i = 0; i <dirs.Count; i++){
-            string dir = (string) dirs[i];
+        for (int i = 0; i < dirs.Count; i++)
+        {
+            string dir = (string)dirs[i];
             _r.Write("{\"p\":\"/" + dir.Replace(localPath, "").Replace("\\", "/") + "\",\"f\":\"" + GetFiles(dir, type).Count.ToString() + "\",\"d\":\"" + Directory.GetDirectories(dir).Length.ToString() + "\"}");
-            if(i < dirs.Count -1)
+            if (i < dirs.Count - 1)
                 _r.Write(",");
         }
         _r.Write("]");
     }
-    protected double LinuxTimestamp(DateTime d){
+    protected double LinuxTimestamp(DateTime d)
+    {
         DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime();
         TimeSpan timeSpan = (d.ToLocalTime() - epoch);
-        
+
         return timeSpan.TotalSeconds;
 
     }
@@ -436,13 +471,20 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     {
         CheckPath(path);
         string fullPath = FixPath(path);
+        if (path.IndexOf("http")<=0)
+        {
+            path = "http://"+_context.Request.Url.Authority + path;
+        }
         List<string> files = GetFiles(fullPath, type);
         _r.Write("[");
-        for(int i = 0; i < files.Count; i++){
+        for (int i = 0; i < files.Count; i++)
+        {
             FileInfo f = new FileInfo(files[i]);
             int w = 0, h = 0;
-            if (GetFileType(f.Extension) == "image"){
-                try{
+            if (GetFileType(f.Extension) == "image")
+            {
+                try
+                {
                     FileStream fs = new FileStream(f.FullName, FileMode.Open);
                     Image img = Image.FromStream(fs);
                     w = img.Width;
@@ -451,14 +493,14 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
                     fs.Dispose();
                     img.Dispose();
                 }
-                catch(Exception ex){throw ex;}
+                catch (Exception ex) { throw ex; }
             }
             _r.Write("{");
-            _r.Write("\"p\":\""+path + "/" + f.Name+"\"");
+            _r.Write("\"p\":\"" + path + "/" + f.Name + "\"");
             _r.Write(",\"t\":\"" + Math.Ceiling(LinuxTimestamp(f.LastWriteTime)).ToString() + "\"");
-            _r.Write(",\"s\":\""+f.Length.ToString()+"\"");
-            _r.Write(",\"w\":\""+w.ToString()+"\"");
-            _r.Write(",\"h\":\""+h.ToString()+"\"");
+            _r.Write(",\"s\":\"" + f.Length.ToString() + "\"");
+            _r.Write(",\"w\":\"" + w.ToString() + "\"");
+            _r.Write(",\"h\":\"" + h.ToString() + "\"");
             _r.Write("}");
             if (i < files.Count - 1)
                 _r.Write(",");
@@ -468,13 +510,13 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     public void DownloadDir(string path)
     {
         path = FixPath(path);
-        if(!Directory.Exists(path))
+        if (!Directory.Exists(path))
             throw new Exception(LangRes("E_CreateArchive"));
         string dirName = new FileInfo(path).Name;
         string tmpZip = _context.Server.MapPath("../tmp/" + dirName + ".zip");
-        if(File.Exists(tmpZip))
+        if (File.Exists(tmpZip))
             File.Delete(tmpZip);
-        ZipFile.CreateFromDirectory(path, tmpZip,CompressionLevel.Fastest, true);
+        ZipFile.CreateFromDirectory(path, tmpZip, CompressionLevel.Fastest, true);
         _r.Clear();
         _r.Headers.Add("Content-Disposition", "attachment; filename=\"" + dirName + ".zip\"");
         _r.ContentType = "application/force-download";
@@ -487,7 +529,8 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
     {
         CheckPath(path);
         FileInfo file = new FileInfo(FixPath(path));
-        if(file.Exists){
+        if (file.Exists)
+        {
             _r.Clear();
             _r.Headers.Add("Content-Disposition", "attachment; filename=\"" + file.Name + "\"");
             _r.ContentType = "application/force-download";
@@ -502,22 +545,25 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         CheckPath(newPath);
         DirectoryInfo source = new DirectoryInfo(FixPath(path));
         DirectoryInfo dest = new DirectoryInfo(FixPath(Path.Combine(newPath, source.Name)));
-        if(dest.FullName.IndexOf(source.FullName) == 0)
+        if (dest.FullName.IndexOf(source.FullName) == 0)
             throw new Exception(LangRes("E_CannotMoveDirToChild"));
         else if (!source.Exists)
             throw new Exception(LangRes("E_MoveDirInvalisPath"));
         else if (dest.Exists)
             throw new Exception(LangRes("E_DirAlreadyExists"));
-        else{
-            try{
+        else
+        {
+            try
+            {
                 source.MoveTo(dest.FullName);
                 _r.Write(GetSuccessRes());
             }
-            catch(Exception ex){
+            catch (Exception ex)
+            {
                 throw new Exception(LangRes("E_MoveDir") + " \"" + path + "\"");
             }
         }
-        
+
     }
     protected void MoveFile(string path, string newPath)
     {
@@ -547,7 +593,7 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         CheckPath(path);
         DirectoryInfo source = new DirectoryInfo(FixPath(path));
         DirectoryInfo dest = new DirectoryInfo(Path.Combine(source.Parent.FullName, name));
-        if(source.FullName == GetFilesRoot())
+        if (source.FullName == GetFilesRoot())
             throw new Exception(LangRes("E_CannotRenameRoot"));
         else if (!source.Exists)
             throw new Exception(LangRes("E_RenameDirInvalidPath"));
@@ -595,6 +641,11 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
 
     protected void ShowThumbnail(string path, int width, int height)
     {
+        if (path.Contains("http"))
+        {
+            int dex = path.IndexOf("/Image");
+            path = path.Substring(dex);
+        }
         CheckPath(path);
         FileStream fs = new FileStream(FixPath(path), FileMode.Open);
         Bitmap img = new Bitmap(Bitmap.FromStream(fs));
@@ -604,8 +655,8 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         int cropX = 0, cropY = 0;
 
         double imgRatio = (double)img.Width / (double)img.Height;
-        
-        if(height == 0)
+
+        if (height == 0)
             height = Convert.ToInt32(Math.Floor((double)width / imgRatio));
 
         if (width > img.Width)
@@ -626,10 +677,12 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
             cropHeight = img.Height;
             cropWidth = Convert.ToInt32(Math.Floor((double)cropHeight * cropRatio));
         }
-        if(cropWidth < img.Width){
+        if (cropWidth < img.Width)
+        {
             cropX = Convert.ToInt32(Math.Floor((double)(img.Width - cropWidth) / 2));
         }
-        if(cropHeight < img.Height){
+        if (cropHeight < img.Height)
+        {
             cropY = Convert.ToInt32(Math.Floor((double)(img.Height - cropHeight) / 2));
         }
 
@@ -643,9 +696,11 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         _r.OutputStream.Close();
         cropImg.Dispose();
     }
-    private ImageFormat GetImageFormat(string filename){
+    private ImageFormat GetImageFormat(string filename)
+    {
         ImageFormat ret = ImageFormat.Jpeg;
-        switch(new FileInfo(filename).Extension.ToLower()){
+        switch (new FileInfo(filename).Extension.ToLower())
+        {
             case ".png": ret = ImageFormat.Png; break;
             case ".gif": ret = ImageFormat.Gif; break;
         }
@@ -674,23 +729,28 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
         g.DrawImage(img, 0, 0, newWidth, newHeight);
         img.Dispose();
         g.Dispose();
-        if(dest != ""){
+        if (dest != "")
+        {
             newImg.Save(dest, GetImageFormat(dest));
         }
         newImg.Dispose();
     }
+
     protected bool IsAjaxUpload()
     {
         return (_context.Request["method"] != null && _context.Request["method"].ToString() == "ajax");
     }
+
     protected void Upload(string path)
     {
         CheckPath(path);
         path = FixPath(path);
         string res = GetSuccessRes();
         bool hasErrors = false;
-        try{
-            for(int i = 0; i < HttpContext.Current.Request.Files.Count; i++){
+        try
+        {
+            for (int i = 0; i < HttpContext.Current.Request.Files.Count; i++)
+            {
                 if (CanHandleFile(HttpContext.Current.Request.Files[i].FileName))
                 {
                     FileInfo f = new FileInfo(HttpContext.Current.Request.Files[i].FileName);
@@ -705,6 +765,7 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
                         int.TryParse(GetSetting("MAX_IMAGE_HEIGHT"), out h);
                         ImageResize(dest, dest, w, h);
                     }
+                    SyncFile("\\Image\\TincyUpload\\"+f.Name);
                 }
                 else
                 {
@@ -713,12 +774,13 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
                 }
             }
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
             res = GetErrorRes(ex.Message);
         }
         if (IsAjaxUpload())
         {
-            if(hasErrors)
+            if (hasErrors)
                 res = GetErrorRes(LangRes("E_UploadNotAll"));
             _r.Write(res);
         }
@@ -729,9 +791,89 @@ public class RoxyFilemanHandler : IHttpHandler, System.Web.SessionState.IRequire
             _r.Write("</script>");
         }
     }
- 
-    public bool IsReusable {
-        get {
+
+    public void SyncFile(string path)
+    {
+        try
+        {
+            var url = GetUrlPath(path);
+            NotifyDownloadFile(url, path);
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+
+    private void NotifyDownloadFile(string url, string path)
+    {
+        if (NotifyWebUrlList.Any())
+        {
+            NotifyWebUrlList.ForEach(t =>
+            {
+                NotifyService(t + "Home/DownloadFile?url=" + url + "&path=" + path);
+            });
+        }
+    }
+
+    public static bool NotifyService(string url)
+    {
+        try
+        {
+            var client = new WebClient();
+            client.Encoding = Encoding.UTF8;
+            var str = client.DownloadString(url);
+            client.Dispose();
+            return Convert.ToBoolean(str);
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    private static readonly string NotifyWebUrl = ConfigurationManager.AppSettings["NotifyWebUrl"];
+
+    private static List<string> _notifyWebUrlList = new List<string>();
+
+    protected static List<string> NotifyWebUrlList
+    {
+        get
+        {
+            if (!_notifyWebUrlList.Any() && !string.IsNullOrEmpty(NotifyWebUrl))
+                foreach (string url in NotifyWebUrl.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if (string.IsNullOrEmpty(url))
+                        continue;
+                    if (!url.EndsWith("/"))
+                        _notifyWebUrlList.Add(url + "/");
+                    else
+                        _notifyWebUrlList.Add(url);
+                }
+            return _notifyWebUrlList;
+        }
+    }
+
+    protected string GetUrlPath(string imagesurl1)
+    {
+        try
+        {
+            string tmpRootDir = HttpContext.Current.Server.MapPath(HttpContext.Current.Request.ApplicationPath);//获取程序根目录
+            string imagesurl2 = imagesurl1.Replace(tmpRootDir, ""); //转换成相对路径
+            imagesurl2 = imagesurl2.Replace(@"\", @"/");
+            return "http://" + HttpContext.Current.Request.Url.Authority + "/" + imagesurl2;
+        }
+        catch (Exception ex)
+        {
+            return string.Empty;
+        }
+    }
+
+    public bool IsReusable
+    {
+        get
+        {
             return false;
         }
     }

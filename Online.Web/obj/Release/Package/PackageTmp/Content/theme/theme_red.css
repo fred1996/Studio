@@ -2,27 +2,43 @@
     background: url("../../Image/images/theme/backgroundred.jpg") repeat fixed!important;
 }
 #TopbarWapper{
-    background: -moz-linear-gradient(top,#C22743,#f42925)!important; /*火狐*/
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#C22743), to(#f42925))!important; /*谷歌*/
-    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #C22743),color-stop(1, #f42925))!important; /* Safari & Chrome*/
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C22743', endColorstr='#f42925')!important; /*IE6 & IE7*/
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#C22743', endColorstr='#f42925')"!important; /* IE8 */
+    background: -moz-linear-gradient(top,#ec3538,#b50219)!important; /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#ec3538), to(#b50219))!important; /*谷歌*/
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #ec3538),color-stop(1, #b50219))!important; /* Safari & Chrome*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ec3538', endColorstr='#b50219')!important; /*IE6 & IE7*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ec3538', endColorstr='#b50219')"!important; /* IE8 */
 }
 #MainLiveTVWapper .video-tip{
-    background-color: #e72341!important;
+    background-color: #c20003!important;
 }
 #RoomNoticeWrapper{
-     background-color: #dd3e4d!important;
+     background-color: #b9101b!important;
 }
 #SubColumnsMenu{
     background-color:#dc2833;
 }
 #SubColumnsMenu a{
-    background-color:#ef2928!important;
+    background-color:#9E1019!important;
 }
 #ServiceMsg{
     background-color:#f3c8cd;
 }
 #btnSayingTo{
     background-color:#dc2833;
+}
+.facecontent{
+     background-color: #DC2833!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color: #921010;
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #c20003;
+}
+.qqmore a{
+    color:#fff!important;
+}
+.marque_ul a,.marque_ul span{
+    color:white!important;
 }

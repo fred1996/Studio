@@ -1,0 +1,6 @@
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.dll.config
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.dll
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.pdb
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Release\Online.Server.csprojResolveAssemblyReference.cache
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Release\Online.Server.dll
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Release\Online.Server.pdb

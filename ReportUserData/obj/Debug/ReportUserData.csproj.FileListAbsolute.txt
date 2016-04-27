@@ -17,15 +17,10 @@ G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\ReportUserData.
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\ReportUserData.pdb
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\EntityFramework.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\EntityFramework.SqlServer.dll
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\Online.DbHelper.dll
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\Online.DbHelper.pdb
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\EntityFramework.xml
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\EntityFramework.SqlServer.xml
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\zh-Hans\EntityFramework.resources.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\obj\Debug\ReportUserData.exe
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\obj\Debug\ReportUserData.pdb
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\System.Web.Mvc.dll
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\System.Web.Mvc.xml
-G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\bin\Debug\zh-Hans\System.Web.Mvc.resources.dll
 G:\Runtor.Online\LiveTV\Source\MinTaiFu\ReportUserData\obj\Debug\ReportUserData.csprojResolveAssemblyReference.cache

@@ -1,17 +1,16 @@
 ﻿@{
     Layout = "~/Views/Shared/_LiveLayout.cshtml";
 }
-<link href="/content/theme/theme_default.css" id="theme_css" rel="stylesheet" />
-<script src="~/Scripts/scroll.js"></script>
+<link href="/content/theme/theme_blue.css" id="theme_css" rel="stylesheet" />
 <input type="hidden" id="hidRoleID" value="0" />
-<a class='fancybox fancybox.iframe various hidden' id="uservote" href='/Home/UserVote'>投票</a>
+@*<a class='fancybox fancybox.iframe various hidden' id="uservote" href=''>投票</a>*@
 <div id="Contenter">
     <!--[if lt IE 8]>
     <div style="position:fixed;width:100%; height:50px; background:#323436; line-height:50px;color:#8C8C8C;text-indent:20px;text-align:center;">   对不起，从此版本开始已经不在支持IE8及以下版本，请您升级您的浏览器或者使用firefox,chrome,safari,opera最新版本，谢谢！<a
     href="http://browsehappy.com/"  style="color:red" target="_blank">速速点击换一个</a></div>
     <![endif]-->
     <div id="TopbarWapper">
-        <div class="topbar-logo left txtcenter">
+        <div class="topbar-logo left">
             <img src="../../Image/images/icon_logo.png" alt="九鼎财经" width="160" height="30" />
             <span></span>
         </div>
@@ -21,15 +20,14 @@
                 <a href="javascript:;" id="getcalendars" class="Relative">
                     财经日历
                     <div class="MonitorData_Zoom">
-                        <iframe id="FinceIframe" frameborder="0" width="100%" src="http://www.yy.com/index/fin/news" scrolling="auto" hspace="0"></iframe>
                     </div>
                 </a>
-                <span class="sep">|</span>
-                <a href="#" data-bind="attr: { href: OnlineData.SaveDesktopUrl }" class="hand" style="background:#BF4D7D;">保存到桌面</a>
+                @*<span class="sep">|</span>*@
+                <a href="#" data-bind="attr: { href: OnlineData.SaveDesktopUrl }" class="hand downclent pRight10 pLeft10">保存到桌面</a>
                 <span class="sep " style="display:none;">|</span>
                 @*<a href="http://www.mintaifu.com/html/download/" target="_blank">软件下载</a>*@
                 @*<span class="sep">|</span>*@
-                <a href="http://www.mintaifu.com/html/about/" target="_blank">关于我们</a>
+                <a href="/Home/About" target="_blank">关于我们</a>
                 @*<span class="sep">|</span>*@
                 @*<a href="javascript:;" onclick="setting.methods.ShowScheduleImg()">课程安排</a>*@
                 @*<span class="sep">|</span>*@
@@ -47,7 +45,7 @@
             <a href="javascript:void(0);" data-bind="click:ShowRegister">注册</a>
         </div>
         <div class="topbar-userinfo right">
-            <b class="roles-name"><span data-bind="text:OnlineData.UserRoleName"></span></b>
+            <b class="roles-name" style="display:none;"><span data-bind="text:OnlineData.UserRoleName"></span></b>
             <a href="/Account/Index" target="_blank" style="text-decoration: none; "><b class="user-name hand" uname="" data-bind="text:OnlineData.randUN"></b></a>
             <b style="height: 23px;text-align: right;">(<span class="user-id hand" data-bind="text:OnlineData.UserRoleName"></span>)</b>
             <a class="logout hand" data-bind="click:userLogout">退出</a>
@@ -74,10 +72,12 @@
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">基础知识</h3>
                 <div class="myscroll" id="jczs">
-                    <ul class="marque_ul" data-bind="foreach:BasicKnowledges">
-                        <li class="AdvancedTechnology-info" style="height:32px;">
-                            <a href="#" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
-                            </a>
+                    <ul class="marque_ul">
+                        <li data-bind="foreach:BasicKnowledges" class="AdvancedTechnology-info">
+                            <div style="height:32px;">
+                                <a href="#" class="overflow_ellipsis" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -85,10 +85,12 @@
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">高级技术</h3>
                 <div class="myscroll" id="gjjs">
-                    <ul class="marque_ul" data-bind="foreach:AdvancedTechnologys">
-                        <li class="AdvancedTechnology-info" style="height:32px;">
-                            <a href="#" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
-                            </a>
+                    <ul class="marque_ul">
+                        <li data-bind="foreach:AdvancedTechnologys" class="AdvancedTechnology-info">
+                            <div style="height:32px;">
+                                <a href="#" class="overflow_ellipsis" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -96,35 +98,53 @@
             <div class="column-AdvancedTechnology">
                 <h3 class="AdvancedTechnology-title">智能程序交易</h3>
                 <div class="myscroll" id="zncx">
-                    <ul class="marque_ul" data-bind="foreach:IntelligentTradings">
-                        <li class="AdvancedTechnology-info" style="height:32px;">
-                            <a href="#" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
-                            </a>
+                    <ul class="marque_ul">
+                        <li data-bind="foreach:IntelligentTradings" class="AdvancedTechnology-info">
+                            <div style="height:32px;">
+                                <a href="#" class="overflow_ellipsis" data-bind="text:ItemTitle, attr: { href: '/Home/ColumnDetail/'+SysTVColumnID }" target="_blank">
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="column-AdvancedTechnology">
-                <h3 class="AdvancedTechnology-title">新闻快讯</h3>
-                <div class="myscroll" id="xwkx">
-                    <ul class="marque_ul" data-bind="foreach:NewsFlash">
-                        <li class="AdvancedTechnology-info" style="height: 32px;">
-                            <a href="#" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',10)'}">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            @*<div class="column-AdvancedTechnology">
+                    <h3 class="AdvancedTechnology-title">新闻快讯</h3>
+                    <div class="myscroll" id="xwkx">
+                        <ul class="marque_ul" data-bind="foreach:NewsFlash">
+                            <li class="AdvancedTechnology-info" style="height: 32px;">
+                                <a href="#" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',10)'}">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+
+            <div class="mTop10">
+                <a target="_blank" href="/Home/SingleService" style="text-decoration:none;color:white!important;">
+                    <div class="BoxVipBgColor">
+                        VIP服务
+                    </div>
+                </a>
+                <a target="_blank" href="/Home/AccountGuide" style="text-decoration:none;color:white!important;">
+                    <div class="BoxKaiHuBgColor mTop20">
+                        开户指南
+                    </div>
+                </a>
+                @*<a target="_blank" href="/Home/SingleService"><img src="/Image/images/SingleService.png" /></a>*@
+                @*<a target="_blank" href="/Home/TeacherIntroduce"> <img src="/Image/images/TeacherIntroduce.png"/></a>*@
+                @*<a target="_blank" href="/Home/AccountGuide"> <img src="/Image/images/AccountGuide.png" /></a>*@
             </div>
-            <div>
-                <a target="_blank" href="/Home/SingleService"><img src="/Image/images/SingleService.png" /></a>
-                <a target="_blank" href="/Home/TeacherIntroduce"> <img src="/Image/images/TeacherIntroduce.png" /></a>
+            <div class="mTop10" style="width:150px;margin: 0 auto;">
+                <img src="~/Image/images/v.mintaifu.com.png" style="width:100%" />
             </div>
         </div>
         <div id="MainLiveTVWapper" class="left">
             <div class="video-content">
-                <div class="video-tip" style='background-image:none;'>
-                    <img src="../../Image/images/hotline.png" width="16" height="16" alt="热线电话"><span id="mobiletel" style="color:#fff!important;width: 300px;"><label class="hottel">热线电话:</label>400-679-2588</span>
+                <div class="video-tip" style='background-image:none;position:relative;'>
+                    <img src="../../Image/images/hotline.png" width="16" height="16" alt="热线电话"><span id="mobiletel" style="color:#fff!important;width: 300px;"><label class="hottel">热线电话:</label>400-021-1171</span>
                     <a href="javascript:void(0);" class='refresh' data-bind="click:Refresh">刷新</a>
+                    <div class="clear" style="clear:both;"></div>
                 </div>
                 <div class="video-wrapper">
                     <gs:video-live id="videoComponent" site="guijinshuzhibo.gensee.com" ctx="webcast" ownerid="6a12ba147f984bc2a7a50f9a99fc898e" />
@@ -132,37 +152,68 @@
             </div>
             <div class="subcolumn-wrapper">
                 <div id="SubColumnsMenu">
-                    <a href="javascript:void(0);" divid="TeacherTeam" onclick="homeMain.showCommits(1)" class="sbuColumn-active">早晚评</a>
-                    <a href="javascript:void(0);" onclick="homeMain.DialogQQ()" style="background-color:#0A4;">建仓提醒</a>
-                    <a href="javascript:void(0);" onclick="homeMain.DialogQQ()" style="background-color:#0A4;">平仓提醒</a>
-                    <a href="http://www.mintaifu.com/html/download/" target="_blank" class="sbuColumn-active">下载</a>
-                    <a href="javascript:void(0);" onclick="setting.methods.ShowScheduleImg()" style="background-color:#d9534f;">课程表</a>
-                    <a href="http://www.mintaifu.com/html/about/aboutus/" target="_blank" style="background:#09c;">公司介绍</a>
+                    <a href="javascript:void(0);" class="li1" divid="TeacherTeam" onclick="homeMain.showCommits(1)">早晚评</a>
+                    <a href="javascript:void(0);" class="li2" onclick="homeMain.showCommits(2)">建仓提醒</a>
+                    <a href="javascript:void(0);" class="li3" onclick="homeMain.showCommits(3)">平仓提醒</a>
+                    <a href="/Home/Download" class="li4" target="_blank">下载</a>
+                    <a href="javascript:void(0);" class="li5" onclick="setting.methods.ShowScheduleImg()">课程表</a>
+                    <a href="/Home/CompanyIntroduce" class="li6" target="_blank">公司介绍</a>
                     <div class="clear"></div>
                 </div>
-                <!--<div id="SubColumnsMenu">
-                    <a href="javascript:void(0);" divid="DisclaimerInfo">温馨提示</a>
-                    <a href="javascript:void(0);" divid="ColumnInfoWrapper">专题活动</a>
-                    <div class="clear"></div>
-                </div>-->
-                <div id="DisclaimerInfo" style="width: 100%; padding: 0; font-size: 12px; color: #333333; word-break: break-all; word-wrap: break-word; ">
-                    <div class="columninfo">
-                        <div class="columninfo-summary">
-                            @*<span data-bind="html:OnlineData.Disclaimer"></span>*@
-                            <a href="~/Image/images/wenxts.jpg" onclick="homeMain.ShowImage(this.href); return false;">
-                                <img class="Spread" src="~/Image/images/wenxts.jpg" title="严禁从业人员操作他人账户" border="0" style="width: 100%;">
-                            </a>
-                        </div>
+                @*class="nano"*@
+                <div id="DisclaimerInfo" class="zIndex99" style="width: 100%; padding:0px;margin:0px; font-size: 12px; color: #333333; word-break: break-all; word-wrap: break-word; ">
+                    <div class="columninfo" data-bind="foreach:BannerImg">
+                        <dl data-bind="css:{current:$index() < 1}" style="padding:0px;margin:0px;">
+                            <img data-bind="attr:{src:ItemImgUrl}" onclick="homeMain.ShowImage(this.src)" border="0" />
+                            <div style="height:100px;width:100%;display:block;"></div>
+                        </dl>
                     </div>
                 </div>
-                <div id="commits" style="display: none;padding:20px;">
-                    <img src="~/Image/images/close1.png" title="关闭" style="width: 24px" class="right" onclick="homeMain.showCommits('0')" />
-                    <div class="myscroll" id="zwp" style="width: 90%;max-height: 240px">
-                        <ul class="marque_ul" data-bind="foreach:Comments">
-                            <li class="AdvancedTechnology-info" style="height: 32px;">
-                                <a href="#" style="color: #ffffff; width: 20%" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',11)'}">
-                                </a>
-                                <span style="float: right; width: 20%" data-bind="text:CreateTime"></span>
+                <div id="commits" style="padding:10px;padding:0px;margin:0px; position:relative;" class="zIndex0">
+                    <img src="~/Image/images/close1.png" title="关闭" style="width: 24px;position:absolute;right:0px;" class="right" onclick="homeMain.showCommits('0')" />
+                    <div id="zwp" style="max-height: 240px">
+                        <ul class="marque_ul">
+                            <li data-bind="foreach:Icomment" class="AdvancedTechnology-info">
+                                <div style="height: 32px;">
+                                    <a href="#" style="color: #002e8e; width: 20%" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',11)'}">
+                                    </a>
+                                    <span style="float: right; width: 20%;color: #002e8e;" data-bind="text:CreateTime"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @*<div id="commits" style="display: none;padding:10px;padding:0px;margin:0px; position:relative;">
+                        <img src="~/Image/images/close1.png" title="关闭" style="width: 24px;position:absolute;right:0px;" class="right Hand" onclick="homeMain.showCommits('0')" />
+                        <div class="myscroll" id="zwp" style="max-height: 240px">
+                            <ul class="marque_ul">
+                            </ul>
+                        </div>
+                    </div>*@
+                <div id="positionsRemind" style="padding:10px;padding:0px;margin:0px; position:relative;" class="zIndex0">
+                    <img src="~/Image/images/close1.png" title="关闭" style="width: 24px;position:absolute;right:0px;" class="right Hand" onclick="homeMain.showCommits('0')" />
+                    <div id="jctx" style="max-height: 240px">
+                        <ul class="marque_ul">
+                            <li data-bind="foreach:Pmined" class="AdvancedTechnology-info">
+                                <div style="height: 32px;">
+                                    <a href="#" style="color: #002e8e; width: 20%" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',12)'}">
+                                    </a>
+                                    <span style="float: right; width: 20%;color: #002e8e;" data-bind="text:CreateTime"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="interestRemind" style="padding:10px;padding:0px;margin:0px; position:relative;" class="zIndex0">
+                    <img src="~/Image/images/close1.png" title="关闭" style="width: 24px;position:absolute;right:0px;" class="right Hand" onclick="homeMain.showCommits('0')" />
+                    <div id="pctx" style="max-height: 240px">
+                        <ul class="marque_ul">
+                            <li data-bind="foreach:IRmined" class="AdvancedTechnology-info">
+                                <div style="height: 32px;">
+                                    <a href="#" style="color: #002e8e; width: 20%" data-bind="text:ItemTitle,attr:{href:'javascript:homeMain.showArticleInfo('+SysTVColumnID+',13)'}">
+                                    </a>
+                                    <span style="float: right; width: 20%;color: #002e8e;" data-bind="text:CreateTime"></span>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -178,7 +229,7 @@
             </div>
             <div class="clear"></div>
             <div id="ChatMsgWrapper" style="position:relative;">
-                <div style="position:absolute;right:30px; z-index: 6666;">
+                <div style="position:absolute;right:30px; z-index: 6666;" class="messageclearbtn">
                     @*<a href="javascript:void(0);" onclick="client.methods.refresh();" style="color:#fff;margin-right: 10px;">重连</a>*@
                     <a href="javascript:void(0);" data-bind="click:clearScreen" style="color:black;margin-right: 10px;">
                         <img src="../../Image/images/icon_del.png" alt="清屏" width="14" height="14" style="margin-top:11px!important;" />清屏
@@ -239,8 +290,8 @@
                         <span class="saying-tip">你好,<span class="from-user" data-bind="text:OnlineData.randUN"></span>,你正在对<span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>说：</span>
                     </div>*@
                 @*<div id="ClearToName" style="display:none; background-color:#fff;width:40px;height:20px;text-align:left;position: relative;left: 500px;"><a href="javascript:void(0);" style="display:inline-block;text-decoration:none;cursor:pointer;" data-bind="click:clearToUser">删除</a></div>*@
-                <div style="margin: 5px 20px;">
-                    <a class="qqface face-set" href="#">
+                <div class="facecontent" style="margin: 5px 20px;height: 22px;background: #3295B3;padding: 2px;height: 22px;">
+                    <a class="qqface face-set" href="javascript:;">
                         @*<img src="../../Image/images/pic01.png" onclick="" class="face-set" style="vertical-align: middle;" />*@
                         表情
                     </a>
@@ -251,19 +302,44 @@
                     <a href="javascript:;" class="changtheme" id="usersextheme" onclick="setting.methods.openThemeevent()" style="display:none;">
                         换肤
                     </a>
-                    <div class="bshare-custom icon-medium" style="display:inline-block;vertical-align:text-bottom;">
-                        <a title="更多平台" class="sharp bshare-more bshare-more-icon more-style-addthis" style="color:#fff!important;padding-left:22px!important;">分享</a>
+                    @*<div class="bshare-custom icon-medium" style="display:inline-block;vertical-align:text-bottom;">
+                            <a title="更多平台" class="sharp bshare-more bshare-more-icon more-style-addthis" style="color: #fff !important; padding-left: 22px !important;">分享</a>
+                            <a class="sharp bshareDiv" href="http://www.bshare.cn/share"  style="color: #fff !important; padding-left: 22px !important;">分享</a>
+                        </div>*@
+                    <!-- JiaThis Button BEGIN -->
+                    <div class="jiathis_style sharp">
+                        分享
+                        <a href="javascript:;" class="jiathis jiathis_txt" target="_blank"><img src="http://v3.jiathis.com/code_mini/images/btn/v1/jiathis1.gif" border="0" /></a>
                     </div>
-                    <span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>
+                    <script>
+                        var jiathis_config = {
+                            boldNum: 0,
+                            sm: "weixin,qzone,cqq",
+                            siteNum: 3,
+                            showClose: false,
+                            hideMore: true,
+                        }
+                    </script>
+                    <!-- JiaThis Button END -->
+                    @*<span class="Flowers" data-bind="click:OpenFlowers"><img src="~/Image/images/rose.jpg" style="width: 20px;height: 20px;vertical-align: middle;"/>鲜花</span>*@
+                    <span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>                    
+                    <div class="givegiftBox">
+                        <label class="labgive">送</label>
+                        <img src="" class="diamond" />
+                        <input type="text" onkeyup="this.value=this.value.replace(/\D/gi,'')" min="1"  value="1" class="giftinputval"/>                        
+                        <select class="Selrose">
+                            <option>主播</option>
+                            <option>讲师</option>
+                        </select>
+                        <button class="btngivegift" data-bind="click:GiveGift">送出</button>
+                    </div>
                     @*<div class="copyright"> ·版权所有</div>*@
-                </div>
+                </div>                
                 <div id="SayingInfoWrapper" style="clear:both;">
                     @*<div class="disabled-post">当前房间不允许任何人发言</div>*@
                     @*<span class="saying-tip">你好,<span class="from-user" data-bind="text:OnlineData.randUN"></span>,你正在对<span class="to-user" touserid="0" data-bind="text:OnlineData.ToSay"></span>说：</span>*@
-
                     <input id="SayingInputVal" placeholder="" data-bind="textInput: OnlineData.SayWord" />
                     <a id="btnSayingTo" href="javascript:void(0);" onclick="client.events.sendMsgClick();">发送</a>
-
                     <div class="clear"></div>
                 </div>
             </div>
@@ -271,4 +347,6 @@
         </div>
     </div>
     @Html.Partial("_PopUp")
+    @Html.Partial("_Vote")
+    <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
 </div>

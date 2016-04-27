@@ -27,3 +27,19 @@
     background-color:#484849;
 }
 #TopbarWapper .topbar-userlogin a{background-color:#4f5051;}
+.facecontent{
+     background-color: #202021!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color:gray!important;
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #181818!important;
+}
+.qqmore a{
+    color:white!important;
+}
+.marque_ul a,.marque_ul span{
+    color:white!important;
+}

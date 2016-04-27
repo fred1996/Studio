@@ -51,6 +51,11 @@
                         <label class="col-md-3" style="float:none;"></label>
                         <label for="radio1">@Html.RadioButtonFor(model => model.Sex, 1, new { @id = "radio1", @name = "rdolstState" })女</label>
                     </div>
+                    <label class="col-sm-3 control-label">状态：</label>
+                    <div class="col-md-3 mTop5">
+                        <label for="radio2">@Html.RadioButtonFor(model => model.IsDeleted, false, new { @id = "radio3", @name = "isstart" }) 正常</label>
+                        <label for="radio1">@Html.RadioButtonFor(model => model.IsDeleted, true, new { @id = "radio4", @name = "isstart" }) 删除</label>
+                    </div>
                 </div>
                 <div class="form-group form-group-sm">
                     <div class="col-md-12 mTop5 TxtCenter">

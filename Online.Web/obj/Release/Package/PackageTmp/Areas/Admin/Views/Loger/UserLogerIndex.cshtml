@@ -4,9 +4,7 @@
     ViewBag.Title = "前台用户操作日志列表";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
-
 <h2>用户日志管理</h2>
-
 <div class="info">
     <table class="table table-bordered table-hover" id="thetable">
         <thead>
@@ -15,6 +13,8 @@
                 <th>操作内容</th>
                 <th>操作人</th>
                 <th>IP地址</th>
+                <th>当前Url</th>
+                <th>上一次Url</th>
                 <th>操作时间</th>
             </tr>
         </thead>
@@ -38,6 +38,12 @@
                             @item.UserIp
                         </td>
                         <td>
+                            @item.CurrentUrl
+                        </td>
+                        <td>
+                            @item.FromUrl
+                        </td>
+                        <td>
                             @item.CreateTime
                         </td>
                     </tr>
@@ -52,7 +58,6 @@
     页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("UserLogerIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
 </div>
-
 <script>
     $(function () {
         ShowMenu("Logger");

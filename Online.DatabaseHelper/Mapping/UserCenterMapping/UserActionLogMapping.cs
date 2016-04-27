@@ -22,6 +22,9 @@ namespace Online.DbHelper.Mapping
             Property(t => t.UserIp);
             Property(t => t.CreateTime);
             Property(t => t.RoomId);
+            Property(t => t.FromUrl);
+            Property(t => t.CurrentUrl);
+            Property(t => t.UserName);
             HasOptional(t => t.User).WithMany(t => t.UserActionlog).HasForeignKey(t=>t.UserId);
         }
     }

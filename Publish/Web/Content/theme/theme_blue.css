@@ -1,0 +1,37 @@
+﻿body{
+      background: url("../../Image/images/bg.jpg") repeat fixed!important;
+}
+#TopbarWapper{
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#0051b4,endColorStr=#0775df); /*IE*/
+    background: -moz-linear-gradient(top,#0051b4,#0775df); /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#0051b4), to(#0775df)); /*谷歌*/
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #0051b4),color-stop(1, #0775df)); /* Safari & Chrome*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0051b4', endColorstr='#0775df'); /*IE6 & IE7*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0051b4', endColorstr='#0775df')"; /* IE8 */
+}
+#MainLiveTVWapper .video-tip{
+    background-color: #0070d4;
+}
+#RoomNoticeWrapper{
+     background-color: #2185e4;
+}
+#SubColumnsMenu{
+    background-color: #82c2f5;
+}
+#SubColumnsMenu a{
+    background-color: #0f9ff2;
+}
+#ServiceMsg{
+    background-color: #c1e0fa;
+}
+#btnSayingTo{
+    background-color: #00b1ff;
+}
+#TopbarWapper .topbar-userlogin a{background-color: #7FC123;}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.qqmore a{
+    color:#fff!important;
+}
+.messageclearbtn a{
+    color:#fff!important;
+}

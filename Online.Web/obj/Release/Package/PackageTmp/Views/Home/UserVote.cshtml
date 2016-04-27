@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     @Styles.Render("~/Content/base.css")
-    @Scripts.Render("https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js", "~/Scripts/global.js")
+    @Scripts.Render("//cdn.bootcss.com/jquery/1.11.3/jquery.min.js", "~/Scripts/global.js")
     <style>
         a {
             color: white;
@@ -60,7 +60,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var html = new StringBuilder();
                         var item = data[i];
-                        html.Append('<div class="title_gray "><span class="pLeft20 left">' + item.VoteTitle + '</span><span class="right down_arrow"><img src="/Image/images/down_arrow_black.png"/></span></div>');
+                        html.Append('<div class="title_gray""><span class="pLeft20 left">' + item.VoteTitle + '</span><span class="right down_arrow"><img src="/Image/images/down_arrow_black.png"/></span></div>');
                         html.Append('<table id="vote" style="width:100%;" class="pLeft20">');
                         for (var j = 0; j < item.UserVoteColums.length; j++) {
                             html.Append("<tr>");
@@ -89,7 +89,7 @@
                         }
                         html.Append("</table>");
                         $("#vote").append(html.toString());
-                       
+                    
                         $(".btnuservote").unbind("click").bind('click', function () {
                             var votecount = $(this).attr("votecount");
                             var voteid = $(this).attr("voteid");

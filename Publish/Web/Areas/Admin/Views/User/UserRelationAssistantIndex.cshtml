@@ -1,0 +1,82 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Online.DbHelper.Model.UserRelationAssistant>
+@{
+    ViewBag.Title = "用户助理关系管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>用户助理关系列表</h2>
+<div>
+    <div class="left">
+        <div class="mAll10">
+            @using (Html.BeginForm("UserRelationAssistantIndex", "User", FormMethod.Get, new { @style = "display:inline-block;", id = "form1" }))
+            {
+                <label>
+                    模糊查询（姓名，邮箱，手机）：@Html.TextBox("condition", ViewBag.Codition as string, new { @class = "form-control InlineBlock" })
+                </label>
+
+                <button class="btn  btn-info " style="display:inline-block;" role="button">
+                    <i class="glyphicon glyphicon-search"></i>&nbsp;查找
+                </button>
+            }
+        </div>
+
+    </div>
+</div>
+<a role="button" href="/Admin/User/UserRelationAssistantCreate" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div style="clear:both"></div>
+<div class="info">
+    <table class="table table-bordered table-hover table-striped" id="thetable">
+        <thead>
+        <tr>
+            <th>助理</th>
+            <th>用户ID</th>
+            <th>用户名</th>
+            <th>创建时间</th>
+            <th style="width:300px">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Assistant.UserName</td>
+                    <td>@item.UserId</td>
+                    <td>@item.UserName</td>
+                    <td>@item.CreateDateTime</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/User/UserRelationAssistantEdit?id=@item.Id" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                        <a class="btn  btn-success" data-toggle="modal" data-target="#myModal" href="/Admin/User/BatchTransfer?id=@item.Id" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-transfer"></i>&nbsp;批量转移
+                        </a>
+                        <a class="btn btn-danger delcss" role="button" href="/Admin/User/UserRelationAssistantRemove?id=@item.Id">
+                            <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                        </a>
+                     
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("UserRelationAssistantIndex", new { currentFilter = ViewBag.CurrentFilter, page = page,condition= ViewBag.Codition as string }))
+    </div>
+</div>
+
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+<script>
+    $(function () {
+        ShowMenu("Users");
+        Active('Users', 4);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+    })
+</script>
+

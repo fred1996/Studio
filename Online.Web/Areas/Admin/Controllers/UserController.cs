@@ -317,13 +317,11 @@ namespace Online.Web.Areas.Admin.Controllers
                 if (modeladdress != null)
                 {
                     return View(modeladdress);
-
                 }
                 return View(modeladdress);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -402,7 +400,7 @@ namespace Online.Web.Areas.Admin.Controllers
                 {
                     string strRoles = formcol.GetValue("roles").AttemptedValue;
                     string[] lsroles = strRoles.Split(',');
-                    if (lsroles.Count() > 0)
+                    if (lsroles.Any())
                     {
                         List<UserRoles> roues = UserSource.UserRoleses.Where(x => x.UserId == UserId).ToList();
                         UserSource.UserRoleses.RemoveRange(roues);
@@ -445,6 +443,7 @@ namespace Online.Web.Areas.Admin.Controllers
                 usermodel.Sex = user.Sex;
                 usermodel.QQ = user.QQ != null ? user.QQ : "";
                 usermodel.Weixin = user.Weixin != null ? user.Weixin : "";
+                usermodel.IsDeleted = user.IsDeleted;
                 //手动修改实体的状态
                 UserSource.Entry(usermodel).State = EntityState.Modified;
                 UserSource.SaveChanges();

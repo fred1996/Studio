@@ -1,0 +1,36 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+@charset "utf-8";
+/* CSS Document */
+
+*{padding:0; margin:0;}
+ul{ list-style:none;}
+body{ background:#31007d url(/Image/images/SingleService/bg.jpg) no-repeat top center; font-size:14px; font-family:"微软雅黑"; color:#fde240;}
+a{ text-decoration:none; color:#fde240;}
+a:hover{ text-decoration:none; color:#fde240;}
+a:active{ text-decoration:none; color:#fde240;}
+.clear200{ height:270px; clear:both; overflow:hidden; width:1000px; margin:0 auto;}
+.clear20{ height:40px; clear:both; overflow:hidden; width:1000px; margin:0 auto;}
+.clear111{ clear:both; overflow:hidden; margin:0 auto;}
+.fl{ float:left;}
+.fr{ float:right;}
+
+#part1{ height:500px; overflow:hidden; clear:both;}
+#part2{ height:auto; width:40%; margin:0 auto; overflow:hidden; clear:both;}
+#part2 .img1{ width:auto;  height:auto;}
+#part2 .text{ color:#fde240; font-size:16px; margin:10px 0; clear:both; line-height:25px; letter-spacing:1px;}
+#part3{ height:auto; width:40%; margin:35px auto 15px; overflow:hidden; clear:both;}
+#part3 .tit{ background:url(/Image/images/SingleService/pic2.jpg) no-repeat 0 0; width:270px; height:69px; padding:10px 0;}
+#part3 .tit h2{ display:block; line-height:60px; margin-left:40px; letter-spacing:2px; font-size:20px; font-weight:normal;}
+#part3 .jieshao{font-size:16px; margin:10px 0; clear:both; line-height:25px; letter-spacing:1px;}
+#part4{ width:100%; background:#b40021; overflow:hidden; margin:10px auto 0;}
+#p4inn{ width:40%; margin:0 auto; overflow:hidden; clear:both; padding:30px 0;}
+#p4inn .tit2{ color:#fde240; font-size:22px; letter-spacing:2px;}
+#p4inn .ttt{ color:#ffffff; line-height:23px; font-size:16px; margin: 15px auto; letter-spacing:1px;}
+#p4inn .ttt img{ vertical-align: bottom;}
+
+.jd_copyright{ width:100%; background:#be262d; height:120px; clear:both; overflow:hidden; }
+.copyt{ width:40%; margin:30px auto; text-align:center; line-height:30px; font-size:12px; color:#fff; letter-spacing:1px;}
+.copyt a{ color:#fff;}
+.copyt a:active{ color:#fff;}

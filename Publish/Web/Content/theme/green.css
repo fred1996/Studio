@@ -1,0 +1,43 @@
+﻿body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; color:#000;}
+td,th,caption { font-size:14px; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+a {  text-decoration:none;     cursor: pointer}
+a:hover { text-decoration:underline; }
+img { border:none; }
+ol,ul,li { list-style:none; }
+table { border-collapse:collapse; }
+html {overflow-y: scroll;} 
+/* css common */
+.clearfix:after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+.clearfix { *zoom:1; }
+
+/*投票*/
+.form-control{ display: block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background-color:#fff ;
+    background-image: none;
+    border: 1px solid #ccc;
+    display:inline-block;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;}   
+#votenav {  padding: 0px;  }
+#votenav li {float: left;  list-style: none; margin: 0 20px 0 20px;cursor: pointer; }
+.votes tr td {padding: 10px;}
+.vote_box {display: none;margin: 20px;}
+.addvotebox label{width:70px;display:inline-block;}
+.addvotebox input[type=text]{border: 1px solid #DFDFDF; padding: 5px;width: 300px;-moz-border-radius: 3px;border-radius: 3px;margin-bottom: 5px;/*height:25px;*/}
+.show {display: block;}
+.LineHeight45{line-height:45px;}
+body{color:#000!important;}
+.btn{display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: 400;line-height: 1.42857143;text-align: center;white-space: nowrap;vertical-align: middle;-ms-touch-action: manipulation;touch-action: manipulation;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-image: none;border: 1px solid transparent;border-radius: 4px;background:#257BFD;color:white;}
+#votenav .curren {font-weight: bold;color: #000000; border-bottom:2px solid #257BFD;}
+.votes thead {background: #E7E7E7;}
+.votes tbody {background: #fff;}

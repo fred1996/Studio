@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "用户礼物管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@model PagedList.IPagedList<Online.DbHelper.Model.UserCenter.UserGifts>
+@using PagedList.Mvc;
+<h2>用户礼物管理</h2>
+<div>
+    <div class="left">
+        <div class="mAll10">
+            @using (Html.BeginForm("UserGifts", "Gift", FormMethod.Get, new { @style = "display:inline-block;", id = "form1" }))
+            {
+                <label>
+                    模糊查询（姓名）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
+                </label>
+                <button class="btn  btn-info " style="display:inline-block;" role="button">
+                    <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
+                </button>
+            }
+        </div>
+    </div>
+</div>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+        <tr>
+            <th>编号</th>
+            <th>用户ID</th>
+            <th>用户名</th>
+            <th>礼物ID</th>
+            <th>礼物名称</th>
+            <th>礼物数量</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.UserId</td>
+                    <td>@item.User.UserName</td>
+                    <td>@item.GiftId</td>
+                    <td>@item.GiftName</td>
+                    <td>@item.GiftNum</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/Gift/UserGiftEdit?Id=@item.Id" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">暂无记录</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <input type="hidden" id="page" value="@ViewBag.Page"/>
+    页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("UserGifts", new {currentFilter = ViewBag.CurrentFilter, page = page}))
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+<script>
+    $(function () {
+        ShowMenu("Users");
+        Active('Users', 4);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+    });
+</script>

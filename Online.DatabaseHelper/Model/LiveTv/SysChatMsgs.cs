@@ -32,5 +32,11 @@ namespace Online.DbHelper.Model
         public string FilePath { get; set; }
 
         public DateTime SendTime { get; set; }
+
+        public string ClientIp { get; set; }
+
+        public DateTime UpdateTime { get; set; }
+
+        public string OperatorName { get; set; }
     }
 }

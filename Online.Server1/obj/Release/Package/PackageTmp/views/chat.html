@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RuntorChat-Demo</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/javascripts/fancyBox_v2.1.5/source/jquery.fancybox.css?v=2.1.5">
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/javascripts/chat-client.js"></script>
+    <script type="text/javascript" src="/javascripts/fancyBox_v2.1.5/source/jquery.fancybox.js"></script>
+</head>
+<body>
+    <h1>RuntorChat-Demo</h1>
+    <h3>-byRain</h3>
+	<div id="status">Connecting...</div>
+    <div id="ContentWrapper">
+    <div id="MainContentWrapper">
+		<div id="MsgListWrapper">
+			<!-- <div class="msgInfo">
+				<span class="sendTime">12:00:02</span><span class="userRole">大管家</span><span class="sayingMan">我是你大哥</span>:<span id="sayingInfo"></span>
+			</div>
+			<div class="systemInfo">管理员：<span class="sayingMan">观音</span>上线了！</div>
+			<div class="systemInfo">管理员：连接服务器失败！</div> -->
+		</div>
+		<div id="ToolBarWapper">
+		<span class="sayingTip">您好,<span class="fromUser">XXX</span>,您正在对<span class="toUser">所有人</span>说：</span>
+		<span class="toolbarSet"></span>
+		</div>
+		    <div id="SayingInfoWrapper">
+			<input type="text" id="SayingInput"/>
+			<a id="btnSayingTo" href="javascript:void(0);">发送</a>
+			<div class="clear"></div>
+		</div>
+
+	</div>
+		<div id="OnLineUsersWrapper">
+			<h3>在线用户</h3>
+			<ul id="UserList">
+				<!-- <li>大唐</li>
+				<li>小明</li>
+				<li>小红</li>
+				<li>悟空</li>
+				<li>八戒</li>
+				<li>小沙</li>
+				<li>小白</li> -->
+			</ul>
+		</div>
+		<div class="clear"></div>
+
+		<div id="loginInfo" style="display:none;" class="fancybox">
+			<div>花名:<input class="usernameInput" type="text" maxlength="14"> <input type="button" id="btnLogin" value="进入"></div>
+		</div>
+    
+    </div>
+</body>
+</html>

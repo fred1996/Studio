@@ -9,7 +9,7 @@
    cursor:pointer;
 }
 
-.setting_theme .blue, .red, .chen, .jianj, .qins, .lv, .qins {
+.setting_theme .blue, .red, .chen, .jianj, .qins, .lv, .qins,.default {
     width: 40px;
     height: 12px;
     display: inline-block;
@@ -31,7 +31,10 @@
     /*background-image: url('../images/set_themeblue.png');*/
     background: #2782dd;
 }
-
+.setting_theme .default {
+    /*background-image: url('../images/set_themeblue.png');*/
+    background: #f7ab22;
+}
 .setting_theme .red {
     /*background-image: url('../images/set_themeblue.png');*/
     background: #ef5150;
@@ -44,7 +47,7 @@
 
 .setting_theme .lv {
     /*background-image: url('../images/set_themeblue.png');*/
-    background: #7fc123;
+    background: #6fa9ff;
 }
 
 .setting_theme .qins {

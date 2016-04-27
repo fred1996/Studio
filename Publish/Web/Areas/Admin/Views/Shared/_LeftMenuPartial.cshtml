@@ -1,0 +1,46 @@
+﻿@using Online.Web.Areas.Admin.Models
+
+
+<div class="col-md-2">
+    <ul id="main-nav" class="nav nav-tabs nav-stacked" style="height: 93%; border: 1px solid lightgray; width: 270px; position: fixed; overflow: hidden; z-index: 999">
+        @if (ViewBag.Menus != null)
+        {
+            foreach (Menus menu in ViewBag.Menus)
+            {
+                <li>
+                    <a href="#@menu.Id" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="@menu.Icon"></i>
+                        @menu.MenuName
+                        <span class="pull-right glyphicon glyphicon-chevron-toggle "></span>
+                    </a>
+                    <ul id="@menu.Id" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        @foreach (Menus childMenus in menu.Menuses)
+                        {
+                            <li><a href="@childMenus.Url">@childMenus.MenuName</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+<script type="text/javascript">
+    function ShowMenu(boxid) {
+        $("#" + boxid + "").collapse('toggle');
+    }
+
+    function Active(box, index) {
+        $("#" + box).children().eq(index).addClass("liactive");
+    }
+
+    $(function () {
+        $("#main-nav ul li").click(function () {
+            $("#main-nav ul").each(function (i, item) {
+                $(item).children().each(function (index, li) {
+                    $(li).removeClass("liactive");
+                });
+            });
+        });
+    });
+</script>

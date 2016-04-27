@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Online.DbHelper.Mapping;
+using Online.DbHelper.Mapping.UserCenterMapping;
 using Online.DbHelper.Model;
+using Online.DbHelper.Model.UserCenter;
 
 namespace Online.DbHelper.BLL
 {
@@ -33,6 +35,12 @@ namespace Online.DbHelper.BLL
 
         public DbSet<UserRelationAssistant> UserRelationAssistants { get; set; }
 
+        public DbSet<UserGifts> UserGiftses { get; set; }
+
+        public DbSet<Gift> Gifts { get; set; }
+
+        public DbSet<GiftLog> GiftLogs { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UsersMapping());
@@ -46,6 +54,9 @@ namespace Online.DbHelper.BLL
             modelBuilder.Configurations.Add(new PermissionsMapping());
             modelBuilder.Configurations.Add(new Role_PermissionsMapping());
             modelBuilder.Configurations.Add(new UserRelationAssistantMapping());
+            modelBuilder.Configurations.Add(new UserGiftsMapping());
+            modelBuilder.Configurations.Add(new GiftMapping());
+            modelBuilder.Configurations.Add(new GiftLogMapping());
         }
     }
 }

@@ -12,7 +12,7 @@ var socketSet = []; //存储所有客户端集合
 var userRoleID = 100;//巡官ID
 //redis
 var Redis = require('ioredis');
-var redis = Redis(6379, '192.168.1.110');
+var redis = Redis(6379, '127.0.0.1');
 var onLineUsers = 0;
 
 //set socket.io server
@@ -43,7 +43,10 @@ io.on('connection', function (socket) {
     tmpSocket.from = '';
     tmpSocket.uid = 0;
     tmpSocket.socketid = socket.id;
+    tmpSocket.roleid = 0;
     tmpSocket.sesstionid = ParseCookie(socket);
+    tmpSocket.remoteAddress = getRemoteAddressIP(socket);
+    tmpSocket.AccessCount = 1;
     var hasSocketFlag = 0;
     if (socketSet.length > 0) {
         for (var j = 0; j < socketSet.length; j++) {
@@ -66,7 +69,7 @@ io.on('connection', function (socket) {
     //console.log("connection socketid is " + socket.id);
     //上线  data:{roomid:18,uid:2,from:'test',rid:1,socketid:''}  
     socket.on('onlineEvent', function (data) {
-        if (!!data && data != "undefined") {
+        if (!!data && data != undefined) {
             if (data.from && data.roomid) {
                 try {
                     //不同客户端进入不同房间
@@ -76,31 +79,46 @@ io.on('connection', function (socket) {
                     /*用户重复登录*/
                     if (socketSet.length > 0) {
                         for (var j = 0; j < socketSet.length; j++) {
-                            if (socketSet[j].from && (socketSet[j].from == data.from) && socketSet[j].rid &&
-                                (socketSet[j].rid == data.rid) && (socketSet[j].socketid != socket.id)) {
-                                console.log("forceLogOutEvent" + JSON.stringify(data) + " socket id is " + socket.id + " forceLogOut socket id is " + socketSet[j].socketid);
+                            if (!!socketSet[j] && !!socketSet[j].from && (socketSet[j].from == data.from) && (socketSet[j].socketid != socket.id)) {
+                               
                                 var forceData = { eventTyp: 1 };
                                 if (ParseCookie(socket) == socketSet[j].sesstionid)
                                     forceData = { eventTyp: 2 };
                                 var ioSocket = io.sockets.connected[socketSet[j].socketid];
-                                if (ioSocket)
+                                if (ioSocket) {
                                     ioSocket.emit('forceLogOutEvent', forceData);
+                                }
                                 socketSet.splice(j, 1);
                             }
-                            else if (!!socketSet[j] && !!socketSet[j].socketid && socketSet[j].socketid == socket.id && socketSet[j].rid && socketSet[j].rid == data.rid) {
+                            else if (!!socketSet[j] && !!socketSet[j].socketid && socketSet[j].socketid == socket.id) {
                                 socketSet[j].from = data.from;
                                 socketSet[j].roomid = data.roomid;
+                                socketSet[j].roleid = data.roleid;
+                                socketSet[j].uid = data.uid;
                                 existsFlag++;
                             }
                             //清除socketset中未赋值的连接
                             if (!socketSet[j].from || socketSet[j].from === "" || socketSet[j].from === '') {
                                 try {
-                                    socketSet.splice(j, 1);//从缓存中清除
-                                    if (socketSet[j].roomid && socketSet[j].roomid != "undefined")
+                                    if (socketSet[j].roomid && socketSet[j].roomid != "undefined") {
                                         socket.leave(socketSet[j].roomid.toString());//离开房间
+                                    }
+                                    socketSet.splice(j, 1);//从缓存中清除
                                 } catch (e) {
                                     console.log("清除socketset中未赋值的连接 " + e);
                                 }
+                            }
+                            if (!!socketSet[j].roleid && socketSet[j].roleid >= 85) {
+                                var adminSocket = io.sockets.connected[socketSet[j].socketid];
+                                if (!!adminSocket)
+                                    adminSocket.emit('onlineEvent', {
+                                        roomid: data.roomid,
+                                        from: data.from,
+                                        uid: data.uid,
+                                        msgtype: 1,
+                                        socketid: socket.id,
+                                        totalnum: onLineUsers,//socketSet.length
+                                    });
                             }
                         }
                     }
@@ -109,20 +127,10 @@ io.on('connection', function (socket) {
                     if (existsFlag == 0) {
                         socketSet.push(data);
                     }
-                    io.sockets.in(data.roomid).emit('onlineEvent', {
-                        roomid: data.roomid,
-                        from: data.from,
-                        uid: data.uid,
-                        msgtype: 1,
-                        socketid: socket.id,
-                        totalnum: onLineUsers,//socketSet.length
-                    });
+
                 }
                 catch (ex) {
                     console.log("FUNC[onlineEvent]-exception:{type:" + ex.name + ",msg:" + ex.message + "}");
-                }
-                finally {
-
                 }
             }
         }
@@ -144,37 +152,49 @@ io.on('connection', function (socket) {
             }
             else {
                 //取管理员列表
-                try {
-                    redis.hvals("ONLINE_Admin_USERS_" + data.roomid, function (err, result) {
-                        if (!!err) {
-                            console.log("error:" + err);
-                        }
-                        else {
-                            if (!!result && result != "undefined") {
-                                result.forEach(function (item, i) {
-                                    if (!!item) {
-                                        var itemObj = JSON.parse(item);
-                                        if (socketSet.length > 0) {
-                                            for (var i = 0; i < socketSet.length; i++) {
-                                                if (socketSet[i].from == itemObj.from) {
-                                                    var sid = socketSet[i].socketid;
-                                                    var adminClient = io.sockets.connected[sid];
-                                                    if (!!adminClient) {
-                                                        adminClient.emit('adminCheckMsgEvent', data);
-                                                        //socket.broadcast.to(data.roomid.toString()).emit('adminCheckMsgEvent', data);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                });
+                if (socketSet.length > 0) {
+                    for (var i = 0; i < socketSet.length; i++) {
+                        if (!!socketSet[i].socketid && !!socketSet[i].roleid && parseInt(socketSet[i].roleid) >= userRoleID) {
+                            var sid = socketSet[i].socketid;
+                            var adminClient = io.sockets.connected[sid];
+                            if (!!adminClient) {
+                                adminClient.emit('adminCheckMsgEvent', data);
+                                //socket.broadcast.to(data.roomid.toString()).emit('adminCheckMsgEvent', data);
                             }
                         }
-                    });
+                    }
                 }
-                catch (ex) {
-                    console.log("FUNC[redis.hvals-GetAdminUsers]-exception:{type:" + ex.name + ",msg:" + ex.message + "}");
-                }
+                //try {
+                //    redis.hvals("ONLINE_Admin_USERS_" + data.roomid, function (err, result) {
+                //        if (!!err) {
+                //            console.log("error:" + err);
+                //        }
+                //        else {
+                //            if (!!result && result != "undefined") {
+                //                result.forEach(function (item, i) {
+                //                    if (!!item) {
+                //                        var itemObj = JSON.parse(item);
+                //                        if (socketSet.length > 0) {
+                //                            for (var i = 0; i < socketSet.length; i++) {
+                //                                if (socketSet[i].from == itemObj.from) {
+                //                                    var sid = socketSet[i].socketid;
+                //                                    var adminClient = io.sockets.connected[sid];
+                //                                    if (!!adminClient) {
+                //                                        adminClient.emit('adminCheckMsgEvent', data);
+                //                                        //socket.broadcast.to(data.roomid.toString()).emit('adminCheckMsgEvent', data);
+                //                                    }
+                //                                }
+                //                            }
+                //                        }
+                //                    }
+                //                });
+                //            }
+                //        }
+                //    });
+                //}
+                //catch (ex) {
+                //    console.log("FUNC[redis.hvals-GetAdminUsers]-exception:{type:" + ex.name + ",msg:" + ex.message + "}");
+                //}
             }
         }
     });
@@ -187,7 +207,6 @@ io.on('connection', function (socket) {
                 socket.broadcast.to(data.roomid).emit("toSayEvent", data);
             }
         }
-
     });
 
     //禁言
@@ -208,7 +227,6 @@ io.on('connection', function (socket) {
         catch (e) {
             console.log("kickRoomEvent exception:" + ex.name + ",msg:" + ex.message + "}");
         }
-
     });
 
     //解禁
@@ -242,21 +260,30 @@ io.on('connection', function (socket) {
                 //    sids += socketSet[i].socketid + "[first_separator]";
                 //}
                 for (var i = 0; i < socketSet.length; i++) {
-                    if (socketSet[i].from && socketSet[i].socketid == socket.id) {
+                   
+                    if (!!socketSet[i].roomid && !!socketSet[i].from && socketSet[i].socketid == socket.id) {
+                       
+                        for (var j = 0; j < socketSet.length; j++) {
+                            if (!!socketSet[j].socketid && !!socketSet[j].roleid && parseInt(socketSet[j].roleid) >= userRoleID) {
+                                var sid = socketSet[j].socketid;
+                                var adminClient = io.sockets.connected[sid];
+                                if (!!adminClient) {
+                                    adminClient.emit('offlineEvent', {
+                                        from: socketSet[i].from,
+                                        msgtype: 2,
+                                        totalnum: onLineUsers, // socketSet.length,
+                                        sockets: socket.id,
+                                    });
+                                }
+                            }
+                        }
 
-                        //向其他房间用户广播该用户下线信息
-                        socket.broadcast.in(socketSet[i].roomid).emit('offlineEvent', {
-                            from: socketSet[i].from,
-                            msgtype: 2,
-                            totalnum: onLineUsers,// socketSet.length,
-                            sockets: socket.id,
-                        });
-                        socket.leave(socketSet[i].roomid.toString());//离开房间
-                        socketSet.splice(i, 1);//从缓存中清除
+                        socket.leave(socketSet[i].roomid.toString()); //离开房间
+                        socketSet.splice(i, 1); //从缓存中清除                 
                     }
-                    if (socketSet[i].from === "") {
-                        socketSet.splice(i, 1);//从缓存中清除
+                    if (!!socketSet[i] && (!socketSet[i].from || socketSet[i].from === "")) {
                         socket.leave(socketSet[i].roomid.toString());//离开房间
+                        socketSet.splice(i, 1);//从缓存中清除
                     }
                 }
             }
@@ -280,7 +307,6 @@ io.on('connection', function (socket) {
                             var ioSocket = io.sockets.connected[socketSet[j].socketid];
                             if (ioSocket)
                                 ioSocket.emit('forceLogOutEvent', forceData);
-
                             socketSet.splice(j, 1);
                         }
                     } catch (e) {
@@ -293,31 +319,44 @@ io.on('connection', function (socket) {
     //删除消息
     socket.on('RemoveMessageEvent', function (data) {
         try {
-            redis.hvals("ONLINE_Admin_USERS_" + data.roomid, function (err, result) {
-                if (!!err) {
-                    console.log("error:" + err);
-                }
-                else {
-                    if (!!result && result != "undefined") {
-                        result.forEach(function (item, i) {
-                            if (!!item) {
-                                var itemObj = JSON.parse(item);
-                                if (socketSet.length > 0) {
-                                    for (var i = 0; i < socketSet.length; i++) {
-                                        if (socketSet[i].from == itemObj.from) {
-                                            var sid = socketSet[i].socketid;
-                                            var adminClient = io.sockets.connected[sid];
-                                            if (!!adminClient) {
-                                                adminClient.emit('RemoveMessageEvent', data);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
+            //取管理员列表
+            if (socketSet.length > 0) {
+                for (var i = 0; i < socketSet.length; i++) {
+                    if (!!socketSet[i].socketid && !!socketSet[i].roleid && parseInt(socketSet[i].roleid) >= userRoleID) {
+                        var sid = socketSet[i].socketid;
+                        var adminClient = io.sockets.connected[sid];
+                        if (!!adminClient) {
+                            adminClient.emit('RemoveMessageEvent', data);
+                        }
                     }
                 }
-            });
+            }
+
+            //redis.hvals("ONLINE_Admin_USERS_" + data.roomid, function (err, result) {
+            //    if (!!err) {
+            //        console.log("error:" + err);
+            //    }
+            //    else {
+            //        if (!!result && result != "undefined") {
+            //            result.forEach(function (item, i) {
+            //                if (!!item) {
+            //                    var itemObj = JSON.parse(item);
+            //                    if (socketSet.length > 0) {
+            //                        for (var i = 0; i < socketSet.length; i++) {
+            //                            if (socketSet[i].from == itemObj.from) {
+            //                                var sid = socketSet[i].socketid;
+            //                                var adminClient = io.sockets.connected[sid];
+            //                                if (!!adminClient) {
+            //                                    adminClient.emit('RemoveMessageEvent', data);
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            });
+            //        }
+            //    }
+            //});
         }
         catch (ex) {
             console.log("FUNC[redis.hvals-GetAdminUsers]-exception:{type:" + ex.name + ",msg:" + ex.message + "}");
@@ -406,7 +445,41 @@ io.on('connection', function (socket) {
             console.log("ServerShowVoteEvent-exception:{type:" + ex.name + ",msg:" + ex.message + "}");
         }
     });
+    socket.on('ServerRefrshVoteEvent', function (data) {
+        try {
+            if (socketSet.length > 0) {
+                for (var i = 0; i < socketSet.length; i++) {
+                    if (socketSet[i].from != data.from) {
+                        var sid = socketSet[i].socketid;
+                        var client = io.sockets.connected[sid];
+                        if (client) {
+                            client.emit('ClientRefrshVoteEvent', data);
+                        }
+                    }
+                }
+            }
+        }
+        catch (ex) {
+            console.log("ServerShowVoteEvent-exception:{type:" + ex.name + ",msg:" + ex.message + "}");
+        }
+    });
 });
+
+
+function getRemoteAddressIP(socket) {
+    var clientSocIP = "";//socket.handshake.address.split(':')[3];
+    if (!!socket.handshake.address && socket.handshake.address.split(':').length > 0) {
+        var sAddress = socket.handshake.address;
+        var slen = socket.handshake.address.split(':').length;
+        for (var i = 0; i < slen; i++) {
+            if (sAddress.split(':')[i] != "" && sAddress.split(':')[i] != undefined && sAddress.split(':')[i].indexOf('.') >= 0) {
+                clientSocIP = sAddress.split(':')[i];
+            }
+        }
+    }
+
+    return clientSocIP;
+}
 
 //app configure start
 // view engine setup
@@ -464,6 +537,7 @@ function ParseCookie(socket) {
     try {
         var data = socket.handshake.headers.cookie;
         //console.log("ParseCookieinfo " + data);
+        if (!data || data == undefined || data.indexOf('=') < 0) { return ""; }
         var array = data.split('; ');
         for (var i = 0; i < array.length; i++) {
             var ss = array[i].split('=');

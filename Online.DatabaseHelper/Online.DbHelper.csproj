@@ -72,6 +72,8 @@
     <Compile Include="Mapping\LiveTvMapping\UserVoteColumMapping.cs" />
     <Compile Include="Mapping\LiveTvMapping\UserVoteMapping.cs" />
     <Compile Include="Mapping\LiveTvMapping\VoteItemsMapping.cs" />
+    <Compile Include="Mapping\UserCenterMapping\GiftLogMapping.cs" />
+    <Compile Include="Mapping\UserCenterMapping\GiftMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\PermissionsMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\RolesMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\Role_PermissionsMapping.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Mapping\UserCenterMapping\UserActionLogMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\UserAddressMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\UserBlackListMapping.cs" />
+    <Compile Include="Mapping\UserCenterMapping\UserGiftsMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\UserRelationAssistantMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\UserRolesMapping.cs" />
     <Compile Include="Mapping\UserCenterMapping\UsersMapping.cs" />
@@ -96,6 +99,8 @@
     <Compile Include="Model\LiveTv\UserVote.cs" />
     <Compile Include="Model\LiveTv\UserVoteColum.cs" />
     <Compile Include="Model\LiveTv\VoteItems.cs" />
+    <Compile Include="Model\UserCenter\Gift.cs" />
+    <Compile Include="Model\UserCenter\GiftLog.cs" />
     <Compile Include="Model\UserCenter\Permissions.cs" />
     <Compile Include="Model\UserCenter\Roles.cs" />
     <Compile Include="Model\UserCenter\Role_Permissions.cs" />
@@ -103,6 +108,7 @@
     <Compile Include="Model\UserCenter\UserActionLog.cs" />
     <Compile Include="Model\UserCenter\UserAddress.cs" />
     <Compile Include="Model\UserCenter\UserBlackList.cs" />
+    <Compile Include="Model\UserCenter\UserGifts.cs" />
     <Compile Include="Model\UserCenter\UserRelationAssistant.cs" />
     <Compile Include="Model\UserCenter\UserRoles.cs" />
     <Compile Include="Model\UserCenter\Users.cs" />

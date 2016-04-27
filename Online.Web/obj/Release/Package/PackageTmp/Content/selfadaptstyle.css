@@ -44,7 +44,7 @@
     }
 
     #MainLiveTVWapper .video-content {
-        height: 80%;
+        /*height: 80%;*/
     }
 
     #MainLiveTVWapper .video-wrapper {
@@ -83,9 +83,9 @@
         /*height: 550px !important;*/
     }
 
-    #RoomNoticeWrapper .notice-info {
+    /*#RoomNoticeWrapper .notice-info {
         width: 100%;
-    }
+    }*/
 
     #MainChatWapper {
         width: 860px;

@@ -1,0 +1,17 @@
+E:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.dll.config
+E:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.dll
+E:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.pdb
+E:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Debug\Online.Server.csprojResolveAssemblyReference.cache
+E:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Debug\Online.Server.dll
+E:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Debug\Online.Server.pdb
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.dll.config
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.dll
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\bin\Online.Server.pdb
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Debug\Online.Server.dll
+G:\Runtor.Online\LiveTV\Source\LiangZhi\Online.Server\obj\Debug\Online.Server.pdb
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server1\bin\Online.Server.dll.config
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server1\bin\Online.Server.dll
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server1\bin\Online.Server.pdb
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server1\obj\Debug\Online.Server.csprojResolveAssemblyReference.cache
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server1\obj\Debug\Online.Server.dll
+G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Server1\obj\Debug\Online.Server.pdb

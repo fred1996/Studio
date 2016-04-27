@@ -6,6 +6,8 @@ using Online.DbHelper.BLL;
 using Online.DbHelper.Model;
 using Online.Web.Help;
 using Online.Web.Models;
+using System.Reflection;
+using Online.DbHelper.Common;
 
 namespace Online.Web.DAL
 {
@@ -94,7 +96,7 @@ namespace Online.Web.DAL
         }
 
         public List<MessageInfo> MessageList = new List<MessageInfo>();
-
+        public List<UserOnline> UserOnlineList = new List<UserOnline>();
         public void AddMessage(MessageInfo entity)
         {
             entity.createTime = DateTime.Now;
@@ -151,6 +153,29 @@ namespace Online.Web.DAL
             if (entity != null)
                 MessageList.Remove(entity);
             return true;
+        }
+        private static object _syncUserOnline = new object();
+
+        public bool RemoveUserOnline(string userName)
+        {
+            if (string.IsNullOrEmpty(userName)) return false;
+            lock (_syncUserOnline)
+            {
+                if (UserOnlineList.Any(t => t.UserName == userName))
+                {
+
+                    try
+                    {
+                        UserOnlineList.RemoveAll(t => t.UserName == userName);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Instance.WriteError(ex, GetType(), MethodBase.GetCurrentMethod().Name);
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

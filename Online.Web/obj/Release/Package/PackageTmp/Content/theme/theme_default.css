@@ -40,3 +40,23 @@
 #TopbarWapper .topbar-userlogin a {
     background-color: #7FC123;
 }
+
+.facecontent{
+     background-color: #A0806A!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color: #7D6254;
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #845C48;
+}
+.qqmore a{
+    color:#fff!important;
+}
+.marque_ul a,.marque_ul span{
+    color:#000!important;
+}
+#btnsetting a:hover{
+    background: #A0A8AF;
+}

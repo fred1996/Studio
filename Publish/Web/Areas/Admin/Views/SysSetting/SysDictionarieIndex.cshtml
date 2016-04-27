@@ -1,0 +1,64 @@
+﻿@model PagedList.IPagedList<Online.DbHelper.Model.SysDictionaries>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "系统字典列表";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<h2>系统字典列表</h2>
+<a role="button" href="/Admin/SysSetting/SysDictionarieCreate" class="btn btn-primary" style="float: right; margin-bottom: 9px;" data-toggle="modal" data-target="#myModal">
+    <i class="glyphicon glyphicon glyphicon-plus"></i>&nbsp;新建
+</a>
+<div style="clear: both"></div>
+<div class="info">
+    <table class="table table-bordered table-hover" id="thetable">
+        <thead>
+            <tr>
+                <th style="width: 30px;">UID</th>
+                <th>key</th>
+                <th>value</th>
+                <th>描述</th>
+                <th>操作人</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SysDictID</td>
+                    <td>@item.FiledName</td>
+                    <td>@item.FiledValue</td>
+                    <td>@item.Description</td>
+                    <td>@item.OperatorName</td>
+                    <td>@item.CreateTime</td>
+                    <td>
+                        <a class="btn  btn-info" data-toggle="modal" data-target="#myModal" href="/Admin/SysSetting/SysDictionarieEdit?id=@item.SysDictID" id="Edit" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>&nbsp;编辑
+                        </a>
+                        <a class="btn btn-danger delcss" role="button" href="/Admin/SysSetting/SysDictionarieRemove?id=@item.SysDictID">
+                            <i class="glyphicon glyphicon-trash"></i>&nbsp;删除
+                        </a>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("SysDictionarieIndex", new { currentFilter = ViewBag.CurrentFilter, page = page }))
+</div>
+<div class="modal  fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+</div>
+<script>
+    $(function () {
+        ShowMenu("SysSetting");
+        Active('SysSetting', 3);
+        $("#myModal").on("hidden.bs.modal", function () {
+            $(this).removeData("bs.modal");
+        });
+
+    })
+</script>

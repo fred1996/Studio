@@ -1,0 +1,100 @@
+﻿@model Online.DbHelper.Model.Users
+@{
+    ViewBag.Title = "用户信息详情";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<div>
+    <div class="hero-unit">
+        <a class="btn  btn-info " href="/Admin/User/UserIndex" style="display: inline-block;" role="button">
+            <i class="glyphicon glyphicon-home"></i>&nbsp;返回列表
+        </a>
+        <div class="mTop20">
+            <div class="list-group row  ">
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">昵称:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.UserName" disabled>
+                    </div>
+                    <label class="col-sm-2 control-label infolab">真实姓名:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.RealName" disabled>
+                    </div>
+                </div>
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">邮箱:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.Email" disabled>
+                    </div>
+                    <label class="col-sm-2 control-label infolab">身份证:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.IDCard" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group row ">
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">性别:</label>
+                    <div class="col-sm-4 control-label">
+                        @{var s = Model.Sex == 0 ? "男" : "女";}
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@s" disabled>
+                    </div>
+                    <label class="col-sm-2 control-label infolab">QQ:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.QQ" disabled>
+                    </div>
+                </div>
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">微信:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.Weixin" disabled>
+                    </div>
+                    <label class="col-sm-2 control-label infolab">手机:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.Telephone" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group row ">
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">注册时间:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.RegisterTime" disabled>
+                    </div>
+                    <label class="col-sm-2 control-label infolab">登录IP:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.LastSigninIP" disabled>
+                    </div>
+                </div>
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">注册IP:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.RegisterIP" disabled>
+                    </div>
+                    <label class="col-sm-2 control-label infolab">是否删除:</label>
+                    <div class="col-sm-4 control-label">
+                        @{ var d = @Model.IsDeleted == true ? "是" : "否";}
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@d" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group col-md-12 row TxtLeft">
+                <div class="list-group col-md-6">
+                    <label class="col-sm-2 control-label infolab">用户头像:</label>
+                    <div class="col-sm-4 control-label">
+                        <img data-src="holder.js/140x140" class="img-polaroid" alt="140x140" src="@Model.Avatar" style="width: 140px; height: 140px;">
+                    </div>
+                    <label class="col-sm-2 control-label infolab">用户身份:</label>
+                    <div class="col-sm-4 control-label">
+                        <input class="input-xlarge form-control" id="disabledInput" type="text" value="@Model.UserRoleses[0].Roles.RoleName" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        ShowMenu("Users");
+        Active('Users', 0);
+    });
+</script>

@@ -1,0 +1,49 @@
+﻿body{
+    background: url("../../Image/images/theme/backgroundchenshi.jpg")  repeat fixed!important;
+}
+#TopbarWapper{
+    background: -moz-linear-gradient(top,#4E86B1,#1574DE)!important; /*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#4E86B1), to(#1574DE))!important; /*谷歌*/
+    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #4E86B1),color-stop(1, #1574DE))!important; /* Safari & Chrome*/
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4E86B1', endColorstr='#1574DE')!important; /*IE6 & IE7*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#4E86B1', endColorstr='#1574DE')"!important; /* IE8 */
+}
+#MainLiveTVWapper .video-tip{
+    background-color: #0b7bba!important;
+}
+#RoomNoticeWrapper{
+     background-color: #1a5e9f!important;
+}
+#SubColumnsMenu{
+    background-color:#006bb3;
+}
+#SubColumnsMenu a{
+    background-color:#0b7bba!important;
+}
+#ServiceMsg{
+    background-color:#C3CDD2;
+}
+#btnSayingTo{
+    background-color:#0962BF;
+}
+#TopbarWapper .topbar-userlogin a{background-color:#0d7bb6;}
+
+.facecontent{
+     background-color: rgba(50, 149, 179, 0)!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color: rgba(47, 139, 236, 0);
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #2D76C3;
+}
+.qqmore a{
+    color:#fff!important;
+}
+.marque_ul a,.marque_ul span{
+    color:#fff!important;
+}
+.messageclearbtn a{
+    color:#fff!important;
+}

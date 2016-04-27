@@ -24,6 +24,9 @@ namespace Online.DbHelper.Mapping
             Property(t => t.IsCheck);
             Property(t => t.FilePath);
             Property(t => t.SendTime);
+            Property(t => t.ClientIp);
+            Property(t => t.UpdateTime);
+            Property(t => t.OperatorName);
         }
     }
 }

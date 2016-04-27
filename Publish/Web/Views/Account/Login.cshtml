@@ -1,0 +1,90 @@
+﻿@model Online.Web.Models.LoginViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>登录</title>
+    @Styles.Render("~/Content/Logincss.css")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jplaceholder.js"></script>
+    <script>
+    $(function () {
+        $("#UserCodeimg").bind("click", function () {
+            this.src = "/Home/GetValidateCode?time=" + (new Date()).getTime();
+        });
+        if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+            MobileCss();
+        }
+        function MobileCss() {
+            $(".int_header").attr("style", "width:100%;");
+            $(".alogin").attr("style", "width:90%;");
+            $("#btnUserLogin").css("width", "100%");
+            $("#btnUserLogin").parent("div").css({ "width": "100%", "margin-top": "10px" });
+            $("#btnUserLogin").parent("div").next("div").css("width", "100%");
+            $(".int_header .menu .m").css({ "display": "inline-block", "float": "left" });
+            $(".type1").css("width", "95%");
+            $(".asubmit2").css("width", "99%");
+            $(".clear100").css("height", "10px");
+            $(".clear200").css("height", "0px");
+            $(".int_header .menu .img1").css("height", "30px");
+        }
+    });</script>  
+</head>
+<body>
+    @using (@Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        <!--头部开始-->
+        <div class="int_header">
+            <div class="login">
+                <a href="/Account/Login">登录 </a>| <a href="/Account/Register">注册</a>
+            </div>
+            <div class="clear10"></div>
+            <div class="menu">
+                <img src="~/Image/images/icon_logo.png"   class="img1" />
+                <ul class="m">
+                    <li><a href="/Home/Index">网站首页</a></li>
+                    <li><a href="http://www.mintaifu.com/html/about/" target="_blank">关于我们</a></li>
+                    <li><a href="http://www.mintaifu.com/html/download/" target="_blank">下载中心</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--头部结束-->
+        <!--banner开始-->
+        <div class="int_ban2"></div>
+        <!--banner结束-->
+        <div class=" clear100"></div>
+
+        @Html.AntiForgeryToken()
+        <div class="alogin" style="width: 640px;">
+            <div class="alogo"><span>登录</span></div>
+            @Html.TextBoxFor(t => t.Email, null, new { @class = "type1", placeholder = "用户名/邮箱" })
+            @Html.ValidationMessageFor(t => t.Email, "", new { style = "color: red" })
+   
+            @Html.PasswordFor(t => t.Password, new { @class = "type1", placeholder = "密 码" })
+            @Html.ValidationMessageFor(t => t.Password, "", new { style = "color: red" })
+
+            @Html.TextBoxFor(t => t.Code, new { @class = "type1",@style="float:left", placeholder = "验证码" })
+            @Html.ValidationMessageFor(t => t.Password, "", new { style = "color: red"  })
+            <p style="float: left;padding-top: 5px;padding-left: 20px;"><img src="/Home/GetValidateCode" id="UserCodeimg" alt="验证码" width="75" height="42" />看不清？换一个 </p>
+            <br />
+            <label id="lblPageMessage"  style="font-size: 14px; color: red; clear: both;display: inherit">@ViewBag.Message</label>
+            <div style="width: 400px;">
+                <input type="submit" class="asubmit" id="btnUserLogin" value="登 录">
+            </div>
+            <div style="width: 400px;">
+                <span class="aspan"><a href="#">用其他方式登录</a> | <a href="/Account/ForgotPassword">忘记密码？</a></span><br />
+            </div>
+            <input type="button" class="asubmit2" id="toregister" value="我要注册帐号" onclick="javascripr:window.location.href='/Account/Register'">
+        </div>
+        <div class=" clear200"></div>
+        <!--版权开始-->
+        <div class="int_cop">
+            <div class="c2">
+                @*<p>上海惠印投资管理咨询中心·版权所有</p>*@
+            </div>
+        </div>
+    }
+    }
+    <!--版权结束-->
+</body>
+</html>

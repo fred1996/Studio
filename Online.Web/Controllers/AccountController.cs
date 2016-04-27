@@ -18,6 +18,7 @@ using Online.DbHelper.Model;
 using Online.Web.DAL;
 using Online.Web.Help;
 using Online.Web.Models;
+using Online.DbHelper.Model.UserCenter;
 
 namespace Online.Web.Controllers
 {
@@ -271,6 +272,21 @@ namespace Online.Web.Controllers
             {
                 if (Users == null) return RedirectToAction("Login");
                 ViewBag.UserName = Users.UserName;
+                var s = UserSource.Gifts.Where(x => x.GiftName == Online.Web.Areas.Admin.Enum.GiftType.钻石.ToString()).Select(t => new
+                {
+                    GiftId = t.GiftId,
+                    GiftType = t.GiftType,
+                    GiftUnit = t.GiftUnit,
+                    GiftName = t.GiftName,
+                }).FirstOrDefault();
+                if (s!=null)
+                {
+                    ViewBag.ZuanshiCount = GiftHandler.Instance.GetUserGifts(Users.UserID, s.GiftId).GiftNum;
+                }
+                else
+                {
+                    ViewBag.ZuanshiCount =0;
+                }
                 return View(Users);
             }
             catch (Exception ex)
@@ -690,6 +706,13 @@ namespace Online.Web.Controllers
         {
             try
             {
+                //var user = UserSource.Userses.FirstOrDefault(t => t.UserID == UserId);
+                //if (user != null)
+                //{
+                //    user.Password= UntilHelper.GetMd5HashCode(password);
+                //    UserSource.SaveChanges();
+                //    return 
+                //}
                 return Json(new { status = AccountHandler.Current.ChangePassword(UserId, password) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

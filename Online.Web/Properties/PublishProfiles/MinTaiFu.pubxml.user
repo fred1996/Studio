@@ -5,23 +5,23 @@
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>G:\Runtor.Online\LiveTV\Source\MinTaiFu\Online.Web\../Publish/Web</_PublishTargetUrl>
+    <_PublishTargetUrl>G:\webroot\mintaifu</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="Areas/Admin/Content/menu.css">
-      <publishTime>01/25/2016 14:38:37</publishTime>
+      <publishTime>03/14/2016 18:07:33</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Menu.xml">
       <publishTime>02/01/2016 15:12:53</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Site.css">
-      <publishTime>01/25/2016 14:38:37</publishTime>
+      <publishTime>02/25/2016 12:44:28</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Home/Index.cshtml">
       <publishTime>01/25/2016 14:38:38</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Home/Login.cshtml">
-      <publishTime>01/27/2016 13:56:10</publishTime>
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/LiveTv/Create.cshtml">
       <publishTime>01/25/2016 14:45:57</publishTime>
@@ -36,7 +36,7 @@
       <publishTime>01/21/2016 18:26:24</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Loger/UserLogerIndex.cshtml">
-      <publishTime>01/21/2016 18:26:24</publishTime>
+      <publishTime>03/04/2016 14:05:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Report/EditIndex.cshtml">
       <publishTime>01/27/2016 17:04:03</publishTime>
@@ -45,7 +45,7 @@
       <publishTime>01/29/2016 11:30:59</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout_Admin.cshtml">
-      <publishTime>02/02/2016 16:36:31</publishTime>
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout_Edit.cshtml">
       <publishTime>01/25/2016 14:38:38</publishTime>
@@ -54,7 +54,7 @@
       <publishTime>02/02/2016 16:36:31</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysChatMsg/Index.cshtml">
-      <publishTime>01/25/2016 14:38:38</publishTime>
+      <publishTime>02/25/2016 11:52:38</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysConfig/Create.cshtml">
       <publishTime>01/25/2016 14:38:38</publishTime>
@@ -78,16 +78,16 @@
       <publishTime>02/02/2016 16:36:31</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysSetting/RoleEdit.cshtml">
-      <publishTime>02/02/2016 16:36:13</publishTime>
+      <publishTime>02/02/2016 14:41:12</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysSetting/RoleIndex.cshtml">
       <publishTime>02/16/2016 13:02:19</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysSetting/RolePermissionCreate.cshtml">
-      <publishTime>01/25/2016 14:38:38</publishTime>
+      <publishTime>03/14/2016 09:10:34</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysSetting/RolePermissionEdit.cshtml">
-      <publishTime>01/25/2016 14:38:38</publishTime>
+      <publishTime>03/14/2016 09:10:34</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysSetting/RolePermissionIndex.cshtml">
       <publishTime>01/28/2016 16:34:42</publishTime>
@@ -126,10 +126,10 @@
       <publishTime>01/28/2016 16:34:42</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysTVColumn/Create.cshtml">
-      <publishTime>01/14/2016 18:10:36</publishTime>
+      <publishTime>03/04/2016 14:05:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysTVColumn/Edit.cshtml">
-      <publishTime>01/14/2016 18:10:36</publishTime>
+      <publishTime>03/04/2016 14:05:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/SysTVColumn/Index.cshtml">
       <publishTime>01/28/2016 16:34:42</publishTime>
@@ -162,10 +162,10 @@
       <publishTime>01/21/2016 16:32:09</publishTime>
     </File>
     <File Include="Areas/Admin/Views/User/UserEdit.cshtml">
-      <publishTime>01/21/2016 16:32:20</publishTime>
+      <publishTime>03/04/2016 18:59:24</publishTime>
     </File>
     <File Include="Areas/Admin/Views/User/UserIndex.cshtml">
-      <publishTime>02/02/2016 16:11:30</publishTime>
+      <publishTime>03/31/2016 15:41:27</publishTime>
     </File>
     <File Include="Areas/Admin/Views/User/UserKeys.cshtml">
       <publishTime>02/02/2016 16:10:54</publishTime>
@@ -200,14 +200,17 @@
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>01/25/2016 14:39:10</publishTime>
     </File>
+    <File Include="bin/MVCVideo.dll">
+      <publishTime>03/10/2016 19:39:40</publishTime>
+    </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>01/25/2016 14:39:08</publishTime>
     </File>
     <File Include="bin/Online.DbHelper.dll">
-      <publishTime>02/25/2016 10:03:21</publishTime>
+      <publishTime>04/05/2016 10:28:20</publishTime>
     </File>
     <File Include="bin/Online.Web.dll">
-      <publishTime>02/25/2016 11:53:06</publishTime>
+      <publishTime>04/06/2016 19:15:54</publishTime>
     </File>
     <File Include="bin/PagedList.dll">
       <publishTime>01/28/2016 15:47:44</publishTime>
@@ -287,8 +290,23 @@
     <File Include="bin/WebGrease.dll">
       <publishTime>01/25/2016 14:39:16</publishTime>
     </File>
+    <File Include="bin/zh-Hans/EntityFramework.resources.dll">
+      <publishTime>01/25/2016 14:39:13</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/EntityFramework.SqlServer.resources.dll">
+      <publishTime>01/25/2016 14:39:13</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Mvc.resources.dll">
+      <publishTime>01/25/2016 14:39:17</publishTime>
+    </File>
     <File Include="config/theme.xml">
-      <publishTime>01/25/2016 14:38:40</publishTime>
+      <publishTime>04/05/2016 16:30:40</publishTime>
+    </File>
+    <File Include="Content/About/default.css">
+      <publishTime>03/04/2016 14:05:36</publishTime>
+    </File>
+    <File Include="Content/About/reset.css">
+      <publishTime>03/04/2016 14:05:36</publishTime>
     </File>
     <File Include="Content/adminstyle.css">
       <publishTime>01/25/2016 14:38:42</publishTime>
@@ -398,8 +416,11 @@
     <File Include="Content/PagedList.css">
       <publishTime>01/25/2016 14:38:42</publishTime>
     </File>
+    <File Include="Content/reset.css">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
     <File Include="Content/selfadaptstyle.css">
-      <publishTime>02/25/2016 11:52:48</publishTime>
+      <publishTime>03/16/2016 15:56:58</publishTime>
     </File>
     <File Include="Content/SingleService/media-queries2.css">
       <publishTime>02/23/2016 14:36:30</publishTime>
@@ -411,7 +432,7 @@
       <publishTime>01/25/2016 14:38:42</publishTime>
     </File>
     <File Include="Content/style.css">
-      <publishTime>02/24/2016 17:12:54</publishTime>
+      <publishTime>04/05/2016 16:22:21</publishTime>
     </File>
     <File Include="Content/TeacherIntroduce/css.css">
       <publishTime>02/24/2016 14:17:43</publishTime>
@@ -423,28 +444,31 @@
       <publishTime>01/25/2016 14:38:42</publishTime>
     </File>
     <File Include="Content/theme/theme_blue.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>04/05/2016 18:07:48</publishTime>
+    </File>
+    <File Include="Content/theme/theme_blueTwo.css">
+      <publishTime>04/05/2016 18:07:57</publishTime>
     </File>
     <File Include="Content/theme/theme_city.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>04/05/2016 17:39:20</publishTime>
     </File>
     <File Include="Content/theme/theme_classicalOne.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>03/16/2016 17:45:01</publishTime>
     </File>
     <File Include="Content/theme/theme_default.css">
-      <publishTime>02/22/2016 14:21:01</publishTime>
+      <publishTime>03/16/2016 18:30:25</publishTime>
     </File>
     <File Include="Content/theme/theme_gray.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>03/17/2016 11:40:29</publishTime>
     </File>
     <File Include="Content/theme/theme_orange.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>03/17/2016 10:54:50</publishTime>
     </File>
     <File Include="Content/theme/theme_red.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>03/17/2016 10:59:17</publishTime>
     </File>
     <File Include="Content/theme/theme_whitegay.css">
-      <publishTime>01/25/2016 14:38:42</publishTime>
+      <publishTime>03/17/2016 10:56:21</publishTime>
     </File>
     <File Include="Content/themes/base/accordion.css">
       <publishTime>01/25/2016 14:38:41</publishTime>
@@ -548,6 +572,30 @@
     <File Include="cs.aspx">
       <publishTime>02/22/2016 14:57:00</publishTime>
     </File>
+    <File Include="Download/dotNetFx40_Full_x86_x64.exe">
+      <publishTime>03/04/2016 14:05:51</publishTime>
+    </File>
+    <File Include="Download/九州商品2.0app安装使用流程.docx">
+      <publishTime>03/04/2016 14:05:51</publishTime>
+    </File>
+    <File Include="Download/九州行情分析系统-点证版.rar">
+      <publishTime>03/04/2016 14:05:50</publishTime>
+    </File>
+    <File Include="Download/九州行情分析系统-点证版（安卓端）.rar">
+      <publishTime>03/04/2016 14:05:51</publishTime>
+    </File>
+    <File Include="Download/青岛九州商品交易中心交易系统手机端.rar">
+      <publishTime>03/04/2016 14:05:51</publishTime>
+    </File>
+    <File Include="Download/青岛九州商品交易中心交易系统（实盘-6.3.3.9）.rar">
+      <publishTime>03/04/2016 14:05:50</publishTime>
+    </File>
+    <File Include="Download/青岛九州商品交易中心交易系统（模拟-6.3.3.9）.rar">
+      <publishTime>03/04/2016 14:05:51</publishTime>
+    </File>
+    <File Include="Download/青岛九州行情分析系统.rar">
+      <publishTime>03/04/2016 14:05:50</publishTime>
+    </File>
     <File Include="favicon.ico">
       <publishTime>01/25/2016 14:38:40</publishTime>
     </File>
@@ -566,6 +614,72 @@
     <File Include="Global.asax">
       <publishTime>01/25/2016 14:38:37</publishTime>
     </File>
+    <File Include="Image/about/articlePic.jpg">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/banner.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/catBanner.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/catContPic.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/dAndroid.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/dCodeAndroid.png">
+      <publishTime>03/04/2016 14:05:37</publishTime>
+    </File>
+    <File Include="Image/about/dCodeIOS.png">
+      <publishTime>03/04/2016 14:05:37</publishTime>
+    </File>
+    <File Include="Image/about/dIOS.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/dMBanner.jpg">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/downIntro1.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/downIntro2.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/downIntro3.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/downTitle.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/dPc.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/dPcIcon.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/dPcPad.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/hotline.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/joinin.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/listpic.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/logo.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/olService.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
+    <File Include="Image/about/sideNavBg.png">
+      <publishTime>03/02/2016 09:47:43</publishTime>
+    </File>
     <File Include="Image/images/0.jpg">
       <publishTime>01/25/2016 14:38:22</publishTime>
     </File>
@@ -577,6 +691,30 @@
     </File>
     <File Include="Image/images/404_to_index.png">
       <publishTime>01/25/2016 14:38:21</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide.png">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide/banner.png">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide/bg.jpg">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide/left.png">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide/liuc.png">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide/QQbtn.png">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/AccountGuide/right.png">
+      <publishTime>03/14/2016 09:10:34</publishTime>
+    </File>
+    <File Include="Image/images/ActivityOne.jpg">
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Image/images/admin_but.png">
       <publishTime>01/25/2016 14:38:21</publishTime>
@@ -623,6 +761,9 @@
     <File Include="Image/images/bg.jpg">
       <publishTime>01/25/2016 14:38:21</publishTime>
     </File>
+    <File Include="Image/images/bgblue.jpg">
+      <publishTime>04/05/2016 16:43:22</publishTime>
+    </File>
     <File Include="Image/images/check.png">
       <publishTime>01/25/2016 14:38:19</publishTime>
     </File>
@@ -649,6 +790,9 @@
     </File>
     <File Include="Image/images/Column/zbsbtn.png">
       <publishTime>02/16/2016 13:01:27</publishTime>
+    </File>
+    <File Include="Image/images/default_bg.jpg">
+      <publishTime>04/01/2016 19:02:04</publishTime>
     </File>
     <File Include="Image/images/down_arrow.png">
       <publishTime>01/25/2016 14:38:22</publishTime>
@@ -699,7 +843,10 @@
       <publishTime>01/25/2016 14:38:21</publishTime>
     </File>
     <File Include="Image/images/icon_logo.png">
-      <publishTime>02/16/2016 13:01:26</publishTime>
+      <publishTime>04/01/2016 20:19:56</publishTime>
+    </File>
+    <File Include="Image/images/icon_logo2.png">
+      <publishTime>04/05/2016 18:44:52</publishTime>
     </File>
     <File Include="Image/images/icon_nc.png">
       <publishTime>01/25/2016 14:38:21</publishTime>
@@ -768,7 +915,7 @@
       <publishTime>01/25/2016 14:38:20</publishTime>
     </File>
     <File Include="Image/images/k2.jpg">
-      <publishTime>02/22/2016 18:01:09</publishTime>
+      <publishTime>04/05/2016 18:17:57</publishTime>
     </File>
     <File Include="Image/images/left_arrow.png">
       <publishTime>01/25/2016 14:38:22</publishTime>
@@ -875,6 +1022,9 @@
     <File Include="Image/images/login/yellow.png">
       <publishTime>01/25/2016 14:38:19</publishTime>
     </File>
+    <File Include="Image/images/LZInfoUser.jpg">
+      <publishTime>03/31/2016 16:13:44</publishTime>
+    </File>
     <File Include="Image/images/Mesbg.png">
       <publishTime>01/25/2016 14:38:21</publishTime>
     </File>
@@ -942,16 +1092,16 @@
       <publishTime>01/25/2016 14:38:20</publishTime>
     </File>
     <File Include="Image/images/SingleService.png">
-      <publishTime>02/24/2016 14:17:44</publishTime>
+      <publishTime>03/04/2016 14:05:37</publishTime>
     </File>
     <File Include="Image/images/SingleService/bg.jpg">
-      <publishTime>02/23/2016 14:36:29</publishTime>
+      <publishTime>03/04/2016 14:05:37</publishTime>
     </File>
     <File Include="Image/images/SingleService/jd_qq2.png">
       <publishTime>02/23/2016 14:36:29</publishTime>
     </File>
     <File Include="Image/images/SingleService/pic1.jpg">
-      <publishTime>02/23/2016 14:36:29</publishTime>
+      <publishTime>03/04/2016 14:05:37</publishTime>
     </File>
     <File Include="Image/images/SingleService/pic2.jpg">
       <publishTime>02/23/2016 14:36:29</publishTime>
@@ -1041,7 +1191,7 @@
       <publishTime>01/25/2016 14:38:22</publishTime>
     </File>
     <File Include="Image/images/Vote_Bg.png">
-      <publishTime>01/25/2016 14:38:22</publishTime>
+      <publishTime>03/07/2016 16:10:42</publishTime>
     </File>
     <File Include="Image/images/wenxts.jpg">
       <publishTime>01/27/2016 13:56:10</publishTime>
@@ -1386,7 +1536,10 @@
       <publishTime>01/25/2016 14:38:14</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>02/16/2016 13:01:29</publishTime>
+      <publishTime>03/10/2016 19:38:49</publishTime>
+    </File>
+    <File Include="Scripts/base64.js">
+      <publishTime>11/03/2015 01:02:31</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/25/2016 14:38:28</publishTime>
@@ -1394,8 +1547,14 @@
     <File Include="Scripts/bootstrap.min.js">
       <publishTime>01/25/2016 14:38:32</publishTime>
     </File>
+    <File Include="Scripts/browserDetect.js">
+      <publishTime>03/18/2016 17:49:10</publishTime>
+    </File>
     <File Include="Scripts/chance.js">
       <publishTime>01/25/2016 14:38:28</publishTime>
+    </File>
+    <File Include="Scripts/ckplayer.js">
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Scripts/daterangepicker/bootstrap-datetimepicker.css">
       <publishTime>01/25/2016 14:38:29</publishTime>
@@ -1417,6 +1576,9 @@
     </File>
     <File Include="Scripts/IE9.js">
       <publishTime>01/25/2016 14:38:28</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.8.3.js">
+      <publishTime>03/18/2016 17:49:10</publishTime>
     </File>
     <File Include="Scripts/jquery-2.1.4.js">
       <publishTime>01/25/2016 14:38:28</publishTime>
@@ -1546,6 +1708,18 @@
     </File>
     <File Include="Scripts/knockout.validation.min.js.map">
       <publishTime>01/25/2016 14:38:30</publishTime>
+    </File>
+    <File Include="Scripts/LABjs-2.0.3/LAB-debug.min.js">
+      <publishTime>03/22/2016 11:31:04</publishTime>
+    </File>
+    <File Include="Scripts/LABjs-2.0.3/LAB.js">
+      <publishTime>03/22/2016 11:31:04</publishTime>
+    </File>
+    <File Include="Scripts/LABjs-2.0.3/LAB.min.js">
+      <publishTime>03/22/2016 11:31:04</publishTime>
+    </File>
+    <File Include="Scripts/LABjs-2.0.3/LAB.src.js">
+      <publishTime>03/22/2016 11:31:04</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>01/25/2016 14:38:27</publishTime>
@@ -1806,7 +1980,7 @@
       <publishTime>01/25/2016 14:38:31</publishTime>
     </File>
     <File Include="Scripts/qqface/jquery.qqFace.js">
-      <publishTime>01/25/2016 14:38:31</publishTime>
+      <publishTime>03/31/2016 14:01:29</publishTime>
     </File>
     <File Include="Scripts/respond.js">
       <publishTime>01/25/2016 14:38:27</publishTime>
@@ -1818,7 +1992,7 @@
       <publishTime>01/25/2016 14:38:37</publishTime>
     </File>
     <File Include="Scripts/scroll.js">
-      <publishTime>02/25/2016 09:55:54</publishTime>
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Scripts/socket.io-client/History.md">
       <publishTime>01/25/2016 14:38:32</publishTime>
@@ -3087,7 +3261,7 @@
       <publishTime>02/16/2016 13:02:12</publishTime>
     </File>
     <File Include="Scripts/tinymce/plugins/Roxy_Fileman/asp_net/main.ashx">
-      <publishTime>02/16/2016 13:02:08</publishTime>
+      <publishTime>03/04/2016 14:05:36</publishTime>
     </File>
     <File Include="Scripts/tinymce/plugins/Roxy_Fileman/conf.json">
       <publishTime>02/16/2016 13:02:09</publishTime>
@@ -3915,7 +4089,7 @@
       <publishTime>02/16/2016 13:01:36</publishTime>
     </File>
     <File Include="Scripts/tinymce/plugins/Roxy_Fileman/lang/en.json">
-      <publishTime>02/16/2016 13:01:36</publishTime>
+      <publishTime>03/04/2016 14:05:36</publishTime>
     </File>
     <File Include="Scripts/tinymce/plugins/Roxy_Fileman/lang/es.json">
       <publishTime>02/16/2016 13:01:36</publishTime>
@@ -3954,7 +4128,7 @@
       <publishTime>02/16/2016 13:02:07</publishTime>
     </File>
     <File Include="Scripts/tinymce/plugins/Roxy_Fileman/web.config">
-      <publishTime>02/16/2016 13:02:00</publishTime>
+      <publishTime>03/04/2016 14:05:36</publishTime>
     </File>
     <File Include="Scripts/tinymce/plugins/save/plugin.js">
       <publishTime>02/16/2016 13:02:09</publishTime>
@@ -4155,22 +4329,25 @@
       <publishTime>01/25/2016 14:38:29</publishTime>
     </File>
     <File Include="Scripts/Web/chat-client.js">
-      <publishTime>02/24/2016 14:17:43</publishTime>
+      <publishTime>04/05/2016 11:44:21</publishTime>
     </File>
     <File Include="Scripts/Web/HomeIndex.js">
-      <publishTime>02/25/2016 11:52:26</publishTime>
+      <publishTime>04/06/2016 18:41:03</publishTime>
     </File>
     <File Include="Scripts/Web/qqkfFloat.js">
       <publishTime>01/25/2016 14:38:37</publishTime>
     </File>
     <File Include="Scripts/Web/settingHelper.js">
-      <publishTime>02/25/2016 09:55:54</publishTime>
+      <publishTime>03/29/2016 14:46:09</publishTime>
     </File>
     <File Include="Scripts/Web/VoteIndex.js">
-      <publishTime>02/23/2016 14:36:29</publishTime>
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>02/23/2016 09:43:11</publishTime>
+      <publishTime>03/29/2016 14:47:13</publishTime>
+    </File>
+    <File Include="video/kfsp.mp4">
+      <publishTime>03/10/2016 19:39:02</publishTime>
     </File>
     <File Include="Views/Account/ChangePassword.cshtml">
       <publishTime>01/28/2016 16:34:47</publishTime>
@@ -4179,7 +4356,7 @@
       <publishTime>01/25/2016 14:38:40</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
-      <publishTime>02/19/2016 14:39:00</publishTime>
+      <publishTime>03/08/2016 11:08:12</publishTime>
     </File>
     <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
       <publishTime>01/25/2016 14:38:40</publishTime>
@@ -4191,13 +4368,13 @@
       <publishTime>02/19/2016 14:37:56</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>01/28/2016 16:34:47</publishTime>
+      <publishTime>03/08/2016 11:08:28</publishTime>
     </File>
     <File Include="Views/Account/UserAddress.cshtml">
       <publishTime>01/25/2016 14:38:40</publishTime>
     </File>
     <File Include="Views/Account/UserBase.cshtml">
-      <publishTime>02/19/2016 14:42:53</publishTime>
+      <publishTime>03/08/2016 11:08:41</publishTime>
     </File>
     <File Include="Views/Account/UserTags.cshtml">
       <publishTime>02/19/2016 14:43:12</publishTime>
@@ -4218,46 +4395,52 @@
       <publishTime>01/25/2016 14:38:40</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>01/25/2016 14:38:39</publishTime>
+      <publishTime>04/05/2016 18:47:30</publishTime>
+    </File>
+    <File Include="Views/Home/AccountGuide.cshtml">
+      <publishTime>03/14/2016 18:07:33</publishTime>
     </File>
     <File Include="Views/Home/AdvancedTechColumn.cshtml">
       <publishTime>02/25/2016 11:52:26</publishTime>
     </File>
     <File Include="Views/Home/Announcement.cshtml">
-      <publishTime>01/25/2016 14:38:39</publishTime>
+      <publishTime>03/08/2016 11:05:24</publishTime>
     </File>
     <File Include="Views/Home/ColumnDetail.cshtml">
-      <publishTime>02/22/2016 18:01:09</publishTime>
+      <publishTime>03/04/2016 14:05:36</publishTime>
+    </File>
+    <File Include="Views/Home/CompanyIntroduce.cshtml">
+      <publishTime>04/05/2016 18:47:22</publishTime>
     </File>
     <File Include="Views/Home/Download.cshtml">
-      <publishTime>02/01/2016 15:12:55</publishTime>
+      <publishTime>04/05/2016 18:48:41</publishTime>
     </File>
     <File Include="Views/Home/ImageManage.cshtml">
-      <publishTime>01/25/2016 14:38:39</publishTime>
+      <publishTime>03/08/2016 11:05:50</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>02/25/2016 11:11:22</publishTime>
+      <publishTime>04/06/2016 16:37:58</publishTime>
     </File>
     <File Include="Views/Home/Invalid.cshtml">
-      <publishTime>02/18/2016 09:10:39</publishTime>
+      <publishTime>04/06/2016 11:01:42</publishTime>
     </File>
     <File Include="Views/Home/Playfigure.cshtml">
-      <publishTime>01/25/2016 14:38:39</publishTime>
+      <publishTime>03/08/2016 11:06:56</publishTime>
     </File>
     <File Include="Views/Home/ShowScheduleImg.cshtml">
-      <publishTime>01/27/2016 13:56:10</publishTime>
+      <publishTime>04/05/2016 18:46:38</publishTime>
     </File>
     <File Include="Views/Home/SingleService.cshtml">
-      <publishTime>02/24/2016 14:17:43</publishTime>
+      <publishTime>03/04/2016 17:15:15</publishTime>
     </File>
     <File Include="Views/Home/TeacherIntroduce.cshtml">
-      <publishTime>02/24/2016 14:17:43</publishTime>
+      <publishTime>03/04/2016 17:15:15</publishTime>
     </File>
     <File Include="Views/Home/UploadSchedule.cshtml">
       <publishTime>01/25/2016 14:38:39</publishTime>
     </File>
     <File Include="Views/Home/UserVote.cshtml">
-      <publishTime>02/25/2016 09:55:55</publishTime>
+      <publishTime>03/08/2016 11:06:25</publishTime>
     </File>
     <File Include="Views/Home/WebIndex.cshtml">
       <publishTime>02/22/2016 14:56:59</publishTime>
@@ -4266,7 +4449,10 @@
       <publishTime>01/25/2016 14:38:39</publishTime>
     </File>
     <File Include="Views/Home/_PopUp.cshtml">
-      <publishTime>02/22/2016 17:00:03</publishTime>
+      <publishTime>03/29/2016 14:49:49</publishTime>
+    </File>
+    <File Include="Views/Home/_Vote.cshtml">
+      <publishTime>03/10/2016 19:38:49</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>01/25/2016 14:38:39</publishTime>
@@ -4278,7 +4464,7 @@
       <publishTime>01/28/2016 16:34:46</publishTime>
     </File>
     <File Include="Views/Shared/_LiveLayout.cshtml">
-      <publishTime>02/23/2016 14:36:30</publishTime>
+      <publishTime>04/05/2016 10:24:43</publishTime>
     </File>
     <File Include="Views/Shared/_UserCenterLayout.cshtml">
       <publishTime>02/19/2016 14:41:50</publishTime>
@@ -4317,7 +4503,7 @@
       <publishTime>01/25/2016 14:38:39</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/25/2016 10:03:47</publishTime>
+      <publishTime>04/06/2016 19:16:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

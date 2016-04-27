@@ -1,0 +1,50 @@
+﻿<script type="text/javascript">
+    function ShowMenu(boxid) {
+        if ($("#" + boxid).is(':hidden')) {
+            $("#" + boxid).show();
+        } else {
+            $("#" + boxid).hide();
+        }
+    }
+    function Active(box, index) {
+        $("#" + box).children().children().eq(index).children().eq(0).addClass("liactive");
+    }
+    $(function () {
+        $(".list2 li").click(function () {
+            $(".list2 li").each(function (i, item) {
+                $(item).children().eq(0).removeClass("liactive");
+            });
+        });
+    });
+</script>
+<div class="admin_leftbar">
+    <ul class="list1">
+        <li>
+            <img src="~/Image/images/admin_icon1.png" style="border: 0; border-width: 0;" width="20" height="50" alt="" />
+            <a style="color: #EE6602; outline: none;hide-focus: expression(this.hideFocus=true);" href="/Account/Index">账户首页</a>
+            <div id="box1" style="display: none"></div>
+        </li>
+
+        <li>
+            <a href="#" class="a1" onclick=" ShowMenu('box2')"><img src="~/Image/images/admin_icon2.png" style="border: 0;border-width: 0"  width="20" height="50" alt="" /> 我的账户</a>
+            <div id="box2" style="display: none">
+                <ul class="list2">
+                    <li><a href="/Account/UserBase">基本资料</a></li>
+                    <li><a href="/Account/UserTags">我的标签</a></li>
+                    <li><a href="/Account/UserAddress">地址管理</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <li>
+            <a href="#" class="a1" onclick=" ShowMenu('box3') "><img src="~/Image/images/admin_icon3.png" style="border: 0" width="20" height="50" alt="" /> 安全中心</a>
+            <div id="box3" style="display: none">
+                <ul class="list2">
+                    <li><a href="/Account/VerifyTel">手机号码验证</a></li>
+                    <li><a href="/Account/VerifyEmail">验证邮箱</a></li>
+                    <li><a href="/Account/ChangePassword">重置密码</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

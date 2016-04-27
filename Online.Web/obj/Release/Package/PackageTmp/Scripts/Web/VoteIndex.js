@@ -87,11 +87,11 @@ VoteObj.addVote = function () {
             if (data.start > 0) {
                 alert("添加成功");
                 window.parent.client.methods.NotifyServerShowVote();
+                window.parent.homeMain.QueryVotes();
             } else if (data.start == -1) {
                 alert("投票标题已存在");
             } else {
                 alert("添加失败");
-                
             }
         });
     }
@@ -105,7 +105,6 @@ VoteObj.editVoteMapped = function (obj) {
     var mult = $(obj).attr("mult");
     var result = $(obj).attr("result");
     var detail = $(obj).attr("detail");
-    var voteop = $(obj).attr("voteop");
     var begintime = $(obj).attr("begintime");
     $("#uvotetitle").val(title);
     $("#uuservotecount").val(votecount);

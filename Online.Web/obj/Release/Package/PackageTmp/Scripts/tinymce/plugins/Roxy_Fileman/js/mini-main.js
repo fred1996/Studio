@@ -1222,7 +1222,7 @@ Directory.Parse = function(path){
 */
 
 $.ajaxSetup ({cache: false});
-function selectFile(item){
+function selectFile(item) {
   $('#pnlFileList li').removeClass('selected');
   $(item).prop('class', 'selected');
   var html = RoxyUtils.GetFilename($(item).attr('data-path'));
@@ -1240,7 +1240,7 @@ function setLastDir(path){
 }
 function selectDir(item){
   var d = Directory.Parse($(item).parent('li').attr('data-path'));
-  if(d){
+  if (d) {
     d.Select();
   }
 }

@@ -146,7 +146,7 @@ namespace Online.Web.Controllers
                 vote.CreateTime = DateTime.Now;
                 using (var db = new DataContextBll())
                 {
-                    if (db.UserVotes.FirstOrDefault(t => t.VoteTitle == vote.VoteTitle) == null)
+                    if (!db.UserVotes.Any(t => t.VoteTitle == vote.VoteTitle))
                     {
                         db.UserVotes.Add(vote);
                         i = db.SaveChanges();

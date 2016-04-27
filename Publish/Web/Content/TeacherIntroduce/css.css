@@ -1,0 +1,35 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+
+*{padding:0; margin:0;}
+ul{ list-style:none;}
+body{ background:#3f0060 url(/Image/images/TeacherIntroduce/bg.jpg) no-repeat top center; font-size:14px; font-family:"微软雅黑"; color:#333;}
+a{ text-decoration:none; color:#fde240;}
+a:hover{ text-decoration:none; color:#fde240;}
+a:active{ text-decoration:none; color:#fde240;}
+.clear200{ height:270px; clear:both; overflow:hidden;  margin:0 auto;}
+.clear50{ height:80px; clear:both; overflow:hidden; margin:0 auto;}
+.clear111{ clear:both; overflow:hidden; margin:0 auto;}
+.fl{ float:left;}
+.fr{ float:right;}
+.f14{ font-size:14px;}
+.fh{ color:#C70105;}
+
+.part1{ height:439px; overflow:hidden; clear:both;}
+.part2{ height:auto; width:1020px; margin:0 auto; overflow:hidden; clear:both;}
+.part2 .text{ color:#333333; font-size:16px; margin:5px 0; clear:both; line-height:25px; letter-spacing:1px; overflow:hidden;}
+
+
+.p1_l{ background:url(/Image/images/TeacherIntroduce/k1.png) no-repeat 0 0; width:782px; height:742px; float:left;}
+.p2_l{ background:url(/Image/images/TeacherIntroduce/k2.png) no-repeat 0 0; width:782px; height:742px; float:right;}
+.p1_r{ background:url(/Image/images/TeacherIntroduce/r1.png) no-repeat 0 0; width:229px; height:718px; float:right} 
+.p2_r{ background:url(/Image/images/TeacherIntroduce/r2.png) no-repeat 0 0; width:229px; height:718px; float:left}
+.laos{ width:580px; margin:20px auto;}
+.biaot{ display:block; width:180px; height:50px; background:#FFC827; color:#d00022; font-size:22px; line-height:50px; padding-left: 25px; margin-bottom:20px; font-weight:normal; letter-spacing:1px;}
+
+
+.jd_copyright{ width:100%; background:#be262d; height:120px; clear:both; overflow:hidden; }
+.copyt{ width:40%; margin:30px auto; text-align:center; line-height:30px; font-size:12px; color:#fff; letter-spacing:1px;}
+.copyt a{ color:#fff;}
+.copyt a:active{ color:#fff;}

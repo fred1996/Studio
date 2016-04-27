@@ -24,5 +24,21 @@
     background-color:#feb714;
 }
 #btnSayingTo{
-    background-color:#fd5704;
+    background-color:#E44C00!important;
+}
+.facecontent{
+     background-color: #D46C12!important;
+}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.commbx, #SysColumnWapper .marque_ul a{
+    background-color: #9A6C32;
+}
+.commbx, #SysColumnWapper .marque_ul a:hover{
+    background-color: #9A6C72;
+}
+.qqmore a{
+    color:#fff!important;
+}
+.marque_ul a,.marque_ul span{
+    color:#000!important;
 }

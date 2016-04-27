@@ -1,0 +1,181 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>九鼎财经直播室</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #f9e1d1;
+        }
+
+        body {
+            font: 12px/1.5 arial, "microsoft yahei", georgia, verdana, helvetica, sans-serif;
+            text-align: justify;
+            text-justify: inter-ideograph;
+            color: #666666;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: url(/Image/images/AccountGuide/bg.jpg) no-repeat center center;
+        }
+
+        button {
+            border: none;
+        }
+
+        input[type="button"], input[type="submit"], input[type="reset"] {
+            -webkit-appearance: none;
+        }
+
+        body * {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+ 
+        .banner{width: 1034px;height: 264px;margin-left: -450px;margin-top: -470px;background: url(/Image/images/AccountGuide/banner.png) no-repeat center center;}
+.banner p{font-size: 18px;top: 70px;right: 0;left: auto;color: #fff;}
+.banner p.tel{top: 35px;font-size: 22px;}
+.banner p.btn{top: 100px;}
+.banner p *{vertical-align: middle;position: static;float: right;}
+.banner p a{width: 97px;height: 36px;display: inline-block;background: url(/Image/images/AccountGuide/QQbtn.png) no-repeat center center;}
+
+        .video {
+            width: 570px;
+            height: 380px;
+            margin-left: -285px;
+            margin-top: -240px;
+            background: #000;
+        }
+
+            .video * {
+                position: static;
+            }
+
+        .left {
+            width: 344px;
+            height: 354px;
+            margin-left: -650px;
+            margin-top: -230px;
+            background: url(/Image/images/AccountGuide/left.png) no-repeat center center;
+        }
+
+        .right {
+            width: 332px;
+            height: 368px;
+            margin-left: 310px;
+            margin-top: -240px;
+            background: url(/Image/images/AccountGuide/right.png) no-repeat center center;
+        }
+
+            .right a {
+                width: 330px;
+                height: 80px;
+                position: absolute;
+                left: 0;
+                display: inline-block;
+            }
+
+            .right .zbs {
+                top: 96px;
+            }
+
+            .right .vip {
+                top: 190px;
+            }
+
+            .right .kai {
+                top: 285px;
+            }
+
+        .liuc {
+            width: 726px;
+            height: 222px;
+            margin-left: -363px;
+            margin-top: 160px;
+            background: url(/Image/images/AccountGuide/liuc.png) no-repeat center center;
+        }
+
+        .footer {
+            width: 500px;
+            height: 70px;
+            margin-left: -250px;
+            margin-top: 420px;
+        }
+
+            .footer p {
+                width: 100%;
+                height: 35px;
+                text-align: center;
+                color: #ffc800;
+                line-height: 35px;
+                position: static;
+                font-size: 14px;
+            }
+
+ 
+
+           
+    </style>
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+        function OpenQQ() {
+            $.ajax({ url: '/Home/GetRandomQQ' }).done(function (result) {
+                if (result) {
+                    var qqtc = document.createElement('div');
+                    qqtc.innerHTML = "<iframe src='tencent://message/?Menu=yes&uin=" + result + "&Site=&Service=201' frameborder='0'></iframe>";
+                    document.body.appendChild(qqtc);
+                    qqtc.style.display = "none";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="banner">
+        <p><span>如需了解详情，请联系我们的助理</span></p>
+        <p class="btn"><a href="javascript:OpenQQ();"></a></p>
+        <p class="tel">热线：400-021-1171</p>
+    </div>
+    <div class="video" id="a1"></div>
+    <div class="left"></div>
+    <div class="right">
+        <a href="/Home/Index" class="zbs"></a>
+        <a href="javascript:OpenQQ();" class="vip"></a>
+        <a href="javascript:OpenQQ();" class="kai"></a>
+    </div>
+    <div class="liuc"></div>
+    <div class="footer">
+        
+        <p>Copyright 2016 杭州梵尚版权所有（九鼎财经技术支持）</p>
+    </div>
+    <script type="text/javascript" src="~/Scripts/ckplayer.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var flashvars = {
+            f: '/Vedio/kfsp.flv',
+            c: 0,
+            h: 3
+        };
+        var params = { bgcolor: '#FFF', allowFullScreen: true, allowScriptAccess: 'always', wmode: 'transparent' };
+        var video = ['/video/kfsp.mp4->/video/mp4'];
+        CKobject.embed('ckplayer/ckplayer.swf', 'a1', 'ckplayer_a1', '100%', '100%', true, flashvars, video, params);
+    </script>
+</body>
+</html>

@@ -1,30 +1,69 @@
 ﻿body{
-      background: url("../../Image/images/bg.jpg") repeat fixed!important;
+      background: url("../../Image/images/default_bg.jpg") repeat fixed!important;
+}
+.downclent{
+    background-color:#f2ad21!important;
+    /*color:red!important;*/
 }
 #TopbarWapper{
-   FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#0051b4,endColorStr=#0775df); /*IE*/
-    background: -moz-linear-gradient(top,#0051b4,#0775df); /*火狐*/
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#0051b4), to(#0775df)); /*谷歌*/
-    background-image: -webkit-gradient(linear,left bottom,left top,color-start(0, #0051b4),color-stop(1, #0775df)); /* Safari & Chrome*/
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0051b4', endColorstr='#0775df'); /*IE6 & IE7*/
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#0051b4', endColorstr='#0775df')"; /* IE8 */
+  background-color:#c12b34!important;
 }
 #MainLiveTVWapper .video-tip{
-    background-color: #0070d4;
+    background-color:#dd4e3e!important;
 }
 #RoomNoticeWrapper{
-     background-color: #2185e4;
+     background-color: #ea5e47;
 }
 #SubColumnsMenu{
-    background-color: #82c2f5;
+    background-color: #ef7c42!important;
 }
 #SubColumnsMenu a{
-    background-color: #0f9ff2;
+    background-color: #a90017!important;
+}
+#SubColumnsMenu a:hover{
+    background-color: #6b001c!important;
 }
 #ServiceMsg{
     background-color: #c1e0fa;
 }
 #btnSayingTo{
-    background-color: #00b1ff;
+    background-color: #0a0a0a;
+
 }
-#TopbarWapper .topbar-userlogin a{background-color: #7FC123;}
+#TopbarWapper .topbar-userlogin a{background-color: #f2ad21!important;}
+#RoomNoticeWrapper .notice-info{color:#fff;}
+.qqmore a{
+    color:#fff!important;
+}
+.messageclearbtn a{
+    color:#fff!important;
+}
+.facecontent{
+    background-color:#a90017!important;
+    line-height: 32px;
+    padding-left: 10px;
+    height:32px!important;    
+    padding-left: 10px!important;
+}
+#SubColumnsMenu .li1{
+    background-color:#b22423!important;
+}
+#SubColumnsMenu .li2{
+    background-color:#ff191b!important;
+}
+#SubColumnsMenu .li3{
+    background-color:#a2720f!important;
+}
+#SubColumnsMenu .li4{
+    background-color:#1484cc!important;
+}
+#SubColumnsMenu .li5{
+    background-color:#0970b2!important;
+}
+#SubColumnsMenu .li6{
+    background-color:#004382!important;
+}
+#SayingInputVal{
+    color:white;
+}
+.myscroll a,.myscroll span{color:white!important;}

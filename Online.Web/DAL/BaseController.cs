@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,11 +14,21 @@ using Online.DbHelper.Model;
 using Online.Web.Help;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
+using ServiceStack;
+using System.Timers;
+using System.IO;
 
 namespace Online.Web.DAL
 {
     public class BaseController : Controller
     {
+        protected const Int32 CACHE_MAX_COUNT = 500;
+        private static string redisHost = ConfigurationManager.AppSettings["RedisServerHosts"];
+        public BaseController()
+        {
+            RedisClienHelper.Init(new string[] { redisHost }, new string[] { redisHost });
+        }
         private DataContextBll _dataSource;
 
         public DataContextBll DataSource
@@ -138,13 +149,16 @@ namespace Online.Web.DAL
 
         protected void NotifyWebRefresh()
         {
-            if (!string.IsNullOrEmpty(NotifyWebUrl))
+            if (NotifyWebUrlList.Any())
             {
-                NotifyService(NotifyWebUrl + "Api/UpdateSysConfig?isNotify=" + false);
+                NotifyWebUrlList.ForEach(t =>
+                {
+                    NotifyService(t + "Api/UpdateSysConfig?isNotify=" + false);
+                });
             }
         }
 
-        public static bool NotifyService(string url)
+        public bool NotifyService(string url)
         {
             try
             {
@@ -156,9 +170,11 @@ namespace Online.Web.DAL
             }
             catch (Exception ex)
             {
+                LogHelper.Instance.WriteError(ex.Message + ex.StackTrace + url, GetType(), MethodBase.GetCurrentMethod().Name);
                 return false;
             }
         }
+
         private static SysConfigs _sysConfigs;
 
         public static SysConfigs SysConfigs
@@ -185,7 +201,6 @@ namespace Online.Web.DAL
                         }
                     }
                 }
-
                 return _sysConfigs;
             }
         }
@@ -196,7 +211,6 @@ namespace Online.Web.DAL
         {
             get
             {
-
                 if (LiveRooms?.SystemInfos == null)
                 {
                     var entity = ContextFactory.DataSource.SystemInfos.Where(t => t.RoomID == RoomId).ToList();
@@ -405,7 +419,7 @@ namespace Online.Web.DAL
                 {
                     if (string.IsNullOrEmpty(cookie.Value))
                         return string.Empty;
-                    return WebUtility.HtmlDecode(cookie.Value);
+                    return WebUtility.UrlDecode(cookie.Value);
                 }
             }
             catch (Exception ex)
@@ -423,6 +437,270 @@ namespace Online.Web.DAL
             var timeConverter = new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" };
 
             return Content(JsonConvert.SerializeObject(Data, Formatting.Indented, timeConverter));
+        }
+        /// <summary>
+        /// 过滤标记
+        /// </summary>
+        /// <param name="NoHTML">包括HTML，脚本，数据库关键字，特殊字符的源码 </param>
+        /// <returns>已经去除标记后的文字</returns>
+        public static string HTMLFilter(string Htmlstring)
+        {
+            if (Htmlstring == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                //删 除脚本
+                Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
+                //删 除HTML
+                //Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, @"([\r\n])[\s]+", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"-->", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"<!--.*", "", RegexOptions.IgnoreCase);
+
+                Htmlstring = Regex.Replace(Htmlstring, @"&(quot|#34);", "\"", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(amp|#38);", "&", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(lt|#60);", "<", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(gt|#62);", ">", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(nbsp|#160);", " ", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(iexcl|#161);", "\xa1", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(cent|#162);", "\xa2", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(pound|#163);", "\xa3", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&(copy|#169);", "\xa9", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, @"&#(\d+);", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "xp_cmdshell", "", RegexOptions.IgnoreCase);
+
+                //删 除与数据库相关的词 
+                // Htmlstring = Regex.Replace(Htmlstring, "select", "", RegexOptions.IgnoreCase);
+                // Htmlstring = Regex.Replace(Htmlstring, "insert", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "delete from", "", RegexOptions.IgnoreCase);
+                // Htmlstring = Regex.Replace(Htmlstring, "count''", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "drop table", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "truncate", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "asc", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, "mid", "", RegexOptions.IgnoreCase);
+                // Htmlstring = Regex.Replace(Htmlstring, "char", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "xp_cmdshell", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "exec master", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "net localgroup administrators", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, "and", "", RegexOptions.IgnoreCase);
+                Htmlstring = Regex.Replace(Htmlstring, "net user", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, "or", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, "net", "", RegexOptions.IgnoreCase);
+                //Htmlstring =  Regex.Replace(Htmlstring,"*", "", RegexOptions.IgnoreCase);
+                //Htmlstring =  Regex.Replace(Htmlstring,"-", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, "delete", "", RegexOptions.IgnoreCase);
+                // Htmlstring = Regex.Replace(Htmlstring, "drop", "", RegexOptions.IgnoreCase);
+                //Htmlstring = Regex.Replace(Htmlstring, "script", "", RegexOptions.IgnoreCase);
+
+                //特殊的字符
+                //Htmlstring = Htmlstring.Replace("<", "");
+                //Htmlstring = Htmlstring.Replace(">", "");
+                Htmlstring = Htmlstring.Replace("*", "");
+                // Htmlstring = Htmlstring.Replace("-", "");
+                //Htmlstring = Htmlstring.Replace("?", "");
+                // Htmlstring = Htmlstring.Replace(",", "");
+                //Htmlstring = Htmlstring.Replace("/", "");
+                Htmlstring = Htmlstring.Replace(";", "");
+                Htmlstring = Htmlstring.Replace("*/", "");
+                Htmlstring = Htmlstring.Replace("\r\n", "");
+                //Htmlstring = HttpContext.Current.Server.HtmlEncode(Htmlstring).Trim();
+
+                return Htmlstring;
+            }
+
+        }
+        public static string EncodeBase64(string code_type, string code)
+        {
+            string encode = "";
+            byte[] bytes = Encoding.GetEncoding(code_type).GetBytes(code);
+            try
+            {
+                encode = Convert.ToBase64String(bytes);
+            }
+            catch
+            {
+                encode = code;
+            }
+            return encode;
+        }
+        public static string DecodeBase64(string code_type, string code)
+        {
+            string decode = "";
+            byte[] bytes = Convert.FromBase64String(code);
+            try
+            {
+                decode = Encoding.GetEncoding(code_type).GetString(bytes);
+            }
+            catch
+            {
+                decode = code;
+            }
+            return decode;
+        }
+        protected void ClearIp(string ip)
+        {
+            var model = RedisClienHelper.List_GetList<Cc>("Banned").FindAll(t => t.UserName == ip || t.Ip == ip);
+            model.Each(t =>
+            {
+                if (model != null) RedisClienHelper.List_Remove("Banned", t);
+            });
+        }
+        public class Cc
+        {
+            public string Ip { get; set; }
+            public string UserName { get; set; }
+
+            public string Action { get; set; }
+        }
+
+
+        private static Dictionary<string, short> _IpAdresses = new Dictionary<string, short>();
+        //private static Stack<string> _Banned = new Stack<string>();
+        //private static List<Cc> _Banned = new List<Cc>();
+        private static Timer _Timer = CreateTimer();
+        private static Timer _BannedTimer = CreateBanningTimer();
+
+        private int BANNED_REQUESTS = Convert.ToInt32(ConfigurationManager.AppSettings["BANNED_REQUESTS"]); //规定时间内访问的最大次数  
+        private const int REDUCTION_INTERVAL = 2000; // 1 秒（检查访问次数的时间段）  
+        private const int RELEASE_INTERVAL = 5 * 60 * 1000; // 5 minutes 
+        private static List<string> WhiteList = ConfigurationManager.AppSettings["WhiteList"].Split(';').ToList();
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            //var action = filterContext.ActionDescriptor.ActionName.ToLower();
+            //if (action.Contains("invalid")) return;
+            ////访问站点特征码，站点 + IP地址 
+            //string code = "[" + action + "]" + "[" + ClientIp + "]" + "[" + HttpContext.Request.Url + "]";
+            //if (RedisClienHelper.List_GetList<Cc>("Banned").Any(t => (t.Ip == ClientIp || t.UserName == GetUserNameFromCookie()) && t.Action == action))
+            //{
+            //    filterContext.Result = new RedirectResult("/Home/Invalid");
+            //}
+            //CheckIpAddress(code, action);
+            base.OnActionExecuting(filterContext);
+        }
+
+
+
+        /// <summary> 
+        /// Checks the requesting IP address in the collection 
+        /// and bannes the IP if required. 
+        /// </summary> 
+        private void CheckIpAddress(string code, string action)
+        {
+            if (!_IpAdresses.ContainsKey(code))
+            {
+                _IpAdresses[code] = 1;
+            }
+            else if (_IpAdresses[code] == BANNED_REQUESTS)
+            {
+
+                if (!WhiteList.Contains(ClientIp))
+                {
+                    RedisClienHelper.List_Add("Banned",
+                        new Cc() { Ip = ClientIp, UserName = GetUserNameFromCookie(), Action = action });
+                }
+                else
+                {
+                    new Task(() =>
+                    {
+                        WriteCC(code);//记录CC可疑IP
+                    });
+                    _IpAdresses.Remove(code);
+                }
+
+            }
+            else
+            {
+                _IpAdresses[code]++;
+            }
+        }
+        /// <summary> 
+        /// 将可疑CC攻击IP写到文件中 
+        /// </summary> 
+        /// <param name="ip"></param> 
+        private void WriteCC(string code)
+        {
+            StreamWriter sw = null;
+            try
+            {
+                string dir = Server.MapPath("~/CC/");
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                sw = new StreamWriter(dir + DateTime.Now.ToString("yyyy-MM-dd") + ".txt", true);
+                var brower = HttpContext.Request.Browser.Browser;
+                var version = HttpContext.Request.Browser.Version;
+                sw.Write(GetUserNameFromCookie() + " " + code + " " + brower + " " + version + "  " + "  次数：" + _IpAdresses[code] + " " + DateTime.Now + "\r\n");
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                sw.Dispose();
+                sw.Close();
+            }
+
+        }
+
+
+
+        /// <summary> 
+        /// Creates the timer that substract a request 
+        /// from the _IpAddress dictionary. 
+        /// </summary> 
+        private static Timer CreateTimer()
+        {
+
+            Timer timer = GetTimer(REDUCTION_INTERVAL);
+            timer.Elapsed += new ElapsedEventHandler(TimerElapsed);
+            return timer;
+        }
+        /// <summary> 
+        /// Creates the timer that removes 1 banned IP address 
+        /// everytime the timer is elapsed. 
+        /// </summary> 
+        /// <returns></returns> 
+        private static Timer CreateBanningTimer()
+        {
+            Timer timer = GetTimer(RELEASE_INTERVAL);
+            timer.Elapsed += delegate
+            {
+                if (RedisClienHelper.List_Count("Banned") > 0)
+                {
+                    var model = RedisClienHelper.List_GetList<Cc>("Banned").First();
+                    RedisClienHelper.List_Remove("Banned", model);
+                }
+            };
+            return timer;
+        }
+        /// <summary> 
+        /// Creates a simple timer instance and starts it. 
+        /// </summary> 
+        /// <param name="interval">The interval in milliseconds.</param> 
+        private static Timer GetTimer(int interval)
+        {
+            Timer timer = new Timer();
+            timer.Interval = interval;
+            timer.Start();
+            return timer;
+        }
+        /// <summary> 
+        /// Substracts a request from each IP address in the collection. 
+        /// </summary> 
+        private static void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                foreach (string key in _IpAdresses.Keys)
+                {
+                    _IpAdresses[key]--;
+                    if (_IpAdresses[key] == 0)
+                        _IpAdresses.Remove(key);
+                }
+            }
+            catch { }
         }
     }
 }

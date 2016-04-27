@@ -26,6 +26,7 @@ namespace Online.Web.Areas.Admin.Controllers
             var model = new LoginViewModel();
             return View(model);
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -84,7 +85,6 @@ namespace Online.Web.Areas.Admin.Controllers
                 return false;
             }
         }
-
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
