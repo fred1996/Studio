@@ -179,6 +179,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\tyleController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
+    <Compile Include="Controllers\WeChatController.cs" />
     <Compile Include="DAL\AccountHandler.cs" />
     <Compile Include="DAL\BaseController.cs" />
     <Compile Include="DAL\ChatMessageCache.cs" />
@@ -381,6 +382,7 @@
     <Content Include="Image\images\Bg-0.png" />
     <Content Include="Image\images\bg.jpg" />
     <Content Include="Image\images\bgblue.jpg" />
+    <Content Include="Image\images\biao.png" />
     <Content Include="Image\images\default_bg.jpg" />
     <Content Include="Image\images\check.png" />
     <Content Include="Image\images\close.png" />
@@ -391,13 +393,13 @@
     <Content Include="Image\images\Column\jd_qq.png" />
     <Content Include="Image\images\Column\jd_qq2.png" />
     <Content Include="Image\images\Column\zbsbtn.png" />
+    <Content Include="Image\images\diamond.gif" />
     <Content Include="Image\images\down_arrow.png" />
     <Content Include="Image\images\down_arrow_black.png" />
     <Content Include="Image\images\e.png" />
     <Content Include="Image\images\error_cloud.png" />
     <Content Include="Image\images\face.png" />
     <Content Include="Image\images\favicon.ico" />
-    <Content Include="Image\images\giftblue.gif" />
     <Content Include="Image\images\heng.png" />
     <Content Include="Image\images\hotline.png" />
     <Content Include="Image\images\icon-msg2013.png" />
@@ -1421,7 +1423,6 @@
     <Content Include="Scripts\Web\settingHelper.js" />
     <Content Include="Scripts\Web\VoteIndex.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Image\images\rose.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1684,6 +1685,8 @@
     <Content Include="Views\Home\CompanyIntroduce.cshtml" />
     <Content Include="Views\Home\_Vote.cshtml" />
     <Content Include="Views\Home\AccountGuide.cshtml" />
+    <Content Include="Views\Wechat\Index.cshtml" />
+    <Content Include="Views\Wechat\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1706,6 +1709,7 @@
     <Folder Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\Documents\" />
     <Folder Include="Scripts\tinymce\plugins\Roxy_Fileman\Uploads\FLV\" />
     <Folder Include="Views\Api\" />
+    <Folder Include="Views\Tactics\" />
     <Folder Include="Views\tyle\" />
   </ItemGroup>
   <ItemGroup>

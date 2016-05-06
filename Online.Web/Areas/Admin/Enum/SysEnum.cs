@@ -20,6 +20,7 @@ namespace Online.Web.Areas.Admin.Enum
         早晚评=11,
         建仓提醒 = 12,
         平仓提醒 = 13,
+        行情策略 = 14,
     }
 
     public enum SysInfoType

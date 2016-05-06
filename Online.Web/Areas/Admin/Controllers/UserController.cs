@@ -102,6 +102,8 @@ namespace Online.Web.Areas.Admin.Controllers
                 };
                 UserSource.UserRoleses.Add(userRoles);
                 UserSource.SaveChanges();
+
+                GiftHandler.Instance.RegistAddGift(user);
                 AddUpdateSettingLog("用户编辑", "用户管理中用户信息添加", 123);
             }
             catch (Exception ex)

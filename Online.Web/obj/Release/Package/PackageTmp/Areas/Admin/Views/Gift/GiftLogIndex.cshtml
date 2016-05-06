@@ -14,9 +14,9 @@
         <div class="mAll10">
             @using (Html.BeginForm("GiftLogIndex", "Gift", FormMethod.Get, new { @style = "", id = "form1", @class = "form-horizontal" }))
             {
-                @*<label style="float:left">
-                    模糊查询（ID，邮箱，手机，姓名）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
-                </label>*@
+                <label style="float:left">
+                    模糊查询（接收人姓名）：@Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control InlineBlock" })
+                </label>
                 <div class="form-group">
                     <div style="float:left">
                         <label for="dtp_input1" class="col-md-2 control-label" style="width:initial;">开始日期</label>
@@ -27,15 +27,16 @@
                         </div>
                         <input type="hidden" id="dtp_input1" value="" /><br />
                     </div>
-                    <div style="float:left">
-                        <label for="dtp_input2" class="col-md-2 control-label" style="width:initial;">结束日期</label>
-                        <div class="input-group date form_datetime1" style="width:300px;" data-date="@ViewBag.endreservation" data-date-format="yyyy-mm-dd hh:ii:59 " data-link-field="dtp_input2">
+                    <div style="float: left">
+                        <label for="dtp_input2" class="col-md-2 control-label" style="width: initial;">结束日期</label>
+                        <div class="input-group date form_datetime1" style="width: 300px;" data-date="@ViewBag.endreservation" data-date-format="yyyy-mm-dd hh:ii:59 " data-link-field="dtp_input2">
                             <input class="form-control" size="16" type="text" value="@ViewBag.endreservation" readonly name="endreservation" id="endreservation">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
-                        <input type="hidden" id="dtp_input2" value="" /><br />
+                        <input type="hidden" id="dtp_input2" value=""/><br/>
                     </div>
+
                     <button class="btn  btn-info mLeft15" style="" role="button">
                         <i class="glyphicon glyphicon-pencil"></i>&nbsp;查找
                     </button>
@@ -80,7 +81,7 @@
         </tbody>
     </table>
     页数 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 总页数 @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("GiftLogIndex", new { reservation = ViewBag.reservation, endreservation = ViewBag.endreservation, page = page}))
+    @Html.PagedListPager(Model, page => Url.Action("GiftLogIndex", new { searchString= ViewBag.CurrentFilter, reservation = ViewBag.reservation, endreservation = ViewBag.endreservation, page = page}))
 </div>
 
 <script>
@@ -137,7 +138,7 @@
             if ($("#endreservation").val().length > 0) {
                 enddate = $("#endreservation").val();
             }
-            window.location.href = "/Admin/Gift/ReportGiftLog?reservation=" + date + "&endreservation=" + enddate;
+            window.location.href = "/Admin/Gift/ReportGiftLog?searchString=" + $("#SearchString").val() + "&reservation=" + date + "&endreservation=" + enddate;
         });
     })
 </script>

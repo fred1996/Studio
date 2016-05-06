@@ -370,14 +370,16 @@ namespace Online.Web.Controllers
         {
             try
             {
+                var list = RedisClienHelper.List_GetList<MessageInfo>("Chat_Message");
                 //刷新之前先同步消息集合
-                RedisClienHelper.List_GetList<MessageInfo>("Chat_Message").Each((item) =>
+                list.Each((item) =>
                 {
-                    AddMessage(JsonConvert.SerializeObject(item));
+                    MessageCache.Instance.AddMessage(item);
                 });
+
                 IEnumerable<MessageInfo> entityList;
                 if (Users != null && Roleses != null && Roleses.Any(t => t.PowerId >= (int)UserRoleEnum.XUGUAN))
-                    entityList = MessageCache.Instance.GetTop(1000);
+                    entityList = MessageCache.Instance.GetTop(300);
                 else
                 {
                     entityList = MessageCache.Instance.GetCheckedTop(20);
@@ -650,7 +652,7 @@ namespace Online.Web.Controllers
                     GiftType = t.GiftType,
                     GiftUnit = t.GiftUnit,
                     GiftName = t.GiftName,
-                    GiftLogo = "/Image/images/giftblue.gif"
+                    GiftLogo = "/Image/images/diamond.gif"
                 });
 
                 if (UserId > 0 && Users != null)
@@ -739,11 +741,11 @@ namespace Online.Web.Controllers
                 var item = SaveMessage(entity);
                 entity.ChatID = item.ChatID;
                 MessageCache.Instance.AddMessage(entity);
-                new Task(() =>
-                {
-                    //Thread.Sleep(3000);
-                    NotifyCachingMsgList(entity);
-                }).Start();
+                //new Task(() =>
+                //{
+                //    //Thread.Sleep(3000);
+                //    NotifyCachingMsgList(entity);
+                //}).Start();
                 //保存到redis
                 if (RedisClienHelper.List_Count("Chat_Message") >= CACHE_MAX_COUNT * 2)
                 {
@@ -767,14 +769,6 @@ namespace Online.Web.Controllers
             try
             {
                 var entity = JsonConvert.DeserializeObject<MessageInfo>(input);
-                if (MessageCache.Instance.MessageList.Any(t => t.ChatID == entity.ChatID))
-                {
-                    var model = MessageCache.Instance.MessageList.FirstOrDefault(t => t.ChatID == entity.ChatID);
-                    if (model != null)
-                    {
-                        MessageCache.Instance.MessageList.Remove(model);
-                    }
-                }
                 MessageCache.Instance.AddMessage(entity);
                 return Json(entity.ChatID, JsonRequestBehavior.AllowGet);
             }

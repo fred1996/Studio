@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+@model Online.DbHelper.Model.SysTVColumns
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/amazeui.min.css" rel="stylesheet" />
+    <title></title>
+    <style>
+        .imgdata{width:20px;height:20px;}
+        .Height80 {
+            height: 80px;
+            line-height: 80px;
+        }
+        .am-titlebar{
+            height:75px;
+        }
+        .am-titlebar-default{line-height:30px;}
+        .colordate{color:#999;}
+        .articleBox{
+             text-indent:2em;
+             padding-top:10px;
+        }
+        .title{font-size:24px;}
+        ..am-paragraph-default img{border:0px;}
+    </style>
+</head>
+<body>
+    @if (Model != null)
+    {
+        <div data-am-widget="titlebar" class="am-titlebar am-titlebar-default">
+            <div href="##" class="am-list-item-hd am-text-truncate am-text-nowrap pLeft115">
+                <span class="title">@Model.ItemTitle</span>
+                <div>
+                    <img src="~/Image/images/biao.png" class="imgdata" />
+                    <span class="colordate">@Model.CreateTime</span>
+                </div>
+            </div>
+        </div>
+        <div class="am-paragraph am-paragraph-default articleBox">
+            @Html.Raw(Model.ISummary)
+        </div>
+    }
+    else
+    {
+
+    }
+</body>
+</html>

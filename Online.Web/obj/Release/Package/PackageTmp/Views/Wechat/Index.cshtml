@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model List<Online.DbHelper.Model.SysTVColumns>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/amazeui.min.css" rel="stylesheet" />
+    <title></title>
+    <style>
+        body,a{color:#575757!important;}
+        .NavTitleBG {background: #c58100;}
+        .mTop0 {margin-top: 0px;}
+        .mTop10 {margin-top: 10px;}
+        .mBottom0 {margin-bottom: 0px !important;}
+        .pBottom0 {padding-bottom: 0px !important; }
+        .TitleBg {background: #c38000;color: white;border-radius: 5px; padding: 0 5px;position: absolute; width: 107px;}
+        .Left {float: left;}
+        .pLeft115 { padding-left: 115px;}
+        .pRight0 {padding-right: 0px !important;}
+        .pTop0 {padding-top: 0px !important; }
+        .colordate{color:#999;padding-left:10px;}
+        .imgdata{width:20px;height:20px;}
+        .colorAll{color:#c38000!important;font-size:18px;}
+        .am-header-default .am-header-title a{color:#fff!important;}
+        .articleBox {height: 80px;overflow: hidden;line-height: 30px;}
+        .articleBox img,.articleBox p{height:100%;}
+    </style>
+</head>
+<body>
+    <header data-am-widget="header"
+            class="am-header am-header-default NavTitleBG">
+        <h1 class="am-header-title">
+            <a href="#title-link" class="">
+                行情策略
+            </a>
+        </h1>
+    </header>
+   @if (Model.Count>0)
+   {
+    foreach (Online.DbHelper.Model.SysTVColumns item in Model)
+    {
+        <div data-am-widget="list_news" class="am-list-news am-list-news-default mTop0">
+            <hr data-am-widget="divider" style="" class="am-divider am-divider-default mBottom0" />
+            <div class="am-list-news-hd am-cf am-g am-list-item-dated">
+                <span class="TitleBg am-text-truncate">@item.ItemName</span>
+                <a href="##" class="am-list-item-hd am-text-truncate am-text-nowrap pLeft115">@item.ItemTitle</a>
+            </div>
+            <div class="am-list-news-bd">
+                <ul class="am-list">
+                    <li class="am-g am-list-item-dated">
+                        <a href="##" class="am-list-item-hd mBottom0 pBottom0 colordate"><img src="~/Image/images/biao.png" class="imgdata" /><span class="colordate">2016-04-24  23:02:00</span></a>
+                        <div class="mTop10 articleBox">
+                            @{ 
+                                string s = Html.Raw(item.ISummary).ToString();
+                                string artive = s.Length > 150? s.Substring(0,150)+"..." : s;}
+                            @Html.Raw(item.ISummary)
+                        </div>
+                        <a href="Detail?id=@item.SysTVColumnID" class="am-fr pRight0 pTop0 colorAll">查看全文</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+       }
+   }
+   else
+   {
+   }
+</body>
+</html>

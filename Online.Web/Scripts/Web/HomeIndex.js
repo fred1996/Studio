@@ -463,7 +463,6 @@ var homeMain = {
                     return false;
                 }
                 if ($data.GiveModel!=null) {
-                    console.log($data.GiveModel[0].GiftLogo);
                     $(".diamond").attr("src", $data.GiveModel[0].GiftLogo);//礼物图标
                     $(".diamond").data("id", $data.GiveModel[0].GiftId);//礼物的ID
                     $(".diamond").data("gifttype", $data.GiveModel[0].GiftType);//礼物的类型
@@ -1422,6 +1421,9 @@ var homeMain = {
     ///@12016-4-26
     ///@fred
     GiveGift: function () {
+        if ($(".giftinputval").val()<=0) {
+            return;
+        }
         if (homeMain.OnlineData.UserRoleID() == 0) {
             homeMain.DialogQQ();
         }

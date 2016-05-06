@@ -21,10 +21,15 @@ namespace Online.Web.Areas.Admin.Controllers
             var messages = UserSource.UserActionLogs.Where(x => x.Type < 100);
             return View(messages.OrderByDescending(x => x.UserActionLogId).ToPagedList(page, 10));
         }
-        public ActionResult AreasLogerIndex(int page = 1)
+        public ActionResult AreasLogerIndex(string SearchString,int page = 1)
         {
             ViewBag.Menus = ReadMenu.Instance.Menues;
             var messages = UserSource.UserActionLogs.Where(x => x.Type >= 100);
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                messages= messages.Where(t => t.Title.Contains(SearchString) || t.Description.Contains(SearchString));
+                ViewBag.CurrentFilter = SearchString;
+            }
             return View(messages.OrderByDescending(x => x.UserActionLogId).ToPagedList(page, 10));
         }
     }

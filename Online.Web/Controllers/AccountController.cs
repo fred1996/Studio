@@ -74,7 +74,7 @@ namespace Online.Web.Controllers
                 throw;
             }
         }
- 
+
         public bool CheckLogin(LoginViewModel model)
         {
             var user = UserSource.Userses.FirstOrDefault(t => (t.UserName == model.Email || t.Email == model.Email) && !t.IsDeleted);
@@ -91,7 +91,7 @@ namespace Online.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            var model = new UserRegisterViewModel() { Message = string.Empty,Token = UntilHelper.Token};
+            var model = new UserRegisterViewModel() { Message = string.Empty, Token = UntilHelper.Token };
             return View(model);
         }
 
@@ -206,7 +206,7 @@ namespace Online.Web.Controllers
                 message = "这个手机号己经注册 请登陆";
                 return false;
             }
-            if (Request.Cookies["RegisterCode"]==null||  (model.Telephone+ model.VerifyPhoneCode) != Request.Cookies["RegisterCode"].Value)
+            if (Request.Cookies["RegisterCode"] == null || (model.Telephone + model.VerifyPhoneCode) != Request.Cookies["RegisterCode"].Value)
             {
                 message = "验证码输入错误，请重新输入！";
                 return false;
@@ -279,13 +279,14 @@ namespace Online.Web.Controllers
                     GiftUnit = t.GiftUnit,
                     GiftName = t.GiftName,
                 }).FirstOrDefault();
-                if (s!=null)
+                if (s != null)
                 {
-                    ViewBag.ZuanshiCount = GiftHandler.Instance.GetUserGifts(Users.UserID, s.GiftId).GiftNum;
+                    UserGifts gifs = GiftHandler.Instance.GetUserGifts(Users.UserID, s.GiftId);
+                    ViewBag.ZuanshiCount = (gifs == null ? 0 : gifs.GiftNum);
                 }
                 else
                 {
-                    ViewBag.ZuanshiCount =0;
+                    ViewBag.ZuanshiCount = 0;
                 }
                 return View(Users);
             }
@@ -672,7 +673,7 @@ namespace Online.Web.Controllers
                     DateTime dt = DateTime.Now;
                     TimeSpan ts = new TimeSpan(0, 1, 0, 0, 0); //过期时间为1天
                     cookie.Expires = dt.Add(ts); //设置过期时间             
-                    Response.AppendCookie(cookie);   
+                    Response.AppendCookie(cookie);
                 }
                 return Json(resut, JsonRequestBehavior.AllowGet);
             }

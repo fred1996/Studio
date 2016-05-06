@@ -24,7 +24,7 @@ var client = {
         dataTemplate: {
             'MYMSG_TEMP': '<div class="mymsg"  uid="#USERID#"><span class="msgcontent">#MSG#</span><span class="i-sendTime">#SENDTIME#</span></div>',
             'MSGINFO_TEMP': '<div class="msgInfo" ChartId="#ChartId#" ><span class="sendTime">#SENDTIME#</span><span class="userRole" roleid="#ROLEID#">#ROLENAME#</span><span class="sayingMan tooltipstered"  uid="#USERID#">#USERNAME# :</span><span id="sayingInfo">#MSG#</span>#CHECKEDSTR#</div>',
-            'MSGGiFtINFO_TEMP': '<div class="msgInfo" ><span id="sayingInfo" style="color: red!important;font-size: 17px!important;font-weight: bold!important;">#MSG#</span></div>',
+            'MSGGiFtINFO_TEMP': '<div class="msgInfo" ><span id="sayingInfo" style="color: red!important;font-size: 18px!important;font-weight: bold!important;">#MSG#</span></div>',
             //'MSGGiFtINFO_TEMP': '<div class="msgInfo" ChartId="#ChartId#" ><span class="sendTime">#SENDTIME#</span><span class="userRole" roleid="#ROLEID#">#ROLENAME#</span><span class="sayingMan tooltipstered"  uid="#USERID#">#USERNAME# :</span><span id="sayingInfo" style="color: red!important;font-size: 17px!important;font-weight: bold!important;">#MSG#</span></div>',
             'MSGINFO_TEMP_to': '<div class="msgInfo" ChartId="#ChartId#" ><span class="sendTime">#SENDTIME#</span><span class="userRole" roleid="#ROLEID#">#ROLENAME#</span><span class="sayingMan tooltipstered" style="color:#fff;"  uid="#USERID#">#USERNAME#</span><span style=\"background: none repeat scroll 0 0 #eee;border-radius: 3px 3px 3px 3px;color: #333;line-height: 24px;padding:4px 6px; margin-right:5px;\">对</span><span class="toSayingMan tooltipstered" style="color:#fff;"  uid="#TOUSERID#">#TOUSERNAME#</span><span id="sayingInfo">#MSG#</span>#CHECKEDSTR#</div>',
             'ADMINMSG_TEMP_to': '<div class="msgInfo"  ChartId="#ChartId#" ><span class="sendTime">#SENDTIME#</span><span class="userRole" roleid="#ROLEID#">#ROLENAME#</span><span class="sayingMan tooltipstered" style="color:#fff;"  uid="#USERID#">#USERNAME#</span><span style=\"margin-right:5px;background: none repeat scroll 0 0 #eee;border-radius: 3px 3px 3px 3px;color: #333;line-height: 24px;padding:4px 6px; margin-right:5px;\">对</span><span class="toSayingMan tooltipstered" style="color:#fff;"  uid="#TOUSERID#">#TOUSERNAME#</span><div></div><span id="sayingInfo" style="margin: 5px 0;display: inline-block;color:#ff0000;font-size:18px  !important;font-weight:bold !important;line-height: 21px;padding:6px;">#MSG#</span></div>',
@@ -264,6 +264,7 @@ var client = {
                 var data = {};
                 data.chartId = jsParams;
                 data.roomid = homeMain.OnlineData.RoomId();
+
                 //client.socket.emit('CheckedMessageEvent', data);
                 client.socket.emit('toSayEvent', result);
             }).fail(function (data) {
@@ -551,7 +552,7 @@ var client = {
                 var arr = message.match(re);
                 if (arr != null) {
                     if(arr.length>0){
-                        emojiStr = emojiStr.replace(/\[zslogo\]/g, "&nbsp;<img src='/Image/images/giftblue.gif' style='width: 30px;height: 25px;vertical-align: middle;'>&nbsp;");
+                        emojiStr = emojiStr.replace(/\[zslogo\]/g, "&nbsp;<img src='/Image/images/diamond.gif' style='vertical-align: middle;'>&nbsp;");
                         //emojiStr += "<img src='/Image/images/giftblue.gif' style='width: 25px;height: 25px;vertical-align: middle;'>";
                     }
                 }

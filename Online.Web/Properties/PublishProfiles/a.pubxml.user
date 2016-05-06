@@ -25,7 +25,7 @@
       <publishTime>04/27/2016 09:34:27</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Gift/GiftLogIndex.cshtml">
-      <publishTime>04/27/2016 14:26:40</publishTime>
+      <publishTime>04/28/2016 14:08:58</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Gift/Index.cshtml">
       <publishTime>04/27/2016 09:34:27</publishTime>
@@ -55,7 +55,7 @@
       <publishTime>01/28/2016 16:34:42</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Loger/AreasLogerIndex.cshtml">
-      <publishTime>01/21/2016 18:26:24</publishTime>
+      <publishTime>04/28/2016 14:08:58</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Loger/UserLogerIndex.cshtml">
       <publishTime>03/04/2016 14:05:52</publishTime>
@@ -229,10 +229,10 @@
       <publishTime>01/25/2016 14:39:08</publishTime>
     </File>
     <File Include="bin/Online.DbHelper.dll">
-      <publishTime>04/27/2016 15:17:03</publishTime>
+      <publishTime>04/28/2016 17:26:32</publishTime>
     </File>
     <File Include="bin/Online.Web.dll">
-      <publishTime>04/27/2016 15:17:07</publishTime>
+      <publishTime>05/03/2016 12:01:06</publishTime>
     </File>
     <File Include="bin/PagedList.dll">
       <publishTime>01/28/2016 15:47:44</publishTime>
@@ -311,6 +311,15 @@
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/25/2016 14:39:16</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/EntityFramework.resources.dll">
+      <publishTime>01/25/2016 14:39:13</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/EntityFramework.SqlServer.resources.dll">
+      <publishTime>01/25/2016 14:39:13</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/System.Web.Mvc.resources.dll">
+      <publishTime>01/25/2016 14:39:17</publishTime>
     </File>
     <File Include="config/theme.xml">
       <publishTime>04/19/2016 13:33:18</publishTime>
@@ -780,6 +789,9 @@
     <File Include="Image/images/bgblue.jpg">
       <publishTime>04/05/2016 16:43:22</publishTime>
     </File>
+    <File Include="Image/images/biao.png">
+      <publishTime>04/29/2016 14:56:15</publishTime>
+    </File>
     <File Include="Image/images/check.png">
       <publishTime>01/25/2016 14:38:19</publishTime>
     </File>
@@ -809,6 +821,9 @@
     </File>
     <File Include="Image/images/default_bg.jpg">
       <publishTime>04/01/2016 19:02:04</publishTime>
+    </File>
+    <File Include="Image/images/diamond.gif">
+      <publishTime>05/03/2016 09:38:31</publishTime>
     </File>
     <File Include="Image/images/down_arrow.png">
       <publishTime>01/25/2016 14:38:22</publishTime>
@@ -4282,10 +4297,10 @@
       <publishTime>01/25/2016 14:38:29</publishTime>
     </File>
     <File Include="Scripts/Web/chat-client.js">
-      <publishTime>04/27/2016 14:16:14</publishTime>
+      <publishTime>05/03/2016 09:47:55</publishTime>
     </File>
     <File Include="Scripts/Web/HomeIndex.js">
-      <publishTime>04/27/2016 14:13:10</publishTime>
+      <publishTime>05/03/2016 09:43:59</publishTime>
     </File>
     <File Include="Scripts/Web/qqkfFloat.js">
       <publishTime>01/25/2016 14:38:37</publishTime>
@@ -4369,7 +4384,7 @@
       <publishTime>04/08/2016 11:15:16</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>04/27/2016 09:58:16</publishTime>
+      <publishTime>05/03/2016 11:40:13</publishTime>
     </File>
     <File Include="Views/Home/Invalid.cshtml">
       <publishTime>04/06/2016 19:29:08</publishTime>
@@ -4419,11 +4434,23 @@
     <File Include="Views/Shared/_UserCenterLayout.cshtml">
       <publishTime>02/19/2016 14:41:50</publishTime>
     </File>
+    <File Include="Views/Tactics/Detail.cshtml">
+      <publishTime>04/29/2016 16:43:19</publishTime>
+    </File>
+    <File Include="Views/Tactics/Index.cshtml">
+      <publishTime>04/29/2016 16:41:29</publishTime>
+    </File>
     <File Include="Views/Vote/Index.cshtml">
       <publishTime>02/23/2016 14:36:30</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>01/25/2016 14:38:39</publishTime>
+    </File>
+    <File Include="Views/Wechat/Detail.cshtml">
+      <publishTime>04/29/2016 16:43:19</publishTime>
+    </File>
+    <File Include="Views/Wechat/Index.cshtml">
+      <publishTime>04/29/2016 16:41:29</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>01/25/2016 14:38:39</publishTime>

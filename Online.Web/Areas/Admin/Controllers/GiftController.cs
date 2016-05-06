@@ -83,7 +83,11 @@ namespace Online.Web.Areas.Admin.Controllers
         {
             var usergift = UserSource.UserGiftses.FirstOrDefault(t => t.Id == model.Id);
             usergift.GiftNum = model.GiftNum;
+            AddUpdateSettingLog("用户礼物更改", string.Format("更改用户{0}的礼物数量为：{1}", usergift.UserId, model.GiftNum), 200);
+
             UserSource.SaveChanges();
+
+
             return RedirectToAction("UserGifts");
         }
 
@@ -101,23 +105,37 @@ namespace Online.Web.Areas.Admin.Controllers
 
         public ActionResult UserGiftAddSave(UserGifts model)
         {
-            var GiftLog = new GiftLog();
-            GiftLog.GiftName = model.GiftName;
-            GiftLog.GiftNum = model.GiftNum;
-            GiftLog.ToUserId = model.UserId;
-            GiftLog.ToUserName = UserSource.Userses.FirstOrDefault(t => t.UserID == model.UserId).UserName;
-            GiftLog.UserId = CrmUserId;
-            GiftLog.UserName = CrmUsers != null ? CrmUsers.UserName : "";
-            GiftLog.CreateTime = DateTime.Now;
+            var exists = UserSource.UserGiftses.FirstOrDefault(
+                              t => t.UserId == model.UserId && t.GiftName == model.GiftName);
+            if (exists != null) //如果该用户已存在该礼物，只要对该用户礼物的数量进行增加
+            {
+                exists.GiftNum += model.GiftNum;
+            }
+            else
+            {
+                var usergift = new UserGifts();
+                usergift.UserId = model.UserId;
+                usergift.GiftName = model.GiftName;
+                usergift.GiftId = UserSource.Gifts.FirstOrDefault(t => t.GiftName == model.GiftName).GiftId;
+                usergift.GiftNum = model.GiftNum;
+                UserSource.UserGiftses.Add(usergift);
+            }
 
-            GiftHandler.Instance.AddUserGift(GiftLog);
+            UserSource.SaveChanges();
+            AddUpdateSettingLog("用户礼物更改", string.Format("用户{0}的礼物增加数量为：{1}", model.UserId, model.GiftNum), 200);
             return RedirectToAction("UserIndex", "User");
         }
 
-        public ActionResult GiftLogIndex(string reservation, string endreservation,int page = 1)
+        public ActionResult GiftLogIndex(string searchString, string reservation, string endreservation, int page = 1)
         {
             ViewBag.Menus = ReadMenu.Instance.Menues;
             IEnumerable<GiftLog> result = UserSource.GiftLogs.ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(t => t.ToUserName.Contains(searchString));
+                ViewBag.CurrentFilter = searchString;
+            }
+
             if (!String.IsNullOrEmpty(reservation) && !String.IsNullOrEmpty(endreservation))
             {
                 DateTime begintime = Convert.ToDateTime(reservation);
@@ -140,9 +158,15 @@ namespace Online.Web.Areas.Admin.Controllers
             return path;
         }
 
-        public ActionResult ReportGiftLog(string reservation, string endreservation)
+        public ActionResult ReportGiftLog(string searchString, string reservation, string endreservation)
         {
-            IEnumerable<GiftLog> result = UserSource.GiftLogs.Where(t=>t.ToUserId==0).ToList();
+            IEnumerable<GiftLog> result = UserSource.GiftLogs.Where(t => t.ToUserId == 0).ToList();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(t => t.ToUserName.Contains(searchString));
+                ViewBag.CurrentFilter = searchString;
+            }
             if (!String.IsNullOrEmpty(reservation) && !String.IsNullOrEmpty(endreservation))
             {
                 DateTime begintime = Convert.ToDateTime(reservation);
